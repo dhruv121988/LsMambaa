@@ -1,0 +1,34 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyTorch Lightning & Logs
+lightning_logs/
+*.log
+
+# Checkpoints and Model Weights
+*.ckpt
+*.pth
+*.pt
+model_weights/
+
+# Datasets
+data/
+*.zip
+*.tar
+*.tar.gz
+
+# Environments & IDEs
+.venv/
+venv/
+ENV/
+.idea/
+.vscode/
+
+# Build and scratch
+scratch/
+build/
+dist/
+*.egg-info/
+stitch_lsmamba_research_demo_studio/

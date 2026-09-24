@@ -3,8 +3,6 @@ import numbers
 from PIL import Image, ImageOps, ImageEnhance
 import numpy as np
 import random
-from scipy.ndimage.morphology import generate_binary_structure, binary_erosion
-from scipy.ndimage import maximum_filter
 
 
 class Compose(object):

@@ -112,6 +112,12 @@ class Lookahead(Optimizer):
         self.fast_state = self.optimizer.state
         for group in self.param_groups:
             group["counter"] = 0
+        self._optimizer_step_pre_hooks = collections.OrderedDict()
+        self._optimizer_step_post_hooks = collections.OrderedDict()
+        self._optimizer_state_dict_pre_hooks = collections.OrderedDict()
+        self._optimizer_state_dict_post_hooks = collections.OrderedDict()
+        self._optimizer_load_state_dict_pre_hooks = collections.OrderedDict()
+        self._optimizer_load_state_dict_post_hooks = collections.OrderedDict()
 
     def update(self, group):
         """@TODO: Docs. Contribution is welcome."""
