@@ -1,6 +1,5 @@
 import argparse
 import os
-import os.path as osp
 import numpy as np
 import torch
 from torch.utils.data import DataLoader
@@ -8,7 +7,7 @@ import albumentations as albu
 
 from geoseg.losses import *
 from geoseg.datasets.loveda_dataset import *
-from geoseg.models.UNetFormer import UNetFormer
+from geoseg.models.A2FPN import A2FPN
 from tools.utils import Lookahead, process_model_params
 
 
@@ -31,14 +30,14 @@ max_epoch = _cli_args.epochs if _cli_args.epochs is not None else 16
 ignore_index = len(CLASSES)
 train_batch_size = _cli_args.batch_size if _cli_args.batch_size is not None else 16
 val_batch_size = _cli_args.val_batch_size if _cli_args.val_batch_size is not None else 4
-lr = _cli_args.lr if _cli_args.lr is not None else 6e-4
+lr = _cli_args.lr if _cli_args.lr is not None else 1e-3
 weight_decay = 0.01
-backbone_lr = 6e-5
+backbone_lr = 1e-4
 backbone_weight_decay = 0.01
 num_classes = len(CLASSES)
 classes = CLASSES
 
-default_weights_name = f"unetformer-r18-epoch{max_epoch}"
+default_weights_name = f"a2fpn-r18-epoch{max_epoch}"
 weights_name = _cli_args.weights_name or os.environ.get("WEIGHTS_NAME", default_weights_name)
 weights_path = f"model_weights/loveda/{weights_name}"
 test_weights_name = "last"
@@ -57,12 +56,17 @@ pretrained_ckpt_path = None
 gpus = 'auto'
 resume_ckpt_path = None
 
-# define the network
-net = UNetFormer(num_classes=num_classes)
+# define the network (A2FPN CNN baseline)
+net = A2FPN(band=3, class_num=num_classes)
 
 # define the loss
-loss = UnetFormerLoss(ignore_index=ignore_index)
-use_aux_loss = True
+loss = JointLoss(
+    SoftCrossEntropyLoss(smooth_factor=0.1, ignore_index=ignore_index),
+    DiceLoss(smooth=0.05, ignore_index=ignore_index),
+    1.0,
+    1.0,
+)
+use_aux_loss = False
 
 # define dataloaders
 def get_training_transform():
@@ -107,7 +111,7 @@ val_loader = DataLoader(
 )
 
 # define optimizer
-layerwise_params = {"backbone.*": dict(lr=backbone_lr, weight_decay=backbone_weight_decay)}
+layerwise_params = {"base_model.*": dict(lr=backbone_lr, weight_decay=backbone_weight_decay)}
 net_params = process_model_params(net, layerwise_params=layerwise_params)
 base_optimizer = torch.optim.AdamW(net_params, lr=lr, weight_decay=weight_decay)
 optimizer = Lookahead(base_optimizer)
