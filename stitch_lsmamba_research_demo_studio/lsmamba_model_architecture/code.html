@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"tertiary-fixed-dim":"#4edea3","on-primary-fixed":"#001f26","surface-container-high":"#282a2e","outline-variant":"#3d494c","background":"#111317","on-surface-variant":"#bcc9cd","secondary-fixed-dim":"#ffb95f","surface-variant":"#333539","inverse-primary":"#00687a","secondary-fixed":"#ffddb8","on-background":"#e2e2e8","surface-tint":"#4cd7f6","primary-fixed-dim":"#4cd7f6","surface-container":"#1e2024","surface-container-lowest":"#0c0e12","tertiary":"#4edea3","secondary-container":"#ee9800","on-error-container":"#ffdad6","primary":"#4cd7f6","on-surface":"#e2e2e8","on-secondary":"#472a00","tertiary-container":"#1bbd85","primary-fixed":"#acedff","on-tertiary-fixed":"#002113","on-secondary-container":"#5b3800","on-tertiary-fixed-variant":"#005236","surface-container-low":"#1a1c20","on-secondary-fixed":"#2a1700","error-container":"#93000a","on-tertiary-container":"#00452e","on-error":"#690005","error":"#ffb4ab","surface-dim":"#111317","secondary":"#ffb95f","outline":"#869397","on-primary":"#003640","inverse-surface":"#e2e2e8","surface-bright":"#37393e","on-primary-fixed-variant":"#004e5c","on-secondary-fixed-variant":"#653e00","surface-container-highest":"#333539","surface":"#111317","on-tertiary":"#003824","on-primary-container":"#00424f","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#2f3035","primary-container":"#06b6d4"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"gutter":"1rem","space-lg":"1.5rem","space-md":"1rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","margin":"1rem","space-xs":"0.25rem","space-sm":"0.5rem","space-xl":"2rem"},"fontFamily":{"body-sm":["Inter"],"headline-sm":["Geist"],"code-lg":["JetBrains Mono"],"code-sm":["JetBrains Mono"],"body-md":["Inter"],"label-caps":["JetBrains Mono"],"headline-lg-mobile":["Geist"],"headline-xl-mobile":["Geist"],"code-md":["JetBrains Mono"],"headline-xl":["Geist"],"headline-md":["Geist"],"headline-lg":["Geist"],"body-lg":["Inter"]},"fontSize":{"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"headline-sm":["16px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"500"}],"code-lg":["13px",{"lineHeight":"18px","fontWeight":"500"}],"code-sm":["11px",{"lineHeight":"14px","fontWeight":"400"}],"body-md":["13px",{"lineHeight":"20px","fontWeight":"400"}],"label-caps":["10px",{"lineHeight":"12px","letterSpacing":"0.08em","fontWeight":"600"}],"headline-lg-mobile":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-xl-mobile":["26px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"code-md":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["20px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-lg":["15px",{"lineHeight":"24px","fontWeight":"400"}]}}}}</script></head><body class="bg-surface-container-lowest text-on-surface font-body-md text-body-md min-h-screen antialiased selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-screen w-[250px] bg-surface-container-low border-r border-outline-variant/40 z-50 flex flex-col justify-between overflow-y-auto"><div class="p-space-md border-b border-outline-variant/30"><div class="flex items-center gap-space-sm mb-space-xs"><img alt="LSMamba Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1X4vyvtJ3_jb0Gpnjf2vWndcOcwUqaxHdEw58hgZ86ZByHLXEbWv6_LGyl6BNakZvszZ9W8G3OdODKf2VdTzndH8RyJkQ2OhOUZBDWmZFTsXPefpvhTr_uUrSh6jpYeUS85GKnU9BQ1CHNK3zcz5HP7UXnSOtxJQ9ntRu6gcsalHDLkQvOlwIhffDrs9tr8E9zpJ6sCucjxzfUygbCr32RymY6JPzpxbs4wRCdjHu9he8l9HLnj-waucFY"/><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface">LSMamba</span><span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-code-sm text-code-sm border border-outline-variant/50">v1.0.4</span></div></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Boundary-Gated VMamba-UNet for Land Cover Segmentation</p></div><nav class="flex-1 py-space-md px-space-sm flex flex-col gap-space-xs" data-active-classes="bg-surface-container-highest text-primary font-medium border-l-2 border-primary-container"><div class="px-space-sm pb-space-xs font-label-caps text-label-caps text-outline uppercase tracking-wider">Workspaces</div><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="inference-demo" href="#"><span class="material-symbols-outlined text-[18px] text-primary">play_circle</span><span class="font-body-md text-body-md">Inference Demo</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg transition-colors bg-surface-container-highest text-primary font-medium border-l-2 border-primary-container" data-path="model-architecture" href="#"><span class="material-symbols-outlined text-[18px] text-secondary">account_tree</span><span class="font-body-md text-body-md">Model Architecture</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="results-benchmarks" href="#"><span class="material-symbols-outlined text-[18px]">leaderboard</span><span class="font-body-md text-body-md">Results & Benchmarks</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ablation-studies" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span class="font-body-md text-body-md">Ablation Studies</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="dataset-explorer" href="#"><span class="material-symbols-outlined text-[18px]">layers</span><span class="font-body-md text-body-md">Dataset Explorer</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="paper-specs" href="#"><span class="material-symbols-outlined text-[18px]">article</span><span class="font-body-md text-body-md">Paper & Specs</span></a></nav><div class="p-space-md border-t border-outline-variant/30 flex flex-col gap-space-sm bg-surface-container-lowest/50"><div class="flex flex-col gap-space-xs font-code-sm text-code-sm"><a class="flex items-center gap-space-xs text-on-surface-variant hover:text-primary transition-colors" href="https://github.com/lsmamba-project/lsmamba" target="_blank"><span class="material-symbols-outlined text-[16px]">terminal</span><span class="truncate">github.com/lsmamba-project/lsmamba</span></a><a class="flex items-center gap-space-xs text-on-surface-variant hover:text-secondary transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">description</span><span>arXiv:2403.xxxxx</span></a></div><div class="p-space-xs px-space-sm rounded bg-surface-container border border-outline-variant/40 flex items-center gap-space-xs font-code-sm text-code-sm text-on-surface-variant"><span class="inline-block w-1.5 h-1.5 rounded-full bg-tertiary"></span><span class="truncate">Model Ready • RTX 4090 DDP • PyTorch 2.3</span></div></div></aside><div class="pl-[250px]"><header class="fixed top-0 left-[250px] right-0 h-14 bg-surface-container-low/95 backdrop-blur-md border-b border-outline-variant/40 z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-code-md text-code-md text-on-surface-variant"><span class="material-symbols-outlined text-[16px]">terminal</span><span>benchmarks</span><span class="text-outline">/</span><span class="text-on-surface font-semibold">loveda-val</span></div><div class="h-4 w-px bg-outline-variant/50"></div><div class="flex items-center gap-space-xs px-2 py-1 rounded bg-surface-container border border-outline-variant/40 text-on-surface font-code-sm text-code-sm"><span class="material-symbols-outlined text-[14px] text-primary">map</span><span>LoveDA Urban & Rural (1024×1024)</span><span class="material-symbols-outlined text-[14px] text-outline">expand_more</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-2.5 py-1 rounded bg-surface-container border border-outline-variant/40 text-on-surface font-code-sm text-code-sm"><span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="text-outline">Latency:</span><span class="text-primary-fixed font-semibold">42ms / tile</span></div><button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">dark_mode</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-14 bg-surface-container-lowest min-h-screen"><div class="w-full max-w-[1240px] mx-auto p-[28px]"><div class="flex flex-col w-full gap-space-lg">
+<!-- Section 1: Header, Subtitle & Interactive Gate Selector -->
+<section class="flex flex-col gap-space-md">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-space-xs mb-space-xs">
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-code-sm text-code-sm border border-primary/20 uppercase tracking-wider">NeurIPS / CVPR Oral Submission</span>
+<span class="text-outline font-code-sm text-code-sm">::</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">sec-03.model-formulation</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight font-bold">
+          Model Architecture: Boundary-Gated VMamba-UNet
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-1 max-w-3xl">
+          Dual-pathway cross-scanning State Space (SSM) backbone with linear <span class="font-code-md text-code-md text-primary font-semibold">O(N)</span> global context modeling and progressive multi-scale boundary injection.
+        </p>
+</div>
+<!-- Quick Specs Ticker -->
+<div class="flex items-center gap-space-sm bg-surface-container-low p-space-xs px-space-md rounded border border-outline-variant/30 font-code-sm text-code-sm">
+<div class="flex flex-col">
+<span class="text-outline text-[10px] uppercase">Param Count</span>
+<span class="text-on-surface font-semibold">31.42M <span class="text-tertiary text-[10px]">(-41% vs Swin-B)</span></span>
+</div>
+<div class="h-6 w-px bg-outline-variant/40"></div>
+<div class="flex flex-col">
+<span class="text-outline text-[10px] uppercase">FLOPs (1024²)</span>
+<span class="text-primary font-semibold">142.8 GFLOPs</span>
+</div>
+<div class="h-6 w-px bg-outline-variant/40"></div>
+<div class="flex flex-col">
+<span class="text-outline text-[10px] uppercase">Receptive Field</span>
+<span class="text-secondary font-semibold">Global (SS2D)</span>
+</div>
+</div>
+</div>
+<!-- Gate Formulation Segmented Switcher & Active Formula Card -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md bg-surface-container-low p-space-md rounded-lg border border-outline-variant/30">
+<div class="lg:col-span-5 flex flex-col justify-between gap-space-sm">
+<div>
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider block mb-2">Gate Formulation Strategy</span>
+<div class="flex flex-col gap-1.5" id="gate-controls" role="tablist">
+<button class="gate-btn active text-left px-3 py-2 rounded font-code-sm text-code-sm flex items-center justify-between transition-all bg-surface-container-highest text-primary border-l-2 border-primary-container" data-formula="proposed" type="button">
+<span class="flex items-center gap-1.5">
+<span class="text-secondary">★</span>
+<strong class="font-semibold">Bounded Residual Gate (Proposed)</strong>
+</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-primary/20 text-primary">mIoU: 52.84%</span>
+</button>
+<button class="gate-btn text-left px-3 py-2 rounded font-code-sm text-code-sm flex items-center justify-between transition-all bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high border-l-2 border-transparent" data-formula="additive" type="button">
+<span class="flex items-center gap-1.5">
+<span class="text-outline">○</span>
+<span>Residual Gate (Additive)</span>
+</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-surface-container-highest text-outline">mIoU: 51.12%</span>
+</button>
+<button class="gate-btn text-left px-3 py-2 rounded font-code-sm text-code-sm flex items-center justify-between transition-all bg-surface-container text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high border-l-2 border-transparent" data-formula="multiplicative" type="button">
+<span class="flex items-center gap-1.5">
+<span class="text-outline">○</span>
+<span>Pure Multiplicative Gate (Baseline)</span>
+</span>
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-surface-container-highest text-outline">mIoU: 49.38%</span>
+</button>
+</div>
+</div>
+<div class="text-[11px] text-outline font-body-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">info</span>
+<span>Click formulate to view symbolic tensor flow and gradient bounds.</span>
+</div>
+</div>
+<!-- Formula Display Pane -->
+<div class="lg:col-span-7 bg-surface-container-lowest p-space-md rounded border border-outline-variant/40 flex flex-col justify-between">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-space-xs mb-space-xs">
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">functions</span>
+<span id="formula-title">Active Mathematical Formulation</span>
+</span>
+<span class="font-code-sm text-code-sm text-outline" id="formula-latex-tag">\mathcal{M}_{\text{gating}}</span>
+</div>
+<div class="my-auto py-2 font-code-lg text-code-lg text-on-surface tracking-wide bg-surface-container/30 px-3 py-2.5 rounded border border-outline-variant/20 overflow-x-auto" id="formula-math">
+          F̂<sub>skip</sub><sup>(l)</sup> = F<sub>skip</sub><sup>(l)</sup> ⊙ (1 + γ · tanh(W<sub>b</sub> · B<sub>feat</sub><sup>(l)</sup>))
+        </div>
+<div class="pt-space-xs border-t border-outline-variant/20 flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs text-[11px] font-body-sm text-on-surface-variant">
+<div id="formula-desc">
+            Bounded hyperbolic envelope ensures gradient flow cannot vanish (<span class="font-code-sm text-primary font-semibold">γ=0.2</span> initialized), preventing mask corruption in large contiguous areas.
+          </div>
+<div class="shrink-0 flex items-center gap-1 text-tertiary font-code-sm">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span>Stable Gradients</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Centerpiece Architecture Interactive Schematic -->
+<section class="bg-surface-container-low border border-outline-variant/40 rounded-lg p-space-md flex flex-col gap-space-sm shadow-xl relative overflow-hidden">
+<!-- Schematic Header & Mode Badges -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-xs border-b border-outline-variant/30">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">account_tree</span>
+          LSMamba Complete Forward Dataflow
+        </span>
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-code-sm text-code-sm">
+          Batch: B × 3 × 1024 × 1024
+        </span>
+</div>
+<!-- Color Legend -->
+<div class="flex items-center gap-space-md font-code-sm text-code-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-surface-bright border border-outline"></span>
+<span class="text-on-surface-variant">VMamba-Tiny Backbone</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-primary/80"></span>
+<span class="text-primary">Semantic Decoder</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-secondary/90"></span>
+<span class="text-secondary">Boundary Pathway</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-0.5 border-t border-dashed border-secondary"></span>
+<span class="text-on-surface-variant">BGM Injection</span>
+</div>
+</div>
+</div>
+<!-- Interactive Interactive Diagram Box -->
+<div class="w-full bg-surface-container-lowest p-space-md rounded border border-outline-variant/30 relative">
+<!-- Interactive SVG Canvas Layer -->
+<div class="relative w-full overflow-x-auto">
+<div class="min-w-[980px] flex flex-col gap-8 relative py-4">
+<!-- Stage 1: SS2D Encoder Strip -->
+<div class="flex items-center justify-between relative z-10">
+<!-- Input Node -->
+<div class="group relative cursor-pointer flex flex-col items-center justify-center p-2.5 w-32 bg-surface-container border border-outline-variant/50 hover:border-primary rounded transition-all">
+<span class="font-label-caps text-[9px] text-outline uppercase tracking-wider">Input Sensor</span>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold">RGB Aerial</span>
+<span class="font-code-sm text-[10px] text-primary mt-1">3 × 1024 × 1024</span>
+<div class="absolute bottom-full mb-2 hidden group-hover:flex flex-col bg-surface-container-highest p-2 rounded shadow-lg text-[10px] font-code-sm text-on-surface w-44 z-30 border border-outline-variant">
+<span>Normalized RGB orthophoto. LoveDA urban & rural scenes.</span>
+</div>
+</div>
+<div class="flex items-center text-outline">
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+<!-- Patch Partition -->
+<div class="flex flex-col items-center justify-center p-2.5 w-32 bg-surface-container border border-outline-variant/50 rounded">
+<span class="font-label-caps text-[9px] text-outline uppercase tracking-wider">Stem</span>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold">Patch Embed</span>
+<span class="font-code-sm text-[10px] text-on-surface-variant mt-1">H/4 × W/4 × 96</span>
+</div>
+<div class="flex items-center text-outline">
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+<!-- Stage 1 VSS -->
+<div class="group relative cursor-pointer flex flex-col p-2.5 w-40 bg-surface-container border border-outline-variant/50 hover:border-primary rounded transition-all">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-[9px] text-primary uppercase">Stage 1</span>
+<span class="font-code-sm text-[10px] text-outline">L=2</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold">VSS Block (SS2D)</span>
+<span class="font-code-sm text-[10px] text-tertiary">256 × 256 × 96</span>
+<div class="mt-1 text-[9px] text-outline">4-way Cross Scan</div>
+<div class="absolute bottom-full mb-2 hidden group-hover:flex flex-col bg-surface-container-highest p-2 rounded shadow-lg text-[10px] font-code-sm text-on-surface w-48 z-30 border border-outline-variant">
+<span>SS2D decomposes 2D feature map into 4 1D sequences: TL→BR, BR→TL, TR→BL, BL→TR.</span>
+</div>
+</div>
+<div class="flex items-center text-outline">
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+<!-- Stage 2 VSS -->
+<div class="group relative cursor-pointer flex flex-col p-2.5 w-40 bg-surface-container border border-outline-variant/50 hover:border-primary rounded transition-all">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-[9px] text-primary uppercase">Stage 2</span>
+<span class="font-code-sm text-[10px] text-outline">L=2</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold">VSS Block (SS2D)</span>
+<span class="font-code-sm text-[10px] text-tertiary">128 × 128 × 192</span>
+<div class="mt-1 text-[9px] text-outline">Downsample ×2</div>
+</div>
+<div class="flex items-center text-outline">
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+<!-- Stage 3 VSS -->
+<div class="group relative cursor-pointer flex flex-col p-2.5 w-40 bg-surface-container border border-outline-variant/50 hover:border-primary rounded transition-all">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-[9px] text-primary uppercase">Stage 3</span>
+<span class="font-code-sm text-[10px] text-outline">L=9</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold">VSS Block (SS2D)</span>
+<span class="font-code-sm text-[10px] text-tertiary">64 × 64 × 384</span>
+<div class="mt-1 text-[9px] text-outline">Core Semantic Depth</div>
+</div>
+<div class="flex items-center text-outline">
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+<!-- Stage 4 Bottleneck -->
+<div class="group relative cursor-pointer flex flex-col p-2.5 w-40 bg-surface-container-high border-2 border-primary/40 rounded transition-all">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-[9px] text-secondary uppercase">Bottleneck</span>
+<span class="font-code-sm text-[10px] text-outline">L=2</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold">Stage 4 (Latent)</span>
+<span class="font-code-sm text-[10px] text-secondary">32 × 32 × 768</span>
+<div class="mt-1 text-[9px] text-outline">Global Latent Repr.</div>
+</div>
+</div>
+<!-- Mid Section: Skip Connections & Boundary Gating Interconnect -->
+<div class="relative py-2 px-6 flex items-center justify-around border-y border-dashed border-outline-variant/40 bg-surface-container/20 rounded">
+<div class="font-label-caps text-[10px] text-secondary uppercase tracking-widest flex items-center gap-1.5 py-1">
+<span class="material-symbols-outlined text-secondary text-[14px]">alt_route</span>
+<span>Multi-Scale Boundary Gating Modules (BGM) Skip-Connection Network</span>
+</div>
+<div class="flex items-center gap-8 font-code-sm text-code-sm text-on-surface-variant">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary"></span> BGM-4 (1/32)</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary"></span> BGM-3 (1/16)</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary"></span> BGM-2 (1/8)</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary"></span> BGM-1 (1/4)</span>
+</div>
+</div>
+<!-- Dual Progressive Decoder Pathways -->
+<div class="grid grid-cols-2 gap-space-lg relative">
+<!-- Top Pathway: Semantic Segmentation Decoder -->
+<div class="flex flex-col gap-space-sm p-space-md rounded bg-surface-container/40 border border-primary/30">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-code-sm text-code-sm text-primary font-bold uppercase tracking-wider">
+                    Pathway A: Semantic Segmentation Decoder
+                  </span>
+</div>
+<span class="font-code-sm text-[10px] text-outline">Progressive 2× Bilinear + Conv</span>
+</div>
+<div class="grid grid-cols-4 gap-2 pt-2">
+<div class="p-2 rounded bg-surface-container border border-outline-variant/30 flex flex-col">
+<span class="font-label-caps text-[9px] text-outline">Dec Stage 4</span>
+<span class="font-code-sm text-[11px] text-on-surface font-medium">TransConv4</span>
+<span class="text-[9px] text-primary">64 × 64 × 384</span>
+</div>
+<div class="p-2 rounded bg-surface-container border border-outline-variant/30 flex flex-col">
+<span class="font-label-caps text-[9px] text-outline">Dec Stage 3</span>
+<span class="font-code-sm text-[11px] text-on-surface font-medium">TransConv3</span>
+<span class="text-[9px] text-primary">128 × 128 × 192</span>
+</div>
+<div class="p-2 rounded bg-surface-container border border-outline-variant/30 flex flex-col">
+<span class="font-label-caps text-[9px] text-outline">Dec Stage 2</span>
+<span class="font-code-sm text-[11px] text-on-surface font-medium">TransConv2</span>
+<span class="text-[9px] text-primary">256 × 256 × 96</span>
+</div>
+<div class="p-2 rounded bg-surface-container border border-primary/40 flex flex-col bg-primary/5">
+<span class="font-label-caps text-[9px] text-primary">Dec Stage 1</span>
+<span class="font-code-sm text-[11px] text-on-surface font-medium">Final Fusion</span>
+<span class="text-[9px] text-primary">1024 × 1024 × 64</span>
+</div>
+</div>
+<!-- Segmentation Final Output -->
+<div class="mt-2 p-2.5 rounded bg-surface-container-high border border-primary/40 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">view_in_ar</span>
+<div>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold block">Semantic Classification Head</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Softmax over 7 LoveDA land classes</span>
+</div>
+</div>
+<div class="px-2.5 py-1 rounded bg-primary/10 border border-primary/30 text-primary font-code-sm text-code-sm font-semibold">
+                  Out: 7 × 1024 × 1024
+                </div>
+</div>
+</div>
+<!-- Bottom Pathway: Progressive Boundary Decoder -->
+<div class="flex flex-col gap-space-sm p-space-md rounded bg-surface-container/40 border border-secondary/30">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-code-sm text-code-sm text-secondary font-bold uppercase tracking-wider">
+                    Pathway B: Progressive Boundary Guidance Decoder
+                  </span>
+</div>
+<span class="font-code-sm text-[10px] text-outline">Auxiliary Deep Supervision (B4..B1)</span>
+</div>
+<div class="grid grid-cols-4 gap-2 pt-2">
+<div class="p-2 rounded bg-surface-container border border-outline-variant/30 flex flex-col">
+<span class="font-label-caps text-[9px] text-secondary">B4 Head</span>
+<span class="font-code-sm text-[11px] text-on-surface font-medium">Edge 1/32</span>
+<span class="text-[9px] text-secondary">L_bnd^(4) Dice</span>
+</div>
+<div class="p-2 rounded bg-surface-container border border-outline-variant/30 flex flex-col">
+<span class="font-label-caps text-[9px] text-secondary">B3 Head</span>
+<span class="font-code-sm text-[11px] text-on-surface font-medium">Edge 1/16</span>
+<span class="text-[9px] text-secondary">L_bnd^(3) Dice</span>
+</div>
+<div class="p-2 rounded bg-surface-container border border-outline-variant/30 flex flex-col">
+<span class="font-label-caps text-[9px] text-secondary">B2 Head</span>
+<span class="font-code-sm text-[11px] text-on-surface font-medium">Edge 1/8</span>
+<span class="text-[9px] text-secondary">L_bnd^(2) Dice</span>
+</div>
+<div class="p-2 rounded bg-surface-container border border-secondary/40 flex flex-col bg-secondary/5">
+<span class="font-label-caps text-[9px] text-secondary">B_final Head</span>
+<span class="font-code-sm text-[11px] text-on-surface font-medium">Full Res Edge</span>
+<span class="text-[9px] text-secondary">1024 × 1024 × 1</span>
+</div>
+</div>
+<!-- Boundary Final Output -->
+<div class="mt-2 p-2.5 rounded bg-surface-container-high border border-secondary/40 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">timeline</span>
+<div>
+<span class="font-code-sm text-code-sm text-on-surface font-semibold block">Boundary Edge Logits</span>
+<span class="font-body-sm text-[11px] text-on-surface-variant">Class-balanced Sigmoid edge probability</span>
+</div>
+</div>
+<div class="px-2.5 py-1 rounded bg-secondary/10 border border-secondary/30 text-secondary font-code-sm text-code-sm font-semibold">
+                  Out: 1 × 1024 × 1024
+                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Architectural Component Cards (4-Grid Breakdown) -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Card 1: VMamba-Tiny 2D-SSM Encoder -->
+<div class="bg-surface-container-low border border-outline-variant/40 rounded-lg p-space-md flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-2">
+<div class="flex items-center gap-2">
+<span class="p-1 rounded bg-surface-container-high text-primary font-code-sm text-code-sm">01</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">VMamba-Tiny 2D-SSM Encoder</h2>
+</div>
+<span class="font-code-sm text-[11px] text-outline">Params: 24.1M</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+          Replaces standard self-attention with 2D Selective Scan (SS2D). Traverses spatial patches across four diagonal and cardinal directions, achieving linear <span class="font-code-sm text-primary">O(N)</span> computational complexity while preserving continuous global receptive fields.
+        </p>
+<!-- Math Block -->
+<div class="bg-surface-container-lowest p-space-sm rounded border border-outline-variant/30 font-code-sm text-[12px] my-2 text-on-surface">
+<div class="text-outline text-[10px] uppercase mb-1">State Space Continuous Formulation</div>
+<p class="text-primary-fixed">h'(t) = A h(t) + B x(t)</p>
+<p class="text-primary-fixed">y(t) = C h(t) + D x(t)</p>
+<div class="text-outline text-[10px] uppercase mt-2 mb-1">Discretization with Input-Dependent Δ</div>
+<p class="text-on-surface">Ā = exp(Δ A),   B̄ = (Δ A)<sup>-1</sup> (exp(Δ A) - I) Δ B</p>
+</div>
+<ul class="text-[11px] font-body-sm text-on-surface-variant space-y-1">
+<li class="flex items-center gap-1.5"><span class="text-primary">•</span> Stages 1-4 Feature dims: <span class="font-code-sm text-on-surface">[96, 192, 384, 768]</span></li>
+<li class="flex items-center gap-1.5"><span class="text-primary">•</span> SSM State Expansion: <span class="font-code-sm text-on-surface">d_state = 16</span></li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-outline-variant/20 flex items-center justify-between text-code-sm text-[11px]">
+<span class="text-outline">FLOP Scaling:</span>
+<span class="text-tertiary font-semibold">Ο(HW) vs Ο((HW)²)</span>
+</div>
+</div>
+<!-- Card 2: Boundary Gating Module (BGM) -->
+<div class="bg-surface-container-low border border-secondary/40 rounded-lg p-space-md flex flex-col justify-between hover:border-secondary transition-colors">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-2">
+<div class="flex items-center gap-2">
+<span class="p-1 rounded bg-secondary/10 text-secondary font-code-sm text-code-sm">02</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Boundary Gating Module (BGM)</h2>
+</div>
+<span class="px-2 py-0.5 rounded bg-secondary/20 text-secondary font-code-sm text-[10px] font-semibold uppercase">Proposed Core</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+          Eliminates boundary semantic ambiguity between visually similar classes (e.g. Building vs. Road) by dynamically modulating low-level spatial features using filtered boundary edge activations prior to concatenation.
+        </p>
+<!-- Math Block -->
+<div class="bg-surface-container-lowest p-space-sm rounded border border-outline-variant/30 font-code-sm text-[12px] my-2 text-on-surface">
+<div class="text-outline text-[10px] uppercase mb-1">Gating Transformation Rule</div>
+<p class="text-secondary font-semibold">F̂<sub>skip</sub><sup>(l)</sup> = F<sub>skip</sub><sup>(l)</sup> ⊙ (1 + γ · tanh(W<sub>b</sub> · B<sub>feat</sub><sup>(l)</sup>))</p>
+<div class="text-outline text-[10px] uppercase mt-2 mb-1">Boundary Modulator Layer</div>
+<p class="text-on-surface">B<sub>feat</sub><sup>(l)</sup> = Conv<sub>1×1</sub>(σ(Conv<sub>3×3</sub>(B<sup>(l)</sup>)))</p>
+</div>
+<ul class="text-[11px] font-body-sm text-on-surface-variant space-y-1">
+<li class="flex items-center gap-1.5"><span class="text-secondary">•</span> Suppresses interior over-segmentation while enforcing sharp land contours.</li>
+<li class="flex items-center gap-1.5"><span class="text-secondary">•</span> Learnable parameter <span class="font-code-sm text-on-surface">γ</span> controls boundary modulation strength.</li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-outline-variant/20 flex items-center justify-between text-code-sm text-[11px]">
+<span class="text-outline">Boundary-F1 Gain:</span>
+<span class="text-secondary font-semibold">+4.28% over Vanilla VMamba</span>
+</div>
+</div>
+<!-- Card 3: Progressive Multi-Scale Boundary Head -->
+<div class="bg-surface-container-low border border-outline-variant/40 rounded-lg p-space-md flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-2">
+<div class="flex items-center gap-2">
+<span class="p-1 rounded bg-surface-container-high text-primary font-code-sm text-code-sm">03</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Progressive Boundary Supervision</h2>
+</div>
+<span class="font-code-sm text-[11px] text-outline">Auxiliary Heads: 4</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+          Hierarchical coarse-to-fine edge extraction. Prevents vanishing gradients in deep encoder layers by enforcing explicit morphological boundary reconstruction at 1/32, 1/16, 1/8, and 1/4 feature scales.
+        </p>
+<!-- Math Block -->
+<div class="bg-surface-container-lowest p-space-sm rounded border border-outline-variant/30 font-code-sm text-[12px] my-2 text-on-surface">
+<div class="text-outline text-[10px] uppercase mb-1">Scale-Weighted Boundary Loss</div>
+<p class="text-tertiary">L<sub>bnd_total</sub> = ∑<sub>l=1</sub><sup>4</sup> 2<sup>-(4-l)}</sup> · [ L<sub>Dice</sub>(Y<sub>bnd</sub><sup>l</sup>, P<sub>bnd</sub><sup>l</sup>) + α L<sub>BCE</sub> ]</p>
+<div class="text-outline text-[10px] uppercase mt-2 mb-1">Class-Balanced Binary Formulation</div>
+<p class="text-on-surface">L<sub>BCE</sub> = -β ∑ log P<sub>bnd</sub>(i∈E) - (1-β) ∑ log(1-P<sub>bnd</sub>(i∉E))</p>
+</div>
+<ul class="text-[11px] font-body-sm text-on-surface-variant space-y-1">
+<li class="flex items-center gap-1.5"><span class="text-primary">•</span> Edge ground truths derived dynamically via Sobel filter during batch loading.</li>
+<li class="flex items-center gap-1.5"><span class="text-primary">•</span> Positive/negative edge pixel weighting factor: <span class="font-code-sm text-on-surface">β = |Y_non_edge| / |Y|</span></li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-outline-variant/20 flex items-center justify-between text-code-sm text-[11px]">
+<span class="text-outline">Edge Localization Loss:</span>
+<span class="text-primary font-semibold">Dice-Loss Weighted</span>
+</div>
+</div>
+<!-- Card 4: Segmentation Head & Dual Loss Formulation -->
+<div class="bg-surface-container-low border border-outline-variant/40 rounded-lg p-space-md flex flex-col justify-between hover:border-primary/50 transition-colors">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between border-b border-outline-variant/20 pb-2">
+<div class="flex items-center gap-2">
+<span class="p-1 rounded bg-surface-container-high text-primary font-code-sm text-code-sm">04</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Joint Multi-Task Loss Objective</h2>
+</div>
+<span class="font-code-sm text-[11px] text-outline">λ_bnd = 0.40</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">
+          Dual objective function combining cross-entropy classification, region-based Lovász-Softmax for continuous mIoU optimization, and auxiliary multi-stage boundary penalization.
+        </p>
+<!-- Math Block -->
+<div class="bg-surface-container-lowest p-space-sm rounded border border-outline-variant/30 font-code-sm text-[12px] my-2 text-on-surface">
+<div class="text-outline text-[10px] uppercase mb-1">Complete Objective Function</div>
+<p class="text-primary font-semibold">L = L<sub>CE</sub>(Y, P<sub>seg</sub>) + L<sub>Lovász</sub>(Y, P<sub>seg</sub>) + λ<sub>bnd</sub> · L<sub>bnd_total</sub></p>
+<div class="text-outline text-[10px] uppercase mt-2 mb-1">Lovász Extension for Jaccard Loss</div>
+<p class="text-on-surface">L<sub>Lovász</sub> = 1/|C| ∑<sub>c∈C</sub> Δ<sub>J_c</sub>(m(c))</p>
+</div>
+<ul class="text-[11px] font-body-sm text-on-surface-variant space-y-1">
+<li class="flex items-center gap-1.5"><span class="text-primary">•</span> Directly optimizes non-differentiable Intersection-over-Union (IoU).</li>
+<li class="flex items-center gap-1.5"><span class="text-primary">•</span> Multi-task gradient normalization ensures stable joint convergence.</li>
+</ul>
+</div>
+<div class="mt-4 pt-2 border-t border-outline-variant/20 flex items-center justify-between text-code-sm text-[11px]">
+<span class="text-outline">Target Benchmark:</span>
+<span class="text-tertiary font-semibold">LoveDA 7-Class Challenge</span>
+</div>
+</div>
+</section>
+<!-- Section 4: Live Architecture Parameter Inspector Drawer -->
+<section class="bg-surface-container-low border border-outline-variant/40 rounded-lg p-space-md">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">tune</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Hyperparameter & Tensor Profiler</span>
+</div>
+<span class="font-code-sm text-code-sm text-outline">Configuration: <span class="text-primary">configs/lsmamba/loveda_vmamba_tiny.py</span></span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-space-sm font-code-sm text-code-sm">
+<div class="bg-surface-container p-2.5 rounded border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[10px] uppercase">Base LR</span>
+<span class="text-on-surface font-semibold mt-1">1.0e-4</span>
+<span class="text-outline text-[10px] mt-0.5">CosineAnnealing</span>
+</div>
+<div class="bg-surface-container p-2.5 rounded border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[10px] uppercase">SSM Scan Dirs</span>
+<span class="text-primary font-semibold mt-1">4 directions</span>
+<span class="text-outline text-[10px] mt-0.5">2D Cross-Scan</span>
+</div>
+<div class="bg-surface-container p-2.5 rounded border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[10px] uppercase">Drop Path Rate</span>
+<span class="text-on-surface font-semibold mt-1">0.2</span>
+<span class="text-outline text-[10px] mt-0.5">Stochastic Depth</span>
+</div>
+<div class="bg-surface-container p-2.5 rounded border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[10px] uppercase">BGM Weight γ</span>
+<span class="text-secondary font-semibold mt-1">0.20 init</span>
+<span class="text-outline text-[10px] mt-0.5">Learnable scalar</span>
+</div>
+<div class="bg-surface-container p-2.5 rounded border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[10px] uppercase">Optimizer</span>
+<span class="text-on-surface font-semibold mt-1">AdamW</span>
+<span class="text-outline text-[10px] mt-0.5">Weight Decay: 0.01</span>
+</div>
+<div class="bg-surface-container p-2.5 rounded border border-outline-variant/20 flex flex-col">
+<span class="text-outline text-[10px] uppercase">Peak VRAM</span>
+<span class="text-tertiary font-semibold mt-1">11.4 GB</span>
+<span class="text-outline text-[10px] mt-0.5">Batch=4 (1024²)</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Client-side Interactive Formulation Switcher Logic -->
+<script>
+  (function() {
+    const formulas = {
+      proposed: {
+        title: "Bounded Residual Gate (Proposed)",
+        tag: "\\mathcal{M}_{\\text{proposed}}",
+        math: "F̂<sub>skip</sub><sup>(l)</sup> = F<sub>skip</sub><sup>(l)</sup> ⊙ (1 + γ · tanh(W<sub>b</sub> · B<sub>feat</sub><sup>(l)</sup>))",
+        desc: "Bounded hyperbolic envelope ensures gradient flow cannot vanish (γ=0.2 initialized), preventing mask corruption in large contiguous areas."
+      },
+      additive: {
+        title: "Residual Gate (Additive Formulation)",
+        tag: "\\mathcal{M}_{\\text{additive}}",
+        math: "F̂<sub>skip</sub><sup>(l)</sup> = F<sub>skip</sub><sup>(l)</sup> + ψ(Conv<sub>1×1</sub>(B<sub>feat</sub><sup>(l)</sup>))",
+        desc: "Direct additive injection. Causes high feature magnitude variance in deep layers, leading to minor edge artifacts in rural agricultural terrains."
+      },
+      multiplicative: {
+        title: "Pure Multiplicative Gate (Baseline)",
+        tag: "\\mathcal{M}_{\\text{mult}}",
+        math: "F̂<sub>skip</sub><sup>(l)</sup> = F<sub>skip</sub><sup>(l)</sup> ⊙ σ(W<sub>b</sub> · B<sub>feat</sub><sup>(l)</sup>)",
+        desc: "Zero-boundary regions completely attenuate skip features (σ → 0), causing significant feature degradation inside homogeneous interior patches."
+      }
+    };
+
+    const buttons = document.querySelectorAll('.gate-btn');
+    const titleEl = document.getElementById('formula-title');
+    const tagEl = document.getElementById('formula-latex-tag');
+    const mathEl = document.getElementById('formula-math');
+    const descEl = document.getElementById('formula-desc');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const type = btn.getAttribute('data-formula');
+        if (!formulas[type]) return;
+
+        // Update active class state
+        buttons.forEach(b => {
+          b.classList.remove('bg-surface-container-highest', 'text-primary', 'border-l-2', 'border-primary-container', 'active');
+          b.classList.add('bg-surface-container', 'text-on-surface-variant', 'border-transparent');
+          const dot = b.querySelector('.text-secondary, .text-outline');
+          if (dot) {
+            dot.className = 'text-outline';
+            dot.textContent = '○';
+          }
+        });
+
+        btn.classList.remove('bg-surface-container', 'text-on-surface-variant', 'border-transparent');
+        btn.classList.add('bg-surface-container-highest', 'text-primary', 'border-l-2', 'border-primary-container', 'active');
+        const activeDot = btn.querySelector('.text-outline');
+        if (activeDot) {
+          activeDot.className = 'text-secondary';
+          activeDot.textContent = '★';
+        }
+
+        // Update content with fast smooth fade
+        mathEl.style.opacity = '0';
+        setTimeout(() => {
+          titleEl.textContent = formulas[type].title;
+          tagEl.textContent = formulas[type].tag;
+          mathEl.innerHTML = formulas[type].math;
+          descEl.innerHTML = formulas[type].desc;
+          mathEl.style.opacity = '1';
+        }, 120);
+      });
+    });
+  })();
+</script></div></main></div></body></html>

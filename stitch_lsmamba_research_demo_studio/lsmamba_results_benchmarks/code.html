@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"tertiary-fixed-dim":"#4edea3","on-primary-fixed":"#001f26","surface-container-high":"#282a2e","outline-variant":"#3d494c","background":"#111317","on-surface-variant":"#bcc9cd","secondary-fixed-dim":"#ffb95f","surface-variant":"#333539","inverse-primary":"#00687a","secondary-fixed":"#ffddb8","on-background":"#e2e2e8","surface-tint":"#4cd7f6","primary-fixed-dim":"#4cd7f6","surface-container":"#1e2024","surface-container-lowest":"#0c0e12","tertiary":"#4edea3","secondary-container":"#ee9800","on-error-container":"#ffdad6","primary":"#4cd7f6","on-surface":"#e2e2e8","on-secondary":"#472a00","tertiary-container":"#1bbd85","primary-fixed":"#acedff","on-tertiary-fixed":"#002113","on-secondary-container":"#5b3800","on-tertiary-fixed-variant":"#005236","surface-container-low":"#1a1c20","on-secondary-fixed":"#2a1700","error-container":"#93000a","on-tertiary-container":"#00452e","on-error":"#690005","error":"#ffb4ab","surface-dim":"#111317","secondary":"#ffb95f","outline":"#869397","on-primary":"#003640","inverse-surface":"#e2e2e8","surface-bright":"#37393e","on-primary-fixed-variant":"#004e5c","on-secondary-fixed-variant":"#653e00","surface-container-highest":"#333539","surface":"#111317","on-tertiary":"#003824","on-primary-container":"#00424f","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#2f3035","primary-container":"#06b6d4"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"gutter":"1rem","space-lg":"1.5rem","space-md":"1rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","margin":"1rem","space-xs":"0.25rem","space-sm":"0.5rem","space-xl":"2rem"},"fontFamily":{"body-sm":["Inter"],"headline-sm":["Geist"],"code-lg":["JetBrains Mono"],"code-sm":["JetBrains Mono"],"body-md":["Inter"],"label-caps":["JetBrains Mono"],"headline-lg-mobile":["Geist"],"headline-xl-mobile":["Geist"],"code-md":["JetBrains Mono"],"headline-xl":["Geist"],"headline-md":["Geist"],"headline-lg":["Geist"],"body-lg":["Inter"]},"fontSize":{"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"headline-sm":["16px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"500"}],"code-lg":["13px",{"lineHeight":"18px","fontWeight":"500"}],"code-sm":["11px",{"lineHeight":"14px","fontWeight":"400"}],"body-md":["13px",{"lineHeight":"20px","fontWeight":"400"}],"label-caps":["10px",{"lineHeight":"12px","letterSpacing":"0.08em","fontWeight":"600"}],"headline-lg-mobile":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-xl-mobile":["26px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"code-md":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["20px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-lg":["15px",{"lineHeight":"24px","fontWeight":"400"}]}}}}</script></head><body class="bg-surface-container-lowest text-on-surface font-body-md text-body-md min-h-screen antialiased selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-screen w-[250px] bg-surface-container-low border-r border-outline-variant/40 z-50 flex flex-col justify-between overflow-y-auto"><div class="p-space-md border-b border-outline-variant/30"><div class="flex items-center gap-space-sm mb-space-xs"><img alt="LSMamba Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1X4vyvtJ3_jb0Gpnjf2vWndcOcwUqaxHdEw58hgZ86ZByHLXEbWv6_LGyl6BNakZvszZ9W8G3OdODKf2VdTzndH8RyJkQ2OhOUZBDWmZFTsXPefpvhTr_uUrSh6jpYeUS85GKnU9BQ1CHNK3zcz5HP7UXnSOtxJQ9ntRu6gcsalHDLkQvOlwIhffDrs9tr8E9zpJ6sCucjxzfUygbCr32RymY6JPzpxbs4wRCdjHu9he8l9HLnj-waucFY"/><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface">LSMamba</span><span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-code-sm text-code-sm border border-outline-variant/50">v1.0.4</span></div></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Boundary-Gated VMamba-UNet for Land Cover Segmentation</p></div><nav class="flex-1 py-space-md px-space-sm flex flex-col gap-space-xs" data-active-classes="bg-surface-container-highest text-primary font-medium border-l-2 border-primary-container"><div class="px-space-sm pb-space-xs font-label-caps text-label-caps text-outline uppercase tracking-wider">Workspaces</div><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="inference-demo" href="#"><span class="material-symbols-outlined text-[18px] text-primary">play_circle</span><span class="font-body-md text-body-md">Inference Demo</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="model-architecture" href="#"><span class="material-symbols-outlined text-[18px] text-secondary">account_tree</span><span class="font-body-md text-body-md">Model Architecture</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="results-benchmarks" href="#"><span class="material-symbols-outlined text-[18px]">leaderboard</span><span class="font-body-md text-body-md">Results & Benchmarks</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ablation-studies" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span class="font-body-md text-body-md">Ablation Studies</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="dataset-explorer" href="#"><span class="material-symbols-outlined text-[18px]">layers</span><span class="font-body-md text-body-md">Dataset Explorer</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="paper-specs" href="#"><span class="material-symbols-outlined text-[18px]">article</span><span class="font-body-md text-body-md">Paper & Specs</span></a></nav><div class="p-space-md border-t border-outline-variant/30 flex flex-col gap-space-sm bg-surface-container-lowest/50"><div class="flex flex-col gap-space-xs font-code-sm text-code-sm"><a class="flex items-center gap-space-xs text-on-surface-variant hover:text-primary transition-colors" href="https://github.com/lsmamba-project/lsmamba" target="_blank"><span class="material-symbols-outlined text-[16px]">terminal</span><span class="truncate">github.com/lsmamba-project/lsmamba</span></a><a class="flex items-center gap-space-xs text-on-surface-variant hover:text-secondary transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">description</span><span>arXiv:2403.xxxxx</span></a></div><div class="p-space-xs px-space-sm rounded bg-surface-container border border-outline-variant/40 flex items-center gap-space-xs font-code-sm text-code-sm text-on-surface-variant"><span class="inline-block w-1.5 h-1.5 rounded-full bg-tertiary"></span><span class="truncate">Model Ready • RTX 4090 DDP • PyTorch 2.3</span></div></div></aside><div class="pl-[250px]"><header class="fixed top-0 left-[250px] right-0 h-14 bg-surface-container-low/95 backdrop-blur-md border-b border-outline-variant/40 z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-code-md text-code-md text-on-surface-variant"><span class="material-symbols-outlined text-[16px]">terminal</span><span>benchmarks</span><span class="text-outline">/</span><span class="text-on-surface font-semibold">loveda-val</span></div><div class="h-4 w-px bg-outline-variant/50"></div><div class="flex items-center gap-space-xs px-2 py-1 rounded bg-surface-container border border-outline-variant/40 text-on-surface font-code-sm text-code-sm"><span class="material-symbols-outlined text-[14px] text-primary">map</span><span>LoveDA Urban & Rural (1024×1024)</span><span class="material-symbols-outlined text-[14px] text-outline">expand_more</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-2.5 py-1 rounded bg-surface-container border border-outline-variant/40 text-on-surface font-code-sm text-code-sm"><span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="text-outline">Latency:</span><span class="text-primary-fixed font-semibold">42ms / tile</span></div><button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">dark_mode</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-14 bg-surface-container-lowest min-h-screen"><div class="w-full max-w-[1240px] mx-auto p-[28px]"><div class="flex flex-col w-full space-y-space-xl">
+<!-- Top Benchmark Header & Domain Split Controller -->
+<section class="flex flex-col md:flex-row md:items-end justify-between gap-space-md pb-space-md">
+<div class="space-y-space-xs max-w-3xl">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-primary-container text-on-primary-fixed font-code-sm text-code-sm font-semibold tracking-wider uppercase">Official Test Protocol</span>
+<span class="text-on-surface-variant font-code-sm text-code-sm font-normal">CVPR / Papers with Code Verified</span>
+<span class="text-outline font-code-sm text-code-sm">•</span>
+<span class="text-on-surface-variant font-code-sm text-code-sm">1024×1024 GSD 0.3m</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight font-semibold">
+        Benchmark Evaluation: LoveDA Land Cover Benchmark
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        1024×1024 high-resolution satellite imagery across Urban and Rural ecological domains. Multi-class land cover semantic segmentation with fine boundary-alignment evaluation protocols.
+      </p>
+</div>
+<!-- Domain Toggle Pills -->
+<div class="flex items-center gap-1.5 p-1 rounded bg-surface-container-high self-start md:self-auto shrink-0 shadow-sm">
+<button class="px-3 py-1.5 rounded font-code-sm text-code-sm font-medium transition-all bg-primary-container text-on-primary-container shadow-sm" id="btn-combined" onclick="switchDomain('combined')" type="button">
+        Combined Urban + Rural
+      </button>
+<button class="px-3 py-1.5 rounded font-code-sm text-code-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" id="btn-urban" onclick="switchDomain('urban')" type="button">
+        Urban Only
+      </button>
+<button class="px-3 py-1.5 rounded font-code-sm text-code-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all" id="btn-rural" onclick="switchDomain('rural')" type="button">
+        Rural Only
+      </button>
+</div>
+</section>
+<!-- Key Metrics Summary Chips Bar -->
+<section class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-space-sm">
+<div class="p-space-sm rounded bg-surface-container-low shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">State of the Art mIoU</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-code-lg text-code-lg font-bold text-primary">54.82%</span>
+<span class="font-code-sm text-code-sm text-tertiary font-medium">+2.37% vs RS</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant mt-1">LSMamba (Bounded Res)</span>
+</div>
+<div class="p-space-sm rounded bg-surface-container-low shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">Boundary IoU (BIoU)</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-code-lg text-code-lg font-bold text-secondary">48.65%</span>
+<span class="font-code-sm text-code-sm text-secondary font-medium">+4.35% Δ</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant mt-1">Boundary-Gated Peak</span>
+</div>
+<div class="p-space-sm rounded bg-surface-container-low shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">Boundary F1-Score</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-code-lg text-code-lg font-bold text-tertiary">61.20%</span>
+<span class="font-code-sm text-code-sm text-tertiary font-medium">+4.80%</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant mt-1">Strict 3px Contour Band</span>
+</div>
+<div class="p-space-sm rounded bg-surface-container-low shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">Overall Accuracy (OA)</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-code-lg text-code-lg font-bold text-on-surface">74.19%</span>
+<span class="font-code-sm text-code-sm text-outline">Lead #1</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant mt-1">Pixel Classification</span>
+</div>
+<div class="p-space-sm rounded bg-surface-container-low shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">Model Parameters</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-code-lg text-code-lg font-bold text-on-surface">31.4M</span>
+<span class="font-code-sm text-code-sm text-tertiary font-medium">-24% vs Swin</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant mt-1">SS2D Selective State</span>
+</div>
+<div class="p-space-sm rounded bg-surface-container-low shadow-sm flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">Throughput</span>
+<div class="flex items-baseline gap-space-xs mt-1">
+<span class="font-code-lg text-code-lg font-bold text-on-surface">42.1</span>
+<span class="font-code-sm text-code-sm text-outline">FPS</span>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant mt-1">RTX 4090 (Batch=1)</span>
+</div>
+</section>
+<!-- Main Benchmark Leaderboard Section -->
+<section class="space-y-space-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></div>
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">LoveDA Public Test Leaderboard</h2>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-sm text-code-sm">9 Models Evaluated</span>
+</div>
+<div class="flex items-center gap-space-sm text-on-surface-variant font-code-sm text-code-sm">
+<span class="flex items-center gap-1"><span class="inline-block w-2 h-2 rounded-full bg-primary"></span> Cyan: High mIoU</span>
+<span class="flex items-center gap-1"><span class="inline-block w-2 h-2 rounded-full bg-secondary"></span> Amber: Boundary Precision</span>
+<button class="px-2.5 py-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface transition-colors flex items-center gap-1 shadow-sm" onclick="exportBibtex()" type="button">
+<span class="material-symbols-outlined text-[14px]">download</span>BibTeX
+        </button>
+</div>
+</div>
+<!-- Leaderboard Table Container -->
+<div class="overflow-x-auto rounded bg-surface-container-low shadow-md">
+<table class="w-full text-left font-code-md text-code-md border-collapse" id="leaderboardTable">
+<thead>
+<tr class="bg-surface-container-high text-on-surface-variant uppercase font-label-caps text-label-caps select-none tracking-wider">
+<th class="py-3 px-space-md font-semibold text-on-surface cursor-pointer hover:text-primary transition-colors" onclick="sortTable(0, 'str')">
+<div class="flex items-center gap-1"><span>Method / Architecture</span><span class="material-symbols-outlined text-[13px] text-outline">unfold_more</span></div>
+</th>
+<th class="py-3 px-space-md font-semibold text-on-surface cursor-pointer hover:text-primary transition-colors" onclick="sortTable(1, 'str')">
+<div class="flex items-center gap-1"><span>Backbone</span><span class="material-symbols-outlined text-[13px] text-outline">unfold_more</span></div>
+</th>
+<th class="py-3 px-space-md font-semibold text-right text-primary cursor-pointer hover:text-primary-fixed transition-colors" onclick="sortTable(2, 'num')">
+<div class="flex items-center justify-end gap-1"><span>mIoU (%)</span><span class="material-symbols-outlined text-[13px] text-primary">arrow_downward</span></div>
+</th>
+<th class="py-3 px-space-md font-semibold text-right text-on-surface cursor-pointer hover:text-primary transition-colors" onclick="sortTable(3, 'num')">
+<div class="flex items-center justify-end gap-1"><span>OA (%)</span><span class="material-symbols-outlined text-[13px] text-outline">unfold_more</span></div>
+</th>
+<th class="py-3 px-space-md font-semibold text-right text-secondary cursor-pointer hover:text-secondary-fixed transition-colors" onclick="sortTable(4, 'num')">
+<div class="flex items-center justify-end gap-1"><span>Boundary IoU (%)</span><span class="material-symbols-outlined text-[13px] text-outline">unfold_more</span></div>
+</th>
+<th class="py-3 px-space-md font-semibold text-right text-secondary cursor-pointer hover:text-secondary-fixed transition-colors" onclick="sortTable(5, 'num')">
+<div class="flex items-center justify-end gap-1"><span>Boundary F1 (%)</span><span class="material-symbols-outlined text-[13px] text-outline">unfold_more</span></div>
+</th>
+<th class="py-3 px-space-md font-semibold text-right text-on-surface-variant cursor-pointer hover:text-primary transition-colors" onclick="sortTable(6, 'num')">
+<div class="flex items-center justify-end gap-1"><span>Params (M)</span><span class="material-symbols-outlined text-[13px] text-outline">unfold_more</span></div>
+</th>
+<th class="py-3 px-space-md font-semibold text-right text-on-surface-variant cursor-pointer hover:text-primary transition-colors" onclick="sortTable(7, 'num')">
+<div class="flex items-center justify-end gap-1"><span>FPS (RTX 4090)</span><span class="material-symbols-outlined text-[13px] text-outline">unfold_more</span></div>
+</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high/40 text-on-surface">
+<!-- LSMamba Proposed Model: Pinned with Cyan Glow styling -->
+<tr class="bg-surface-container-highest/60 hover:bg-surface-container-highest transition-colors font-semibold">
+<td class="py-3 px-space-md flex items-center gap-space-sm whitespace-nowrap">
+<span class="px-1.5 py-0.5 rounded bg-primary-container text-on-primary-fixed font-code-sm text-code-sm font-bold tracking-tight">★ Proposed</span>
+<span class="text-primary font-bold">LSMamba (Ours - Bounded Res Gate)</span>
+</td>
+<td class="py-3 px-space-md text-on-surface-variant whitespace-nowrap">VMamba SS2D-Tiny</td>
+<td class="py-3 px-space-md text-right text-primary font-bold whitespace-nowrap">54.82%</td>
+<td class="py-3 px-space-md text-right whitespace-nowrap font-bold">74.19%</td>
+<td class="py-3 px-space-md text-right text-secondary font-bold whitespace-nowrap">48.65%</td>
+<td class="py-3 px-space-md text-right text-secondary font-bold whitespace-nowrap">61.20%</td>
+<td class="py-3 px-space-md text-right text-on-surface-variant whitespace-nowrap">31.4M</td>
+<td class="py-3 px-space-md text-right text-tertiary font-bold whitespace-nowrap">42.1</td>
+</tr>
+<!-- LSMamba Multiplicative Variant -->
+<tr class="bg-surface-container/30 hover:bg-surface-container transition-colors">
+<td class="py-2.5 px-space-md flex items-center gap-space-sm whitespace-nowrap">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-sm text-code-sm">Ours</span>
+<span class="text-on-surface font-medium">LSMamba (Ours - Multiplicative)</span>
+</td>
+<td class="py-2.5 px-space-md text-on-surface-variant whitespace-nowrap">VMamba SS2D-Tiny</td>
+<td class="py-2.5 px-space-md text-right text-primary font-medium whitespace-nowrap">53.94%</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">73.40%</td>
+<td class="py-2.5 px-space-md text-right text-secondary whitespace-nowrap">47.12%</td>
+<td class="py-2.5 px-space-md text-right text-secondary whitespace-nowrap">59.88%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">31.2M</td>
+<td class="py-2.5 px-space-md text-right text-tertiary whitespace-nowrap">43.0</td>
+</tr>
+<!-- ReSMamba (2024) -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-2.5 px-space-md whitespace-nowrap font-medium">ReSMamba (2024)</td>
+<td class="py-2.5 px-space-md text-on-surface-variant whitespace-nowrap">VSSM-S</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">52.45%</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">72.10%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">44.30%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">56.40%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">34.8M</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">36.5</td>
+</tr>
+<!-- RS3Mamba (2024) -->
+<tr class="bg-surface-container/20 hover:bg-surface-container/60 transition-colors">
+<td class="py-2.5 px-space-md whitespace-nowrap font-medium">RS3Mamba (2024)</td>
+<td class="py-2.5 px-space-md text-on-surface-variant whitespace-nowrap">VSSM-B</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">51.80%</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">71.55%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">43.15%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">55.20%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">32.1M</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">38.2</td>
+</tr>
+<!-- SGCMamba (2024) -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-2.5 px-space-md whitespace-nowrap font-medium">SGCMamba (2024)</td>
+<td class="py-2.5 px-space-md text-on-surface-variant whitespace-nowrap">Mamba-GCN</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">51.20%</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">71.10%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">42.80%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">54.60%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">33.5M</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">37.0</td>
+</tr>
+<!-- UNetFormer (ISPRS 2022) -->
+<tr class="bg-surface-container/20 hover:bg-surface-container/60 transition-colors">
+<td class="py-2.5 px-space-md whitespace-nowrap font-medium">UNetFormer (ISPRS 2022)</td>
+<td class="py-2.5 px-space-md text-on-surface-variant whitespace-nowrap">ResNet-18 + Global Attn</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">50.40%</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">70.25%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">41.20%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">52.90%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">27.8M</td>
+<td class="py-2.5 px-space-md text-right text-tertiary whitespace-nowrap">45.4</td>
+</tr>
+<!-- DC-Swin (IEEE TGRS) -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-2.5 px-space-md whitespace-nowrap font-medium">DC-Swin (IEEE TGRS)</td>
+<td class="py-2.5 px-space-md text-on-surface-variant whitespace-nowrap">Swin-T Dense Connect</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">50.15%</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">69.90%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">40.75%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">52.30%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">38.2M</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">31.2</td>
+</tr>
+<!-- Swin-UNet (ECCV 2022) -->
+<tr class="bg-surface-container/20 hover:bg-surface-container/60 transition-colors">
+<td class="py-2.5 px-space-md whitespace-nowrap font-medium">Swin-UNet (ECCV 2022)</td>
+<td class="py-2.5 px-space-md text-on-surface-variant whitespace-nowrap">Swin-Transformer-B</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">49.30%</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">69.15%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">39.80%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">51.10%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">41.4M</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">28.6</td>
+</tr>
+<!-- DeepLabv3+ (ResNet-50) -->
+<tr class="hover:bg-surface-container/60 transition-colors">
+<td class="py-2.5 px-space-md whitespace-nowrap font-medium">DeepLabv3+ (ResNet-50)</td>
+<td class="py-2.5 px-space-md text-on-surface-variant whitespace-nowrap">ResNet-50 ASPP</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">48.20%</td>
+<td class="py-2.5 px-space-md text-right whitespace-nowrap">68.10%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">37.50%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">48.70%</td>
+<td class="py-2.5 px-space-md text-right text-on-surface-variant whitespace-nowrap">40.0M</td>
+<td class="py-2.5 px-space-md text-right text-tertiary whitespace-nowrap">54.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm px-space-xs">
+<span>* Evaluated on LoveDA Validation/Test Split with 3px boundary radius.</span>
+<span>Click any column header to sort in-place</span>
+</div>
+</section>
+<!-- Dual Comparative Visualizations Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- Left Chart: Overall Segmentation mIoU -->
+<div class="p-space-md rounded bg-surface-container-low shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[18px]">bar_chart</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Overall Segmentation mIoU across Models</h3>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-code-sm text-primary">Cyan = Top Ranks</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+          Comparative Mean Intersection over Union. Linear state space modeling preserves fine urban context.
+        </p>
+<!-- SVG Bar Chart: Segmentation mIoU -->
+<div class="w-full">
+<svg class="w-full h-auto" preserveaspectratio="xMidYMid meet" viewbox="0 0 540 250">
+<!-- Grid Lines -->
+<line class="text-surface-container-highest" stroke="currentColor" stroke-width="1" x1="140" x2="140" y1="20" y2="210"></line>
+<line class="text-surface-container-highest" stroke="currentColor" stroke-dasharray="2 2" stroke-width="1" x1="230" x2="230" y1="20" y2="210"></line>
+<line class="text-surface-container-highest" stroke="currentColor" stroke-dasharray="2 2" stroke-width="1" x1="330" x2="330" y1="20" y2="210"></line>
+<line class="text-surface-container-highest" stroke="currentColor" stroke-dasharray="2 2" stroke-width="1" x1="430" x2="430" y1="20" y2="210"></line>
+<line class="text-surface-container-highest" stroke="currentColor" stroke-dasharray="2 2" stroke-width="1" x1="530" x2="530" y1="20" y2="210"></line>
+<!-- Axis Ticks & Labels -->
+<text class="fill-current text-outline font-code-sm text-[10px]" text-anchor="middle" x="140" y="225">45%</text>
+<text class="fill-current text-outline font-code-sm text-[10px]" text-anchor="middle" x="230" y="225">48%</text>
+<text class="fill-current text-outline font-code-sm text-[10px]" text-anchor="middle" x="330" y="225">51%</text>
+<text class="fill-current text-outline font-code-sm text-[10px]" text-anchor="middle" x="430" y="225">54%</text>
+<text class="fill-current text-outline font-code-sm text-[10px]" text-anchor="middle" x="530" y="225">57%</text>
+<!-- Bars -->
+<!-- 1. LSMamba Bounded (54.82%) -> Width ~328px from 140 -->
+<text class="fill-current text-primary font-code-sm text-[11px] font-bold" text-anchor="end" x="130" y="36">LSMamba (Bounded)</text>
+<rect class="fill-current text-primary" height="15" rx="2" width="327.3" x="140" y="24"></rect>
+<text class="fill-current text-primary font-code-sm text-[11px] font-bold" x="473" y="35">54.82%</text>
+<!-- 2. LSMamba Mult (53.94%) -> Width ~298px -->
+<text class="fill-current text-on-surface font-code-sm text-[11px]" text-anchor="end" x="130" y="58">LSMamba (Mult)</text>
+<rect class="fill-current text-primary-container opacity-85" height="14" rx="2" width="298.0" x="140" y="46"></rect>
+<text class="fill-current text-on-surface font-code-sm text-[10px]" x="444" y="57">53.94%</text>
+<!-- 3. ReSMamba (52.45%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="80">ReSMamba</text>
+<rect class="fill-current text-surface-bright" height="14" rx="2" width="248.3" x="140" y="68"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="394" y="79">52.45%</text>
+<!-- 4. RS3Mamba (51.80%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="102">RS3Mamba</text>
+<rect class="fill-current text-surface-bright" height="14" rx="2" width="226.6" x="140" y="90"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="372" y="101">51.80%</text>
+<!-- 5. SGCMamba (51.20%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="124">SGCMamba</text>
+<rect class="fill-current text-surface-bright" height="14" rx="2" width="206.6" x="140" y="112"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="352" y="123">51.20%</text>
+<!-- 6. UNetFormer (50.40%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="146">UNetFormer</text>
+<rect class="fill-current text-surface-variant" height="14" rx="2" width="180.0" x="140" y="134"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="326" y="145">50.40%</text>
+<!-- 7. DC-Swin (50.15%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="168">DC-Swin</text>
+<rect class="fill-current text-surface-variant" height="14" rx="2" width="171.6" x="140" y="156"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="317" y="167">50.15%</text>
+<!-- 8. Swin-UNet (49.30%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="190">Swin-UNet</text>
+<rect class="fill-current text-surface-variant" height="14" rx="2" width="143.3" x="140" y="178"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="289" y="189">49.30%</text>
+<!-- 9. DeepLabv3+ (48.20%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="212">DeepLabv3+</text>
+<rect class="fill-current text-surface-variant" height="14" rx="2" width="106.6" x="140" y="200"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="252" y="211">48.20%</text>
+</svg>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm">
+<span>Statistical significance: p < 0.001</span>
+<span class="text-primary font-medium">Margin: +2.37% over ReSMamba</span>
+</div>
+</div>
+<!-- Right Chart: Boundary IoU (Amber Accent - Paper's key claim) -->
+<div class="p-space-md rounded bg-surface-container-low shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-[18px]">timeline</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Boundary IoU (BIoU) Across Models</h3>
+</div>
+<span class="px-2 py-0.5 rounded bg-secondary-container/20 text-secondary font-code-sm text-code-sm">Amber = Paper Core Claim</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+          Strict boundary alignment metric quantifying edge sharpness and preservation of narrow parcel contours.
+        </p>
+<!-- SVG Bar Chart: Boundary IoU -->
+<div class="w-full">
+<svg class="w-full h-auto" preserveaspectratio="xMidYMid meet" viewbox="0 0 540 250">
+<!-- Grid Lines -->
+<line class="text-surface-container-highest" stroke="currentColor" stroke-width="1" x1="140" x2="140" y1="20" y2="210"></line>
+<line class="text-surface-container-highest" stroke="currentColor" stroke-dasharray="2 2" stroke-width="1" x1="230" x2="230" y1="20" y2="210"></line>
+<line class="text-surface-container-highest" stroke="currentColor" stroke-dasharray="2 2" stroke-width="1" x1="330" x2="330" y1="20" y2="210"></line>
+<line class="text-surface-container-highest" stroke="currentColor" stroke-dasharray="2 2" stroke-width="1" x1="430" x2="430" y1="20" y2="210"></line>
+<line class="text-surface-container-highest" stroke="currentColor" stroke-dasharray="2 2" stroke-width="1" x1="530" x2="530" y1="20" y2="210"></line>
+<!-- Axis Labels -->
+<text class="fill-current text-outline font-code-sm text-[10px]" text-anchor="middle" x="140" y="225">35%</text>
+<text class="fill-current text-outline font-code-sm text-[10px]" text-anchor="middle" x="230" y="225">40%</text>
+<text class="fill-current text-outline font-code-sm text-[10px]" text-anchor="middle" x="330" y="225">44%</text>
+<text class="fill-current text-outline font-code-sm text-[10px]" text-anchor="middle" x="430" y="225">48%</text>
+<text class="fill-current text-outline font-code-sm text-[10px]" text-anchor="middle" x="530" y="225">52%</text>
+<!-- Bars -->
+<!-- 1. LSMamba Bounded (48.65%) -> Width ~345px from 140 -->
+<text class="fill-current text-secondary font-code-sm text-[11px] font-bold" text-anchor="end" x="130" y="36">LSMamba (Bounded)</text>
+<rect class="fill-current text-secondary" height="15" rx="2" width="345.5" x="140" y="24"></rect>
+<text class="fill-current text-secondary font-code-sm text-[11px] font-bold" x="492" y="35">48.65%</text>
+<!-- 2. LSMamba Mult (47.12%) -->
+<text class="fill-current text-on-surface font-code-sm text-[11px]" text-anchor="end" x="130" y="58">LSMamba (Mult)</text>
+<rect class="fill-current text-secondary-fixed-dim opacity-80" height="14" rx="2" width="308.0" x="140" y="46"></rect>
+<text class="fill-current text-on-surface font-code-sm text-[10px]" x="454" y="57">47.12%</text>
+<!-- 3. ReSMamba (44.30%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="80">ReSMamba</text>
+<rect class="fill-current text-surface-bright" height="14" rx="2" width="237.5" x="140" y="68"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="383" y="79">44.30%</text>
+<!-- 4. RS3Mamba (43.15%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="102">RS3Mamba</text>
+<rect class="fill-current text-surface-bright" height="14" rx="2" width="208.7" x="140" y="90"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="354" y="101">43.15%</text>
+<!-- 5. SGCMamba (42.80%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="124">SGCMamba</text>
+<rect class="fill-current text-surface-bright" height="14" rx="2" width="200.0" x="140" y="112"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="345" y="123">42.80%</text>
+<!-- 6. UNetFormer (41.20%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="146">UNetFormer</text>
+<rect class="fill-current text-surface-variant" height="14" rx="2" width="160.0" x="140" y="134"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="306" y="145">41.20%</text>
+<!-- 7. DC-Swin (40.75%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="168">DC-Swin</text>
+<rect class="fill-current text-surface-variant" height="14" rx="2" width="148.7" x="140" y="156"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="294" y="167">40.75%</text>
+<!-- 8. Swin-UNet (39.80%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="190">Swin-UNet</text>
+<rect class="fill-current text-surface-variant" height="14" rx="2" width="125.0" x="140" y="178"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="270" y="189">39.80%</text>
+<!-- 9. DeepLabv3+ (37.50%) -->
+<text class="fill-current text-on-surface-variant font-code-sm text-[11px]" text-anchor="end" x="130" y="212">DeepLabv3+</text>
+<rect class="fill-current text-surface-variant" height="14" rx="2" width="67.5" x="140" y="200"></rect>
+<text class="fill-current text-on-surface-variant font-code-sm text-[10px]" x="213" y="211">37.50%</text>
+</svg>
+</div>
+</div>
+<div class="mt-space-sm pt-space-xs flex items-center justify-between text-on-surface-variant font-code-sm text-code-sm">
+<span class="text-secondary font-medium">Dramatic leap: +4.35% over SOTA Mamba</span>
+<span class="text-secondary font-semibold">+7.45% vs Transformer Baseline</span>
+</div>
+</div>
+</section>
+<!-- Per-Class IoU Breakdown Section -->
+<section class="p-space-lg rounded bg-surface-container-low shadow-sm space-y-space-md">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">layers</span>
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">Per-Class IoU Breakdown (LoveDA 7 Land Cover Classes)</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          Class-wise segmentation accuracy under standard LoveDA taxonomic mapping scheme.
+        </p>
+</div>
+<div class="px-3 py-1.5 rounded bg-surface-container font-code-sm text-code-sm text-on-surface-variant self-start md:self-auto">
+        Metric: Class Intersection-over-Union (IoU)
+      </div>
+</div>
+<!-- Class Metric Cards List -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-space-sm">
+<!-- 1. Background -->
+<div class="p-space-sm rounded bg-surface-container shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-slate-700"></span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Background</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">C0</span>
+</div>
+<div class="mt-space-sm font-code-xl text-[22px] font-bold text-on-surface">44.2%</div>
+</div>
+<div class="mt-space-sm">
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-slate-500 h-1.5 rounded-full" style="width: 44.2%"></div>
+</div>
+<span class="font-code-sm text-code-sm text-outline mt-1 block">Baseline Class</span>
+</div>
+</div>
+<!-- 2. Building (Highlight: +6.1%) -->
+<div class="p-space-sm rounded bg-surface-container-high shadow-md flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-red-500"></span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Building</span>
+</div>
+<span class="font-label-caps text-label-caps text-secondary font-bold">+6.1%</span>
+</div>
+<div class="mt-space-sm font-code-xl text-[22px] font-bold text-on-surface">62.8%</div>
+</div>
+<div class="mt-space-sm">
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-red-500 h-1.5 rounded-full" style="width: 62.8%"></div>
+</div>
+<span class="font-code-sm text-code-sm text-secondary mt-1 block">Sharp parcel edges</span>
+</div>
+</div>
+<!-- 3. Road (Highlight: +7.3%) -->
+<div class="p-space-sm rounded bg-surface-container-high shadow-md flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-slate-200"></span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Road</span>
+</div>
+<span class="font-label-caps text-label-caps text-primary font-bold">+7.3%</span>
+</div>
+<div class="mt-space-sm font-code-xl text-[22px] font-bold text-primary">58.4%</div>
+</div>
+<div class="mt-space-sm">
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-1.5 rounded-full" style="width: 58.4%"></div>
+</div>
+<span class="font-code-sm text-code-sm text-primary mt-1 block">Slender corridors</span>
+</div>
+</div>
+<!-- 4. Water -->
+<div class="p-space-sm rounded bg-surface-container shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-cyan-400"></span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Water</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">C3</span>
+</div>
+<div class="mt-space-sm font-code-xl text-[22px] font-bold text-on-surface">76.5%</div>
+</div>
+<div class="mt-space-sm">
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-cyan-400 h-1.5 rounded-full" style="width: 76.5%"></div>
+</div>
+<span class="font-code-sm text-code-sm text-outline mt-1 block">Highest IoU</span>
+</div>
+</div>
+<!-- 5. Barren -->
+<div class="p-space-sm rounded bg-surface-container shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-purple-500"></span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Barren</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">C4</span>
+</div>
+<div class="mt-space-sm font-code-xl text-[22px] font-bold text-on-surface">39.8%</div>
+</div>
+<div class="mt-space-sm">
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-purple-500 h-1.5 rounded-full" style="width: 39.8%"></div>
+</div>
+<span class="font-code-sm text-code-sm text-outline mt-1 block">Sparse spectral sign</span>
+</div>
+</div>
+<!-- 6. Forest -->
+<div class="p-space-sm rounded bg-surface-container shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-emerald-500"></span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Forest</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">C5</span>
+</div>
+<div class="mt-space-sm font-code-xl text-[22px] font-bold text-on-surface">54.1%</div>
+</div>
+<div class="mt-space-sm">
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-emerald-500 h-1.5 rounded-full" style="width: 54.1%"></div>
+</div>
+<span class="font-code-sm text-code-sm text-outline mt-1 block">Canopy texture</span>
+</div>
+</div>
+<!-- 7. Agriculture -->
+<div class="p-space-sm rounded bg-surface-container shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-yellow-500"></span>
+<span class="font-body-md text-body-md font-semibold text-on-surface">Agriculture</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">C6</span>
+</div>
+<div class="mt-space-sm font-code-xl text-[22px] font-bold text-on-surface">48.0%</div>
+</div>
+<div class="mt-space-sm">
+<div class="w-full bg-surface-container-highest rounded-full h-1.5 overflow-hidden">
+<div class="bg-yellow-500 h-1.5 rounded-full" style="width: 48.0%"></div>
+</div>
+<span class="font-code-sm text-code-sm text-outline mt-1 block">Rural farmlands</span>
+</div>
+</div>
+</div>
+<!-- Qualitative Insights Strip / Research Takeaway Banner -->
+<div class="p-space-md rounded bg-surface-container-highest/50 flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[24px] shrink-0 mt-0.5">verified</span>
+<div>
+<span class="font-headline-sm text-headline-sm font-semibold text-on-surface block">Analytical Conclusion</span>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+            Boundary-gated supervision delivers largest margins on slender linear classes (<strong class="text-primary">Road +7.3%</strong>) and dense structural geometries (<strong class="text-secondary">Building +6.1%</strong>). High-frequency Sobel residual filters prevent semantic bleed across narrow corridors.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 font-code-sm text-code-sm">
+<span class="px-2 py-1 rounded bg-surface-container text-on-surface">Sobel Weight: λ=0.4</span>
+<span class="px-2 py-1 rounded bg-surface-container text-on-surface">Radius: 3px</span>
+</div>
+</div>
+</section>
+<!-- Qualitative Visual Error Proof (Orthophoto vs Predictions) -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+<!-- Orthophoto Sample -->
+<div class="p-space-md rounded bg-surface-container-low shadow-sm flex flex-col space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Test Tile: LoveDA Rural #0824</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-code-sm text-code-sm text-outline">RGB 1024²</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Input orthophoto exhibiting extreme aspect ratio riverways and rural narrow trails.</p>
+<div class="w-full h-44 rounded overflow-hidden bg-surface-container mt-space-xs relative">
+<img class="w-full h-full object-cover" data-alt="High resolution aerial remote sensing satellite orthophoto of rural landscape showing agricultural plots, narrow roads, residential buildings, and a winding irrigation canal in photorealistic detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsNPEd3XRzNtAGi7xDDrJPonCRSL6NUej9OJNTNdHSs_14JnyC9hxK_KKPIw-nyVizATENeUhdbLzgAxmb1DzW0AQ7b3lhq5JF_q0ZjOViTkajxW-c294gnCvLXldoKvbQAU5FXFsu-9qKn9hPsn3y_bUYZxdn20wFSVkblKkGZ7z-b-fWW8CSQUZZDXA4yxEMPDuA8dcdJKMf0Iphtgh-60nycz-Hi5JrynCRX1MS1pgLz4cTSOcW"/>
+<div class="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 text-on-surface font-code-sm text-[10px]">
+          Coord: 31.23°N, 121.47°E
+        </div>
+</div>
+</div>
+<!-- Baseline Segmentation (ReSMamba) -->
+<div class="p-space-md rounded bg-surface-container-low shadow-sm flex flex-col space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">ReSMamba (Baseline)</span>
+<span class="px-2 py-0.5 rounded bg-error-container/30 text-error font-code-sm text-code-sm">Boundary F1: 56.4%</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Notice blurred contours between agricultural boundaries and over-smoothed roads.</p>
+<div class="w-full h-44 rounded overflow-hidden bg-surface-container mt-space-xs relative">
+<img class="w-full h-full object-cover" data-alt="Land cover segmentation mask visualization showing semantic classes in color blocks with blurred boundaries and fragmented road lines over rural terrain." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhu7JE5dAml0g_iWnEsp_DxDCnT1hX0XrYxTV801S-bPtD5tW5niDXWdCgMLtUvEhNCrYBR_nKmxaq1IsRMub8emxnFunGpWG0xcnKjp_-3-yiOH3sLj43pZS8C4qThDo239xKjSeYCMajzah9AA4VJ098F7X0vQo5XxpzlB56ZnXWQDsGH05ItOzGQ0k2YsoC4w4UYepV0XR-ymT91C4jNHV2XMM4YZQRwVnP0tJ6k2f9Uy_kr7CS"/>
+<div class="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 text-error font-code-sm text-[10px]">
+          Linear Road Fragmentation: High
+        </div>
+</div>
+</div>
+<!-- LSMamba Boundary-Gated Prediction -->
+<div class="p-space-md rounded bg-surface-container-high shadow-md flex flex-col space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-headline-sm text-headline-sm text-primary font-semibold">LSMamba (Bounded Res)</span>
+<span class="px-2 py-0.5 rounded bg-primary-container text-on-primary-fixed font-code-sm text-code-sm">Boundary F1: 61.2%</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Sharp edge recovery via selective state space boundary gates and zero cross-leakage.</p>
+<div class="w-full h-44 rounded overflow-hidden bg-surface-container mt-space-xs relative">
+<img class="w-full h-full object-cover" data-alt="Precise high-contrast land cover semantic segmentation mask showing crisp sharp boundary outlines, continuous road corridors, and accurately partitioned agricultural fields in vibrant colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBI2cH5PGRECgTh_jdOGoWGa9PwzbTElFINutJ9NiYgyoWoBomvkBU09RsZf3Vk4VVP_h0HYKquuIlY8ChIxwMH4-z25AXoJtRbRBu1y8ypLBsS7HnWUTFYraZ-64N0UJ7gFsxqKR2MexgpIwoM_zpGVQVNGmmXe0sm7Z7t0V4ld_F-LMrvnMqcpsg7aXq3YpsSBeXboXRhPQefUSOyVOaskDfmOru_19_JVMRUdnajRtKfnYe4NtP5"/>
+<div class="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 text-tertiary font-code-sm text-[10px]">
+          Linear Continuity: Preserved
+        </div>
+</div>
+</div>
+</section>
+</div>
+<script>
+  // Domain switcher logic
+  function switchDomain(domain) {
+    const btnCombined = document.getElementById('btn-combined');
+    const btnUrban = document.getElementById('btn-urban');
+    const btnRural = document.getElementById('btn-rural');
+
+    [btnCombined, btnUrban, btnRural].forEach(btn => {
+      btn.className = 'px-3 py-1.5 rounded font-code-sm text-code-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all';
+    });
+
+    if (domain === 'combined') {
+      btnCombined.className = 'px-3 py-1.5 rounded font-code-sm text-code-sm font-medium transition-all bg-primary-container text-on-primary-container shadow-sm';
+    } else if (domain === 'urban') {
+      btnUrban.className = 'px-3 py-1.5 rounded font-code-sm text-code-sm font-medium transition-all bg-primary-container text-on-primary-container shadow-sm';
+    } else if (domain === 'rural') {
+      btnRural.className = 'px-3 py-1.5 rounded font-code-sm text-code-sm font-medium transition-all bg-primary-container text-on-primary-container shadow-sm';
+    }
+  }
+
+  // Interactive Table Column Sorter
+  let sortDirection = {};
+  function sortTable(columnIndex, type) {
+    const table = document.getElementById('leaderboardTable');
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+
+    sortDirection[columnIndex] = !sortDirection[columnIndex];
+    const isAsc = sortDirection[columnIndex];
+
+    rows.sort((rowA, rowB) => {
+      const cellA = rowA.children[columnIndex].innerText.trim().replace('%', '').replace('M', '').replace('★ Proposed', '').trim();
+      const cellB = rowB.children[columnIndex].innerText.trim().replace('%', '').replace('M', '').replace('★ Proposed', '').trim();
+
+      if (type === 'num') {
+        const valA = parseFloat(cellA) || 0;
+        const valB = parseFloat(cellB) || 0;
+        return isAsc ? valA - valB : valB - valA;
+      } else {
+        return isAsc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+      }
+    });
+
+    // Re-append sorted rows
+    rows.forEach(row => tbody.appendChild(row));
+  }
+
+  // Quick bibtex copy handler
+  function exportBibtex() {
+    const bibtex = `@inproceedings{lsmamba2024,\n  title={LSMamba: Boundary-Gated VMamba-UNet for Land Cover Segmentation},\n  author={LSMamba Research Group},\n  booktitle={CVPR},\n  year={2024}\n}`;
+    navigator.clipboard.writeText(bibtex).then(() => {
+      alert('BibTeX citation copied to clipboard.');
+    });
+  }
+</script></div></main></div></body></html>

@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"tertiary-fixed-dim":"#4edea3","on-primary-fixed":"#001f26","surface-container-high":"#282a2e","outline-variant":"#3d494c","background":"#111317","on-surface-variant":"#bcc9cd","secondary-fixed-dim":"#ffb95f","surface-variant":"#333539","inverse-primary":"#00687a","secondary-fixed":"#ffddb8","on-background":"#e2e2e8","surface-tint":"#4cd7f6","primary-fixed-dim":"#4cd7f6","surface-container":"#1e2024","surface-container-lowest":"#0c0e12","tertiary":"#4edea3","secondary-container":"#ee9800","on-error-container":"#ffdad6","primary":"#4cd7f6","on-surface":"#e2e2e8","on-secondary":"#472a00","tertiary-container":"#1bbd85","primary-fixed":"#acedff","on-tertiary-fixed":"#002113","on-secondary-container":"#5b3800","on-tertiary-fixed-variant":"#005236","surface-container-low":"#1a1c20","on-secondary-fixed":"#2a1700","error-container":"#93000a","on-tertiary-container":"#00452e","on-error":"#690005","error":"#ffb4ab","surface-dim":"#111317","secondary":"#ffb95f","outline":"#869397","on-primary":"#003640","inverse-surface":"#e2e2e8","surface-bright":"#37393e","on-primary-fixed-variant":"#004e5c","on-secondary-fixed-variant":"#653e00","surface-container-highest":"#333539","surface":"#111317","on-tertiary":"#003824","on-primary-container":"#00424f","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#2f3035","primary-container":"#06b6d4"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"gutter":"1rem","space-lg":"1.5rem","space-md":"1rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","margin":"1rem","space-xs":"0.25rem","space-sm":"0.5rem","space-xl":"2rem"},"fontFamily":{"body-sm":["Inter"],"headline-sm":["Geist"],"code-lg":["JetBrains Mono"],"code-sm":["JetBrains Mono"],"body-md":["Inter"],"label-caps":["JetBrains Mono"],"headline-lg-mobile":["Geist"],"headline-xl-mobile":["Geist"],"code-md":["JetBrains Mono"],"headline-xl":["Geist"],"headline-md":["Geist"],"headline-lg":["Geist"],"body-lg":["Inter"]},"fontSize":{"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"headline-sm":["16px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"500"}],"code-lg":["13px",{"lineHeight":"18px","fontWeight":"500"}],"code-sm":["11px",{"lineHeight":"14px","fontWeight":"400"}],"body-md":["13px",{"lineHeight":"20px","fontWeight":"400"}],"label-caps":["10px",{"lineHeight":"12px","letterSpacing":"0.08em","fontWeight":"600"}],"headline-lg-mobile":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-xl-mobile":["26px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"code-md":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["20px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-lg":["15px",{"lineHeight":"24px","fontWeight":"400"}]}}}}</script></head><body class="bg-surface-container-lowest text-on-surface font-body-md text-body-md min-h-screen antialiased selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-screen w-[250px] bg-surface-container-low border-r border-outline-variant/40 z-50 flex flex-col justify-between overflow-y-auto"><div class="p-space-md border-b border-outline-variant/30"><div class="flex items-center gap-space-sm mb-space-xs"><img alt="LSMamba Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1X4vyvtJ3_jb0Gpnjf2vWndcOcwUqaxHdEw58hgZ86ZByHLXEbWv6_LGyl6BNakZvszZ9W8G3OdODKf2VdTzndH8RyJkQ2OhOUZBDWmZFTsXPefpvhTr_uUrSh6jpYeUS85GKnU9BQ1CHNK3zcz5HP7UXnSOtxJQ9ntRu6gcsalHDLkQvOlwIhffDrs9tr8E9zpJ6sCucjxzfUygbCr32RymY6JPzpxbs4wRCdjHu9he8l9HLnj-waucFY"/><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface">LSMamba</span><span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-code-sm text-code-sm border border-outline-variant/50">v1.0.4</span></div></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Boundary-Gated VMamba-UNet for Land Cover Segmentation</p></div><nav class="flex-1 py-space-md px-space-sm flex flex-col gap-space-xs" data-active-classes="bg-surface-container-highest text-primary font-medium border-l-2 border-primary-container"><div class="px-space-sm pb-space-xs font-label-caps text-label-caps text-outline uppercase tracking-wider">Workspaces</div><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="inference-demo" href="#"><span class="material-symbols-outlined text-[18px] text-primary">play_circle</span><span class="font-body-md text-body-md">Inference Demo</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="model-architecture" href="#"><span class="material-symbols-outlined text-[18px] text-secondary">account_tree</span><span class="font-body-md text-body-md">Model Architecture</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="results-benchmarks" href="#"><span class="material-symbols-outlined text-[18px]">leaderboard</span><span class="font-body-md text-body-md">Results & Benchmarks</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg transition-colors bg-surface-container-highest text-primary font-medium border-l-2 border-primary-container" data-path="ablation-studies" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span class="font-body-md text-body-md">Ablation Studies</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="dataset-explorer" href="#"><span class="material-symbols-outlined text-[18px]">layers</span><span class="font-body-md text-body-md">Dataset Explorer</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="paper-specs" href="#"><span class="material-symbols-outlined text-[18px]">article</span><span class="font-body-md text-body-md">Paper & Specs</span></a></nav><div class="p-space-md border-t border-outline-variant/30 flex flex-col gap-space-sm bg-surface-container-lowest/50"><div class="flex flex-col gap-space-xs font-code-sm text-code-sm"><a class="flex items-center gap-space-xs text-on-surface-variant hover:text-primary transition-colors" href="https://github.com/lsmamba-project/lsmamba" target="_blank"><span class="material-symbols-outlined text-[16px]">terminal</span><span class="truncate">github.com/lsmamba-project/lsmamba</span></a><a class="flex items-center gap-space-xs text-on-surface-variant hover:text-secondary transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">description</span><span>arXiv:2403.xxxxx</span></a></div><div class="p-space-xs px-space-sm rounded bg-surface-container border border-outline-variant/40 flex items-center gap-space-xs font-code-sm text-code-sm text-on-surface-variant"><span class="inline-block w-1.5 h-1.5 rounded-full bg-tertiary"></span><span class="truncate">Model Ready • RTX 4090 DDP • PyTorch 2.3</span></div></div></aside><div class="pl-[250px]"><header class="fixed top-0 left-[250px] right-0 h-14 bg-surface-container-low/95 backdrop-blur-md border-b border-outline-variant/40 z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-code-md text-code-md text-on-surface-variant"><span class="material-symbols-outlined text-[16px]">terminal</span><span>benchmarks</span><span class="text-outline">/</span><span class="text-on-surface font-semibold">loveda-val</span></div><div class="h-4 w-px bg-outline-variant/50"></div><div class="flex items-center gap-space-xs px-2 py-1 rounded bg-surface-container border border-outline-variant/40 text-on-surface font-code-sm text-code-sm"><span class="material-symbols-outlined text-[14px] text-primary">map</span><span>LoveDA Urban & Rural (1024×1024)</span><span class="material-symbols-outlined text-[14px] text-outline">expand_more</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-2.5 py-1 rounded bg-surface-container border border-outline-variant/40 text-on-surface font-code-sm text-code-sm"><span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="text-outline">Latency:</span><span class="text-primary-fixed font-semibold">42ms / tile</span></div><button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">dark_mode</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-14 bg-surface-container-lowest min-h-screen"><div class="w-full max-w-[1240px] mx-auto p-[28px]"><div class="flex flex-col w-full gap-space-lg font-body-md text-on-surface">
+<!-- TOP SECTION / EXPERIMENTAL META HEADER -->
+<section class="flex flex-col gap-space-sm bg-surface-container-low p-space-lg rounded-xl shadow-md relative overflow-hidden">
+<div class="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm text-outline">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-primary font-code-sm">SEC_04</span>
+<span>/</span>
+<span class="text-on-surface-variant">EXP_LADDER_VAL</span>
+<span>/</span>
+<span class="text-tertiary font-medium">LOVEDA_BENCH_TESTBED</span>
+</div>
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm">
+<span class="inline-block w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span class="text-on-surface-variant">Validated: 5-Fold Stratified CV</span>
+<span class="text-outline">•</span>
+<span class="text-on-surface-variant font-medium">Seed: 3407 (Deterministic)</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 mt-1">
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">
+        Ablation Ladder & Sensitivity Analyses
+      </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-4xl">
+        Systematic validation of boundary-supervision components, progressive gating scales, gate formulations, and loss hyperparameters on LoveDA.
+      </p>
+</div>
+<!-- Quick Stat Strip / Summary Indicators -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm pt-space-xs">
+<div class="flex flex-col p-space-sm rounded bg-surface-container shadow-sm">
+<span class="font-label-caps text-label-caps text-outline uppercase">Total Ablated Variants</span>
+<span class="font-code-lg text-code-lg text-on-surface font-semibold mt-1">19 Checkpoints</span>
+</div>
+<div class="flex flex-col p-space-sm rounded bg-surface-container shadow-sm">
+<span class="font-label-caps text-label-caps text-primary uppercase">Net mIoU Delta</span>
+<span class="font-code-lg text-code-lg text-primary font-semibold mt-1">+2.92% (51.90% → 54.82%)</span>
+</div>
+<div class="flex flex-col p-space-sm rounded bg-surface-container shadow-sm">
+<span class="font-label-caps text-label-caps text-secondary uppercase">Net BIoU Delta</span>
+<span class="font-code-lg text-code-lg text-secondary font-semibold mt-1">+6.55% (42.10% → 48.65%)</span>
+</div>
+<div class="flex flex-col p-space-sm rounded bg-surface-container shadow-sm">
+<span class="font-label-caps text-label-caps text-tertiary uppercase">Optimum Hyperparam</span>
+<span class="font-code-lg text-code-lg text-tertiary font-semibold mt-1">λ_bnd = 0.40</span>
+</div>
+</div>
+</section>
+<!-- PANEL 1: CONTRIBUTION OF ARCHITECTURAL PATHWAYS -->
+<section class="flex flex-col bg-surface-container-low rounded-xl p-space-lg gap-space-md shadow-sm">
+<!-- Panel Header & Research Takeaway -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-code-sm text-code-sm font-semibold">01</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Contribution of Architectural Pathways</h2>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="px-2.5 py-1 rounded bg-primary/10 text-primary font-code-sm text-code-sm font-semibold">+2.92% mIoU Overall</span>
+<span class="px-2.5 py-1 rounded bg-secondary/10 text-secondary font-code-sm text-code-sm font-semibold">+6.55% BIoU Overall</span>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container rounded-lg flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5 shrink-0">insights</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<strong class="text-on-surface font-medium">Researcher Takeaway:</strong> Adding auxiliary boundary supervision improves mIoU by +1.1%, while active boundary gating in skip-connections provides an additional +1.8% gain, indicating that gating actively conditions feature propagation rather than acting solely as regularizer.
+        </p>
+</div>
+</div>
+<!-- Comparative Visual Data Block -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-center">
+<!-- Grouped SVG Chart -->
+<div class="lg:col-span-8 flex flex-col gap-space-xs p-space-md bg-surface-container rounded-lg">
+<div class="flex items-center justify-between font-code-sm text-code-sm text-outline">
+<span>Ablation Level (Baseline → Auxiliary → Progressive Gated)</span>
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-primary inline-block"></span><span class="text-on-surface">mIoU (%)</span></span>
+<span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-secondary inline-block"></span><span class="text-on-surface">BIoU (%)</span></span>
+</div>
+</div>
+<svg aria-label="Grouped Bar Chart Architecture Comparison" class="w-full h-auto text-on-surface font-code-sm" viewbox="0 0 620 220">
+<!-- Grid lines -->
+<line class="text-outline-variant/30" stroke="currentColor" stroke-dasharray="3 3" x1="140" x2="600" y1="30" y2="30"></line>
+<line class="text-outline-variant/30" stroke="currentColor" stroke-dasharray="3 3" x1="140" x2="600" y1="80" y2="80"></line>
+<line class="text-outline-variant/30" stroke="currentColor" stroke-dasharray="3 3" x1="140" x2="600" y1="130" y2="130"></line>
+<line class="text-outline-variant/30" stroke="currentColor" stroke-dasharray="3 3" x1="140" x2="600" y1="180" y2="180"></line>
+<!-- Y-Labels -->
+<text class="text-outline-variant text-[11px]" fill="currentColor" text-anchor="end" x="130" y="55">Baseline</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="end" x="130" y="70">Plain VMamba</text>
+<text class="text-outline-variant text-[11px]" fill="currentColor" text-anchor="end" x="130" y="115">+ Aux Head</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="end" x="130" y="130">Boundary loss only</text>
+<text class="text-primary font-semibold text-[11px]" fill="currentColor" text-anchor="end" x="130" y="175">+ Proposed</text>
+<text class="text-secondary text-[10px]" fill="currentColor" text-anchor="end" x="130" y="190">Gated Skip-Conns</text>
+<!-- Group 1: Baseline (mIoU: 51.90, BIoU: 42.10) -->
+<rect class="fill-primary/80 hover:fill-primary transition-colors" height="14" rx="2" width="311.4" x="140" y="44"></rect>
+<text class="text-primary-fixed text-[11px] font-semibold" fill="currentColor" x="458" y="55">51.90%</text>
+<rect class="fill-secondary/80 hover:fill-secondary transition-colors" height="14" rx="2" width="252.6" x="140" y="62"></rect>
+<text class="text-secondary-fixed text-[11px] font-semibold" fill="currentColor" x="399" y="73">42.10%</text>
+<!-- Group 2: Aux Head Only (mIoU: 53.02, BIoU: 45.30) -->
+<rect class="fill-primary/80 hover:fill-primary transition-colors" height="14" rx="2" width="318.1" x="140" y="104"></rect>
+<text class="text-primary-fixed text-[11px] font-semibold" fill="currentColor" x="465" y="115">53.02%</text>
+<rect class="fill-secondary/80 hover:fill-secondary transition-colors" height="14" rx="2" width="271.8" x="140" y="122"></rect>
+<text class="text-secondary-fixed text-[11px] font-semibold" fill="currentColor" x="418" y="133">45.30%</text>
+<!-- Group 3: Proposed (mIoU: 54.82, BIoU: 48.65) -->
+<rect class="fill-primary hover:opacity-90 transition-opacity" height="14" rx="2" width="328.9" x="140" y="164"></rect>
+<text class="text-primary-fixed text-[11px] font-bold" fill="currentColor" x="475" y="175">54.82%</text>
+<rect class="fill-secondary hover:opacity-90 transition-opacity" height="14" rx="2" width="291.9" x="140" y="182"></rect>
+<text class="text-secondary-fixed text-[11px] font-bold" fill="currentColor" x="438" y="193">48.65%</text>
+<!-- Scale Base Axis -->
+<line class="text-outline-variant/60" stroke="currentColor" x1="140" x2="600" y1="205" y2="205"></line>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="middle" x="140" y="217">0%</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="middle" x="293" y="217">25%</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="middle" x="440" y="217">50%</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="end" x="600" y="217">65%</text>
+</svg>
+</div>
+<!-- Detail Card Ladder Breakdown -->
+<div class="lg:col-span-4 flex flex-col gap-space-xs">
+<div class="p-space-sm rounded bg-surface-container flex flex-col gap-1">
+<div class="flex items-center justify-between font-code-sm text-code-sm">
+<span class="text-outline">Step 1: Auxiliary Baseline</span>
+<span class="text-primary font-semibold">+1.12% mIoU</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Implicit edge gradients refine backbone deep representation via multi-task weight optimization.</p>
+</div>
+<div class="p-space-sm rounded bg-surface-container flex flex-col gap-1">
+<div class="flex items-center justify-between font-code-sm text-code-sm">
+<span class="text-outline">Step 2: Dynamic Skip Gating</span>
+<span class="text-primary font-semibold">+1.80% mIoU</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Explicit spatial gating filters high-frequency ambiguity prior to decoder skip concatenation.</p>
+</div>
+<div class="p-space-sm rounded bg-surface-container-high flex flex-col gap-1">
+<div class="flex items-center justify-between font-code-sm text-code-sm">
+<span class="text-on-surface font-semibold">Net Cumulative Gain</span>
+<span class="text-secondary font-bold">+6.55% BIoU</span>
+</div>
+<div class="w-full bg-surface-container-lowest h-2 rounded-full overflow-hidden flex mt-1">
+<div class="bg-primary h-full" style="width: 45%;"></div>
+<div class="bg-secondary h-full" style="width: 55%;"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- PANEL 2: PROGRESSIVE MULTI-SCALE GATING VS SINGLE-STAGE -->
+<section class="flex flex-col bg-surface-container-low rounded-xl p-space-lg gap-space-md shadow-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-code-sm text-code-sm font-semibold">02</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Progressive Multi-Scale Gating vs. Single-Stage Gating</h2>
+</div>
+<div class="flex items-center gap-1 font-code-sm text-code-sm text-on-surface-variant">
+<span>Decoder Resolution:</span>
+<span class="px-2 py-0.5 rounded bg-surface-container text-primary font-medium">1/32 → 1/16 → 1/8</span>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container rounded-lg flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5 shrink-0">account_tree</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<strong class="text-on-surface font-medium">Takeaway:</strong> Progressive multi-scale gating across decoders 4/3/2 yields superior boundary delineation over bottleneck-only or single-scale gating, with stage 3 (1/16) and stage 2 (1/8) contributing the largest localized gradient flow.
+        </p>
+</div>
+</div>
+<!-- Multi-stage Bar & Stage Breakdown Table -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md">
+<!-- 4-Stage Horizontal Progression Visual -->
+<div class="lg:col-span-7 flex flex-col gap-space-sm p-space-md bg-surface-container rounded-lg">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Ablation on Gating Depth Across Scale Hierarchy</span>
+<div class="flex flex-col gap-space-sm">
+<!-- Stage Item 1 -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-code-sm text-code-sm">
+<span class="text-on-surface-variant">No Gating (Baseline)</span>
+<div class="flex gap-space-sm">
+<span class="text-primary">mIoU: 51.90%</span>
+<span class="text-secondary">BIoU: 42.10%</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-3 rounded overflow-hidden flex">
+<div class="bg-primary/50 h-full" style="width: 51.9%"></div>
+<div class="bg-secondary/40 h-full" style="width: 42.1%"></div>
+</div>
+</div>
+<!-- Stage Item 2 -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-code-sm text-code-sm">
+<span class="text-on-surface-variant">Stage 4 Only (1/32 Bottleneck)</span>
+<div class="flex gap-space-sm">
+<span class="text-primary">mIoU: 52.80% <span class="text-[10px] text-tertiary">(+0.90)</span></span>
+<span class="text-secondary">BIoU: 44.20%</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-3 rounded overflow-hidden flex">
+<div class="bg-primary/70 h-full" style="width: 52.8%"></div>
+<div class="bg-secondary/60 h-full" style="width: 44.2%"></div>
+</div>
+</div>
+<!-- Stage Item 3 -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between font-code-sm text-code-sm">
+<span class="text-on-surface-variant">Stage 4 + Stage 3 (1/32 + 1/16)</span>
+<div class="flex gap-space-sm">
+<span class="text-primary">mIoU: 53.95% <span class="text-[10px] text-tertiary">(+2.05)</span></span>
+<span class="text-secondary">BIoU: 46.50%</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-3 rounded overflow-hidden flex">
+<div class="bg-primary/85 h-full" style="width: 53.95%"></div>
+<div class="bg-secondary/80 h-full" style="width: 46.5%"></div>
+</div>
+</div>
+<!-- Stage Item 4 (Proposed) -->
+<div class="flex flex-col gap-1 p-2 rounded bg-surface-container-high/60">
+<div class="flex items-center justify-between font-code-sm text-code-sm">
+<span class="text-primary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">star</span>
+                Full Progressive (Stages 4 + 3 + 2) [Ours]
+              </span>
+<div class="flex gap-space-sm font-semibold">
+<span class="text-primary">mIoU: 54.82% <span class="text-[10px] text-tertiary">(+2.92)</span></span>
+<span class="text-secondary">BIoU: 48.65%</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-lowest h-3.5 rounded overflow-hidden flex">
+<div class="bg-primary h-full" style="width: 54.82%"></div>
+<div class="bg-secondary h-full" style="width: 48.65%"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between font-code-sm text-code-sm text-outline pt-space-xs">
+<span>Resolution scale: 1/32 (Deep Context) → 1/8 (Boundary Delineation)</span>
+<span class="text-tertiary font-medium">Grad Flow Max: Stage 2/3</span>
+</div>
+</div>
+<!-- Granular Metric Table for Panel 2 -->
+<div class="lg:col-span-5 flex flex-col justify-between bg-surface-container rounded-lg p-space-md">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Spatial Scale Parameter Profile</span>
+<div class="flex flex-col gap-space-xs my-auto">
+<div class="flex items-center justify-between py-1.5 font-code-sm text-code-sm">
+<span class="text-on-surface-variant">SS2D Scan Channels (Dec-4)</span>
+<span class="text-on-surface font-semibold">512-dim / 4-way</span>
+</div>
+<div class="flex items-center justify-between py-1.5 font-code-sm text-code-sm">
+<span class="text-on-surface-variant">SS2D Scan Channels (Dec-3)</span>
+<span class="text-on-surface font-semibold">256-dim / 4-way</span>
+</div>
+<div class="flex items-center justify-between py-1.5 font-code-sm text-code-sm">
+<span class="text-on-surface-variant">SS2D Scan Channels (Dec-2)</span>
+<span class="text-on-surface font-semibold">128-dim / 4-way</span>
+</div>
+<div class="flex items-center justify-between py-1.5 font-code-sm text-code-sm">
+<span class="text-on-surface-variant">Gating Flops Overhead</span>
+<span class="text-tertiary font-semibold">+3.8% relative</span>
+</div>
+</div>
+<div class="p-space-sm rounded bg-surface-container-low font-code-sm text-code-sm text-on-surface-variant">
+<span class="text-primary font-semibold">Empirical Finding:</span> Single bottleneck gating fails because 1/32 downsampled spatial edge tensors lack pixel-exact geodetic fidelity. Decoders 3 and 2 recover fine boundaries.
+        </div>
+</div>
+</div>
+</section>
+<!-- PANEL 3: GATE FORMULATION & INTERIOR-REGION RETENTION -->
+<section class="flex flex-col bg-surface-container-low rounded-xl p-space-lg gap-space-md shadow-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-code-sm text-code-sm font-semibold">03</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Gate Formulation & Interior-Region Retention</h2>
+</div>
+<span class="px-2.5 py-1 rounded bg-tertiary/10 text-tertiary font-code-sm text-code-sm font-semibold">+6.6% Interior Retention</span>
+</div>
+<div class="p-space-sm bg-surface-container rounded-lg flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5 shrink-0">shape_line</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<strong class="text-on-surface font-medium">Takeaway:</strong> Bounded residual gating prevents feature attenuation in large homogeneous interior regions (e.g. agricultural plots, water bodies) while providing sharp attenuation along uncertain edges.
+        </p>
+</div>
+</div>
+<!-- Comparative Table with Interior Accuracy Focus -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-code-sm text-code-sm bg-surface-container rounded-lg overflow-hidden">
+<thead class="bg-surface-container-high text-outline text-[11px] uppercase tracking-wider">
+<tr>
+<th class="py-2.5 px-4 font-semibold">Formulation Variant</th>
+<th class="py-2.5 px-4 font-semibold">Mathematical Operator</th>
+<th class="py-2.5 px-4 text-right font-semibold">mIoU (%)</th>
+<th class="py-2.5 px-4 text-right font-semibold">BIoU (%)</th>
+<th class="py-2.5 px-4 text-right font-semibold">Interior Accuracy (%)</th>
+<th class="py-2.5 px-4 font-semibold">Failure / Dynamic Mode</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-transparent">
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-2.5 px-4 text-on-surface font-medium">Pure Multiplicative</td>
+<td class="py-2.5 px-4 text-outline font-mono">F ⊙ σ(B)</td>
+<td class="py-2.5 px-4 text-right text-on-surface">53.94%</td>
+<td class="py-2.5 px-4 text-right text-secondary">47.12%</td>
+<td class="py-2.5 px-4 text-right text-error font-medium">81.2%</td>
+<td class="py-2.5 px-4 text-on-surface-variant text-body-sm">Severe interior suppression in large land parcels</td>
+</tr>
+<tr class="hover:bg-surface-container-high/40 transition-colors">
+<td class="py-2.5 px-4 text-on-surface font-medium">Additive Residual</td>
+<td class="py-2.5 px-4 text-outline font-mono">F + W · B</td>
+<td class="py-2.5 px-4 text-right text-on-surface">54.10%</td>
+<td class="py-2.5 px-4 text-right text-secondary">47.45%</td>
+<td class="py-2.5 px-4 text-right text-on-surface">83.4%</td>
+<td class="py-2.5 px-4 text-on-surface-variant text-body-sm">Unbounded gradient drift in non-edge zones</td>
+</tr>
+<tr class="bg-primary/10 hover:bg-primary/15 transition-colors">
+<td class="py-2.5 px-4 text-primary font-bold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+              Bounded Residual (Ours)
+            </td>
+<td class="py-2.5 px-4 text-primary font-mono font-semibold">F · (1 + tanh(B))</td>
+<td class="py-2.5 px-4 text-right text-primary font-bold">54.82%</td>
+<td class="py-2.5 px-4 text-right text-secondary font-bold">48.65%</td>
+<td class="py-2.5 px-4 text-right text-tertiary font-bold">87.8%</td>
+<td class="py-2.5 px-4 text-on-surface text-body-sm font-medium">Preserves homogeneous identity; zero boundary damping</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Interactive Comparison Preview Indicator -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-sm pt-space-xs">
+<div class="p-space-sm rounded bg-surface-container flex flex-col gap-1">
+<span class="font-code-sm text-code-sm text-outline">Multiplicative σ(B)</span>
+<div class="h-1.5 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="bg-error h-full" style="width: 81.2%;"></div>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Interior: 81.2% (Drops >6%)</span>
+</div>
+<div class="p-space-sm rounded bg-surface-container flex flex-col gap-1">
+<span class="font-code-sm text-code-sm text-outline">Additive F + W·B</span>
+<div class="h-1.5 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="bg-on-surface-variant h-full" style="width: 83.4%;"></div>
+</div>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Interior: 83.4% (Sub-optimal)</span>
+</div>
+<div class="p-space-sm rounded bg-surface-container flex flex-col gap-1">
+<span class="font-code-sm text-code-sm text-tertiary">Bounded 1 + tanh(B) [Ours]</span>
+<div class="h-1.5 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="bg-tertiary h-full" style="width: 87.8%;"></div>
+</div>
+<span class="font-code-sm text-code-sm text-tertiary font-semibold">Interior: 87.8% (+6.6% Retention)</span>
+</div>
+</div>
+</section>
+<!-- PANEL 4: SENSITIVITY TO BOUNDARY LOSS WEIGHT (λ_bnd) -->
+<section class="flex flex-col bg-surface-container-low rounded-xl p-space-lg gap-space-md shadow-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="flex items-center justify-center w-6 h-6 rounded bg-primary/10 text-primary font-code-sm text-code-sm font-semibold">04</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Sensitivity to Boundary Loss Weight (λ_bnd)</h2>
+</div>
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm">
+<span class="px-2 py-0.5 rounded bg-surface-container text-outline">Optimal Regime: [0.3, 0.5]</span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-semibold">Peak: λ = 0.4</span>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container rounded-lg flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[18px] mt-0.5 shrink-0">tune</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+<strong class="text-on-surface font-medium">Takeaway:</strong> Performance remains stable across λ_bnd ∈ [0.3, 0.5], peaking at λ_bnd = 0.4. Oversaturating boundary loss (λ_bnd ≥ 0.8) leads to semantic class misclassification despite sharp edges.
+        </p>
+</div>
+</div>
+<!-- Dual Line Chart Canvas & Sweep Details -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-center">
+<!-- Line Chart Area -->
+<div class="lg:col-span-8 flex flex-col p-space-md bg-surface-container rounded-lg">
+<div class="flex flex-wrap items-center justify-between font-code-sm text-code-sm mb-space-sm">
+<span class="text-outline">Loss Formulation: L_total = L_ce + λ_bnd · L_bnd</span>
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-primary inline-block"></span><span class="text-primary font-medium">mIoU Curve</span></span>
+<span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-secondary inline-block"></span><span class="text-secondary font-medium">BIoU Curve</span></span>
+<span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-tertiary/20 inline-block"></span><span class="text-tertiary">Sweet Spot</span></span>
+</div>
+</div>
+<div class="relative w-full">
+<!-- SVG Line Chart with Responsive ViewBox -->
+<svg class="w-full h-auto text-on-surface font-code-sm overflow-visible" id="sensitivity-chart" viewbox="0 0 680 260">
+<!-- Grid Lines -->
+<line class="text-outline-variant/30" stroke="currentColor" stroke-dasharray="2 2" x1="60" x2="640" y1="40" y2="40"></line>
+<line class="text-outline-variant/30" stroke="currentColor" stroke-dasharray="2 2" x1="60" x2="640" y1="90" y2="90"></line>
+<line class="text-outline-variant/30" stroke="currentColor" stroke-dasharray="2 2" x1="60" x2="640" y1="140" y2="140"></line>
+<line class="text-outline-variant/30" stroke="currentColor" stroke-dasharray="2 2" x1="60" x2="640" y1="190" y2="190"></line>
+<!-- Y Axis Labels -->
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="end" x="50" y="44">55.0%</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="end" x="50" y="94">52.5%</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="end" x="50" y="144">48.0%</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="end" x="50" y="194">42.0%</text>
+<!-- Marked Sweet Spot Box (λ = 0.3 to 0.5) -->
+<!-- X Coordinates:
+                 λ: 0.0=60, 0.1=132.5, 0.2=205, 0.3=277.5, 0.4=350, 0.5=422.5, 0.6=495, 0.8=567.5, 1.0=640 -->
+<rect class="fill-tertiary/10" height="185" rx="4" width="145" x="277.5" y="25"></rect>
+<text class="text-tertiary text-[10px] font-bold" fill="currentColor" text-anchor="middle" x="350" y="36">OPTIMAL OPERATING WINDOW (λ=0.3 - 0.5)</text>
+<!-- BIoU Curve (Amber) Coordinates:
+                 0.0: 42.10 (y=190)
+                 0.1: 43.40 (y=179)
+                 0.2: 45.10 (y=164)
+                 0.3: 47.30 (y=146)
+                 0.4: 48.65 (y=135)
+                 0.5: 48.40 (y=137)
+                 0.6: 48.00 (y=140)
+                 0.8: 47.60 (y=144)
+                 1.0: 47.20 (y=147)
+            -->
+<path class="text-secondary" d="M 60,190 L 132.5,179 L 205,164 L 277.5,146 L 350,135 L 422.5,137 L 495,140 L 567.5,144 L 640,147" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<!-- mIoU Curve (Cyan) Coordinates:
+                 0.0: 51.90 (y=102)
+                 0.1: 52.80 (y=84)
+                 0.2: 53.60 (y=68)
+                 0.3: 54.40 (y=52)
+                 0.4: 54.82 (y=44)
+                 0.5: 54.60 (y=48)
+                 0.6: 53.70 (y=66)
+                 0.8: 52.20 (y=96)
+                 1.0: 50.80 (y=124)
+            -->
+<path class="text-primary" d="M 60,102 L 132.5,84 L 205,68 L 277.5,52 L 350,44 L 422.5,48 L 495,66 L 567.5,96 L 640,124" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+<!-- Points on Cyan Curve -->
+<circle class="fill-surface-container stroke-primary" cx="60" cy="102" r="3.5" stroke-width="2"></circle>
+<circle class="fill-surface-container stroke-primary" cx="132.5" cy="84" r="3.5" stroke-width="2"></circle>
+<circle class="fill-surface-container stroke-primary" cx="205" cy="68" r="3.5" stroke-width="2"></circle>
+<circle class="fill-surface-container stroke-primary" cx="277.5" cy="52" r="3.5" stroke-width="2"></circle>
+<!-- Peak Point -->
+<circle class="fill-primary stroke-white" cx="350" cy="44" r="5" stroke-width="2"></circle>
+<text class="text-primary-fixed text-[11px] font-bold" fill="currentColor" text-anchor="middle" x="350" y="60">54.82%</text>
+<circle class="fill-surface-container stroke-primary" cx="422.5" cy="48" r="3.5" stroke-width="2"></circle>
+<circle class="fill-surface-container stroke-primary" cx="495" cy="66" r="3.5" stroke-width="2"></circle>
+<circle class="fill-surface-container stroke-primary" cx="567.5" cy="96" r="3.5" stroke-width="2"></circle>
+<circle class="fill-surface-container stroke-primary" cx="640" cy="124" r="3.5" stroke-width="2"></circle>
+<!-- Points on Amber Curve -->
+<circle class="fill-surface-container stroke-secondary" cx="60" cy="190" r="3.5" stroke-width="2"></circle>
+<circle class="fill-surface-container stroke-secondary" cx="132.5" cy="179" r="3.5" stroke-width="2"></circle>
+<circle class="fill-surface-container stroke-secondary" cx="205" cy="164" r="3.5" stroke-width="2"></circle>
+<circle class="fill-surface-container stroke-secondary" cx="277.5" cy="146" r="3.5" stroke-width="2"></circle>
+<!-- Peak BIoU -->
+<circle class="fill-secondary stroke-white" cx="350" cy="135" r="5" stroke-width="2"></circle>
+<text class="text-secondary-fixed text-[11px] font-bold" fill="currentColor" text-anchor="middle" x="350" y="125">48.65%</text>
+<circle class="fill-surface-container stroke-secondary" cx="422.5" cy="137" r="3.5" stroke-width="2"></circle>
+<circle class="fill-surface-container stroke-secondary" cx="495" cy="140" r="3.5" stroke-width="2"></circle>
+<circle class="fill-surface-container stroke-secondary" cx="567.5" cy="144" r="3.5" stroke-width="2"></circle>
+<circle class="fill-surface-container stroke-secondary" cx="640" cy="147" r="3.5" stroke-width="2"></circle>
+<!-- X Axis Base -->
+<line class="text-outline-variant/60" stroke="currentColor" x1="60" x2="640" y1="210" y2="210"></line>
+<!-- X Labels -->
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="middle" x="60" y="226">0.0</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="middle" x="132.5" y="226">0.1</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="middle" x="205" y="226">0.2</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="middle" x="277.5" y="226">0.3</text>
+<text class="text-primary font-bold text-[11px]" fill="currentColor" text-anchor="middle" x="350" y="226">0.4*</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="middle" x="422.5" y="226">0.5</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="middle" x="495" y="226">0.6</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="middle" x="567.5" y="226">0.8</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="middle" x="640" y="226">1.0</text>
+<text class="text-outline text-[10px]" fill="currentColor" text-anchor="middle" x="350" y="248">Boundary Loss Weight (λ_bnd)</text>
+</svg>
+</div>
+</div>
+<!-- Sensitivity Hyperparameter Inspector -->
+<div class="lg:col-span-4 flex flex-col gap-space-sm p-space-md bg-surface-container rounded-lg">
+<div class="flex items-center justify-between border-b border-outline-variant/30 pb-2">
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">Point Inspector</span>
+<span class="font-code-sm text-code-sm text-tertiary">Selected: λ = 0.40</span>
+</div>
+<div class="flex flex-col gap-space-xs font-code-sm text-code-sm">
+<div class="flex justify-between py-1 border-b border-outline-variant/20">
+<span class="text-on-surface-variant">Optimal mIoU</span>
+<span class="text-primary font-bold">54.82% (+2.92%)</span>
+</div>
+<div class="flex justify-between py-1 border-b border-outline-variant/20">
+<span class="text-on-surface-variant">Optimal BIoU</span>
+<span class="text-secondary font-bold">48.65% (+6.55%)</span>
+</div>
+<div class="flex justify-between py-1 border-b border-outline-variant/20">
+<span class="text-on-surface-variant">Class Entropy Loss</span>
+<span class="text-on-surface">0.241 nats</span>
+</div>
+<div class="flex justify-between py-1 border-b border-outline-variant/20">
+<span class="text-on-surface-variant">Boundary Focal Loss</span>
+<span class="text-on-surface">0.118 nats</span>
+</div>
+</div>
+<div class="p-space-sm rounded bg-surface-container-low flex flex-col gap-1 font-body-sm text-body-sm text-on-surface-variant">
+<span class="text-error font-medium text-code-sm">Oversaturation Hazard (λ > 0.8):</span>
+<span>When boundary weighting dominates, semantic feature clustering degrades, dropping mIoU from 54.82% down to 50.80% despite boundary IoU staying flat at ~47.2%.</span>
+</div>
+<!-- Mini Interactive Parameter Slider Emulation -->
+<div class="flex flex-col gap-1.5 pt-space-xs">
+<div class="flex justify-between text-code-sm font-code-sm">
+<span class="text-outline">Hyperparameter Slider</span>
+<span class="text-primary" id="slider-val">0.40</span>
+</div>
+<input class="w-full accent-primary bg-surface-container-lowest h-1.5 rounded cursor-pointer" id="lambda-range" max="100" min="0" type="range" value="40"/>
+<div class="flex justify-between text-[10px] font-code-sm text-outline">
+<span>0.0 (Unconstrained)</span>
+<span>0.4 (Peak)</span>
+<span>1.0 (Oversaturated)</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- REPRODUCIBILITY & ARTIFACT FOOTER NOTE -->
+<section class="flex flex-wrap items-center justify-between p-space-sm bg-surface-container rounded-lg font-code-sm text-code-sm text-outline">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+<span>All 19 ablation run checkpoints available at <code class="text-on-surface-variant">checkpoints/ablation_ladder_*.pt</code></span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="text-on-surface-variant">Distributed Hardware: 4× RTX 4090 24GB</span>
+<span>•</span>
+<span>Fixed Batch Size: 16</span>
+</div>
+</section>
+<!-- Interactive script for hyperparameter slider readout -->
+<script>
+    (function() {
+      const slider = document.getElementById('lambda-range');
+      const valDisplay = document.getElementById('slider-val');
+      if (!slider || !valDisplay) return;
+
+      slider.addEventListener('input', function(e) {
+        const raw = parseFloat(e.target.value) / 100;
+        valDisplay.textContent = raw.toFixed(2);
+      });
+    })();
+  </script>
+</div></div></main></div></body></html>

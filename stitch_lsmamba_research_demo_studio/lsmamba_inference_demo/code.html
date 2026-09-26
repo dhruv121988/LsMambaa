@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"tertiary-fixed-dim":"#4edea3","on-primary-fixed":"#001f26","surface-container-high":"#282a2e","outline-variant":"#3d494c","background":"#111317","on-surface-variant":"#bcc9cd","secondary-fixed-dim":"#ffb95f","surface-variant":"#333539","inverse-primary":"#00687a","secondary-fixed":"#ffddb8","on-background":"#e2e2e8","surface-tint":"#4cd7f6","primary-fixed-dim":"#4cd7f6","surface-container":"#1e2024","surface-container-lowest":"#0c0e12","tertiary":"#4edea3","secondary-container":"#ee9800","on-error-container":"#ffdad6","primary":"#4cd7f6","on-surface":"#e2e2e8","on-secondary":"#472a00","tertiary-container":"#1bbd85","primary-fixed":"#acedff","on-tertiary-fixed":"#002113","on-secondary-container":"#5b3800","on-tertiary-fixed-variant":"#005236","surface-container-low":"#1a1c20","on-secondary-fixed":"#2a1700","error-container":"#93000a","on-tertiary-container":"#00452e","on-error":"#690005","error":"#ffb4ab","surface-dim":"#111317","secondary":"#ffb95f","outline":"#869397","on-primary":"#003640","inverse-surface":"#e2e2e8","surface-bright":"#37393e","on-primary-fixed-variant":"#004e5c","on-secondary-fixed-variant":"#653e00","surface-container-highest":"#333539","surface":"#111317","on-tertiary":"#003824","on-primary-container":"#00424f","tertiary-fixed":"#6ffbbe","inverse-on-surface":"#2f3035","primary-container":"#06b6d4"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"gutter":"1rem","space-lg":"1.5rem","space-md":"1rem","margin-desktop":"2rem","gutter-desktop":"1.5rem","margin":"1rem","space-xs":"0.25rem","space-sm":"0.5rem","space-xl":"2rem"},"fontFamily":{"body-sm":["Inter"],"headline-sm":["Geist"],"code-lg":["JetBrains Mono"],"code-sm":["JetBrains Mono"],"body-md":["Inter"],"label-caps":["JetBrains Mono"],"headline-lg-mobile":["Geist"],"headline-xl-mobile":["Geist"],"code-md":["JetBrains Mono"],"headline-xl":["Geist"],"headline-md":["Geist"],"headline-lg":["Geist"],"body-lg":["Inter"]},"fontSize":{"body-sm":["12px",{"lineHeight":"18px","fontWeight":"400"}],"headline-sm":["16px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"500"}],"code-lg":["13px",{"lineHeight":"18px","fontWeight":"500"}],"code-sm":["11px",{"lineHeight":"14px","fontWeight":"400"}],"body-md":["13px",{"lineHeight":"20px","fontWeight":"400"}],"label-caps":["10px",{"lineHeight":"12px","letterSpacing":"0.08em","fontWeight":"600"}],"headline-lg-mobile":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-xl-mobile":["26px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"code-md":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-xl":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-md":["20px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"500"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],"body-lg":["15px",{"lineHeight":"24px","fontWeight":"400"}]}}}}</script></head><body class="bg-surface-container-lowest text-on-surface font-body-md text-body-md min-h-screen antialiased selection:bg-primary-container selection:text-on-primary-container"><aside class="fixed left-0 top-0 h-screen w-[250px] bg-surface-container-low border-r border-outline-variant/40 z-50 flex flex-col justify-between overflow-y-auto"><div class="p-space-md border-b border-outline-variant/30"><div class="flex items-center gap-space-sm mb-space-xs"><img alt="LSMamba Emblem" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1X4vyvtJ3_jb0Gpnjf2vWndcOcwUqaxHdEw58hgZ86ZByHLXEbWv6_LGyl6BNakZvszZ9W8G3OdODKf2VdTzndH8RyJkQ2OhOUZBDWmZFTsXPefpvhTr_uUrSh6jpYeUS85GKnU9BQ1CHNK3zcz5HP7UXnSOtxJQ9ntRu6gcsalHDLkQvOlwIhffDrs9tr8E9zpJ6sCucjxzfUygbCr32RymY6JPzpxbs4wRCdjHu9he8l9HLnj-waucFY"/><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm font-semibold tracking-tight text-on-surface">LSMamba</span><span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-primary font-code-sm text-code-sm border border-outline-variant/50">v1.0.4</span></div></div><p class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Boundary-Gated VMamba-UNet for Land Cover Segmentation</p></div><nav class="flex-1 py-space-md px-space-sm flex flex-col gap-space-xs" data-active-classes="bg-surface-container-highest text-primary font-medium border-l-2 border-primary-container"><div class="px-space-sm pb-space-xs font-label-caps text-label-caps text-outline uppercase tracking-wider">Workspaces</div><a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg transition-colors bg-surface-container-highest text-primary font-medium border-l-2 border-primary-container" data-path="inference-demo" href="#"><span class="material-symbols-outlined text-[18px] text-primary">play_circle</span><span class="font-body-md text-body-md">Inference Demo</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="model-architecture" href="#"><span class="material-symbols-outlined text-[18px] text-secondary">account_tree</span><span class="font-body-md text-body-md">Model Architecture</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="results-benchmarks" href="#"><span class="material-symbols-outlined text-[18px]">leaderboard</span><span class="font-body-md text-body-md">Results & Benchmarks</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ablation-studies" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span class="font-body-md text-body-md">Ablation Studies</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="dataset-explorer" href="#"><span class="material-symbols-outlined text-[18px]">layers</span><span class="font-body-md text-body-md">Dataset Explorer</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="paper-specs" href="#"><span class="material-symbols-outlined text-[18px]">article</span><span class="font-body-md text-body-md">Paper & Specs</span></a></nav><div class="p-space-md border-t border-outline-variant/30 flex flex-col gap-space-sm bg-surface-container-lowest/50"><div class="flex flex-col gap-space-xs font-code-sm text-code-sm"><a class="flex items-center gap-space-xs text-on-surface-variant hover:text-primary transition-colors" href="https://github.com/lsmamba-project/lsmamba" target="_blank"><span class="material-symbols-outlined text-[16px]">terminal</span><span class="truncate">github.com/lsmamba-project/lsmamba</span></a><a class="flex items-center gap-space-xs text-on-surface-variant hover:text-secondary transition-colors" href="#"><span class="material-symbols-outlined text-[16px]">description</span><span>arXiv:2403.xxxxx</span></a></div><div class="p-space-xs px-space-sm rounded bg-surface-container border border-outline-variant/40 flex items-center gap-space-xs font-code-sm text-code-sm text-on-surface-variant"><span class="inline-block w-1.5 h-1.5 rounded-full bg-tertiary"></span><span class="truncate">Model Ready • RTX 4090 DDP • PyTorch 2.3</span></div></div></aside><div class="pl-[250px]"><header class="fixed top-0 left-[250px] right-0 h-14 bg-surface-container-low/95 backdrop-blur-md border-b border-outline-variant/40 z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-code-md text-code-md text-on-surface-variant"><span class="material-symbols-outlined text-[16px]">terminal</span><span>benchmarks</span><span class="text-outline">/</span><span class="text-on-surface font-semibold">loveda-val</span></div><div class="h-4 w-px bg-outline-variant/50"></div><div class="flex items-center gap-space-xs px-2 py-1 rounded bg-surface-container border border-outline-variant/40 text-on-surface font-code-sm text-code-sm"><span class="material-symbols-outlined text-[14px] text-primary">map</span><span>LoveDA Urban & Rural (1024×1024)</span><span class="material-symbols-outlined text-[14px] text-outline">expand_more</span></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs px-2.5 py-1 rounded bg-surface-container border border-outline-variant/40 text-on-surface font-code-sm text-code-sm"><span class="inline-block w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="text-outline">Latency:</span><span class="text-primary-fixed font-semibold">42ms / tile</span></div><button class="p-1.5 text-on-surface-variant hover:text-on-surface rounded bg-surface-container hover:bg-surface-container-high border border-outline-variant/40 transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">dark_mode</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-14 bg-surface-container-lowest min-h-screen"><div class="w-full max-w-[1240px] mx-auto p-[28px]"><div class="flex flex-col w-full gap-space-lg">
+<!-- Header Benchmark Context & Status Chips -->
+<div class="flex flex-wrap items-center justify-between gap-space-md p-space-md rounded-xl bg-surface-container-low shadow-sm">
+<div class="flex flex-wrap items-center gap-space-sm font-code-sm text-code-sm">
+<span class="flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-container-high text-primary font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+        EVAL BENCHMARK
+      </span>
+<span class="px-2 py-1 rounded bg-surface-container text-on-surface-variant font-code-sm">
+<span class="text-outline">Dataset:</span> LoveDA Urban/Rural Validation Set
+      </span>
+<span class="px-2 py-1 rounded bg-surface-container text-on-surface-variant font-code-sm">
+<span class="text-outline">Input Tile:</span> 1024×1024 px · 3-Band RGB/NIR
+      </span>
+<span class="px-2 py-1 rounded bg-surface-container text-on-surface-variant font-code-sm">
+<span class="text-outline">Backbone:</span> VMamba-Tiny + Boundary-Gated Decoder
+      </span>
+<span class="px-2 py-1 rounded bg-surface-container text-tertiary font-code-sm">
+<span class="text-outline">Weights:</span> checkpoint_epoch_160_best.pt
+      </span>
+</div>
+<div class="flex items-center gap-space-xs font-code-sm text-code-sm">
+<span class="text-outline">Evaluation Batch:</span>
+<span class="text-on-surface font-semibold">#729 / 1020</span>
+<button class="ml-2 p-1 rounded bg-surface-container hover:bg-surface-container-high text-on-surface-variant transition-colors" title="Reload Checkpoint" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+</button>
+</div>
+</div>
+<!-- Sample Selector Strip & Custom Upload Dropzone -->
+<div class="flex flex-col lg:flex-row items-stretch gap-space-md">
+<!-- Quick Samples -->
+<div class="flex-1 flex flex-col gap-space-xs p-space-md rounded-xl bg-surface-container-low">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-caps text-label-caps uppercase text-outline tracking-wider flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-primary">photo_library</span>
+          Benchmark Sample Tiles (LoveDA Val)
+        </span>
+<span class="font-code-sm text-code-sm text-outline">Click tile to load tensors</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-sm" id="sample-tiles-grid">
+<!-- Tile 1 (Active) -->
+<button class="group relative flex flex-col text-left p-2 rounded-lg bg-surface-container-highest transition-all ring-1 ring-primary shadow-sm" data-tile-id="0419" onclick="selectTile(this)" type="button">
+<div class="relative w-full aspect-video rounded overflow-hidden bg-surface-container-lowest mb-1.5">
+<svg class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" fill="none" viewbox="0 0 160 90">
+<rect fill="#1e293b" height="90" width="160"></rect>
+<path d="M0 65 Q 40 50, 90 70 T 160 60 L 160 90 L 0 90 Z" fill="#0284c7" opacity="0.8"></path>
+<rect fill="#475569" height="24" width="30" x="15" y="10"></rect>
+<rect fill="#e2e8f0" height="8" opacity="0.6" width="10" x="18" y="13"></rect>
+<rect fill="#e2e8f0" height="8" opacity="0.6" width="12" x="30" y="13"></rect>
+<rect fill="#334155" height="20" width="22" x="52" y="14"></rect>
+<rect fill="#475569" height="22" width="26" x="80" y="12"></rect>
+<path d="M0 40 L 160 48" stroke="#94a3b8" stroke-dasharray="8 3" stroke-width="4"></path>
+<polygon fill="#ca8a04" opacity="0.4" points="115,10 155,10 155,50 115,45"></polygon>
+</svg>
+<span class="absolute bottom-1 right-1 px-1 rounded bg-surface-container-lowest/80 text-primary font-code-sm text-[10px]">Active</span>
+</div>
+<div class="font-code-sm text-code-sm font-semibold text-on-surface truncate">Tile #0419</div>
+<div class="font-body-sm text-[11px] text-outline truncate">Nanjing Urban High-Density</div>
+</button>
+<!-- Tile 2 -->
+<button class="group relative flex flex-col text-left p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-all" data-tile-id="1184" onclick="selectTile(this)" type="button">
+<div class="relative w-full aspect-video rounded overflow-hidden bg-surface-container-lowest mb-1.5">
+<svg class="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity" fill="none" viewbox="0 0 160 90">
+<rect fill="#14532d" height="90" opacity="0.6" width="160"></rect>
+<polygon fill="#ca8a04" opacity="0.5" points="10,10 70,15 65,75 5,70"></polygon>
+<polygon fill="#166534" opacity="0.7" points="75,20 150,15 155,80 80,75"></polygon>
+<path d="M70 0 L 75 90" stroke="#f8fafc" stroke-width="3"></path>
+<rect fill="#ef4444" height="12" opacity="0.7" width="15" x="85" y="30"></rect>
+</svg>
+</div>
+<div class="font-code-sm text-code-sm font-semibold text-on-surface truncate">Tile #1184</div>
+<div class="font-body-sm text-[11px] text-outline truncate">Wuhan Agricultural Margin</div>
+</button>
+<!-- Tile 3 -->
+<button class="group relative flex flex-col text-left p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-all" data-tile-id="0872" onclick="selectTile(this)" type="button">
+<div class="relative w-full aspect-video rounded overflow-hidden bg-surface-container-lowest mb-1.5">
+<svg class="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity" fill="none" viewbox="0 0 160 90">
+<rect fill="#334155" height="90" width="160"></rect>
+<path d="M0 20 Q 50 60, 110 30 T 160 70 L 160 90 L 0 90 Z" fill="#0891b2"></path>
+<polygon fill="#15803d" points="10,5 50,5 40,30 10,25"></polygon>
+<circle cx="130" cy="20" fill="#a855f7" opacity="0.5" r="14"></circle>
+</svg>
+</div>
+<div class="font-code-sm text-code-sm font-semibold text-on-surface truncate">Tile #0872</div>
+<div class="font-body-sm text-[11px] text-outline truncate">Changzhou River Basin</div>
+</button>
+<!-- Tile 4 -->
+<button class="group relative flex flex-col text-left p-2 rounded-lg bg-surface-container hover:bg-surface-container-high transition-all" data-tile-id="2051" onclick="selectTile(this)" type="button">
+<div class="relative w-full aspect-video rounded overflow-hidden bg-surface-container-lowest mb-1.5">
+<svg class="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity" fill="none" viewbox="0 0 160 90">
+<rect fill="#1e293b" height="90" width="160"></rect>
+<rect fill="#ef4444" height="35" opacity="0.6" width="40" x="10" y="10"></rect>
+<rect fill="#ef4444" height="35" opacity="0.6" width="40" x="60" y="10"></rect>
+<rect fill="#ef4444" height="35" opacity="0.6" width="40" x="110" y="10"></rect>
+<rect fill="#64748b" height="30" width="60" x="10" y="52"></rect>
+<rect fill="#475569" height="30" width="70" x="80" y="52"></rect>
+</svg>
+</div>
+<div class="font-code-sm text-code-sm font-semibold text-on-surface truncate">Tile #2051</div>
+<div class="font-body-sm text-[11px] text-outline truncate">Industrial Complex Zone</div>
+</button>
+</div>
+</div>
+<!-- Upload Tile Zone -->
+<div class="lg:w-72 flex flex-col justify-center items-center p-space-md rounded-xl bg-surface-container-low text-center group cursor-pointer hover:bg-surface-container transition-colors">
+<div class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-primary mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[20px]">upload_file</span>
+</div>
+<span class="font-code-sm text-code-sm font-medium text-on-surface">Custom GeoTIFF / PNG</span>
+<span class="font-body-sm text-[11px] text-outline mt-0.5">Drag 1024×1024 image tile here</span>
+<button class="mt-2.5 px-3 py-1 rounded bg-surface-container-highest hover:bg-surface-bright text-primary font-code-sm text-code-sm font-medium transition-colors" type="button">
+        Upload .tif / .png tile
+      </button>
+</div>
+</div>
+<!-- Synchronized 3-Panel Inspection Workbench -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+<!-- Panel 1: Input Satellite Tile (RGB / NIR) -->
+<div class="flex flex-col rounded-xl bg-surface-container-low overflow-hidden shadow-sm">
+<!-- Header -->
+<div class="flex items-center justify-between px-space-md py-2.5 bg-surface-container">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">satellite_alt</span>
+<span class="font-code-sm text-code-sm font-semibold text-on-surface">1. Input Satellite Tile</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-code-sm text-[10px]">RGB 3-Band · 0.3m GSD</span>
+</div>
+<!-- Canvas Area -->
+<div class="relative w-full aspect-square bg-surface-container-lowest overflow-hidden group">
+<!-- Realistic Remote Sensing Orthophoto Simulation SVG -->
+<svg class="w-full h-full" fill="none" id="canvas-rgb" viewbox="0 0 512 512">
+<defs>
+<pattern height="16" id="crop-pattern" patternunits="userSpaceOnUse" width="16">
+<line stroke="#ca8a04" stroke-opacity="0.3" stroke-width="1.5" x1="0" x2="16" y1="0" y2="16"></line>
+</pattern>
+<pattern height="24" id="urban-grid" patternunits="userSpaceOnUse" width="24">
+<rect fill="#334155" height="20" opacity="0.6" width="20"></rect>
+<rect fill="#64748b" height="6" opacity="0.8" width="7" x="2" y="2"></rect>
+<rect fill="#64748b" height="6" opacity="0.8" width="7" x="11" y="2"></rect>
+<rect fill="#64748b" height="7" opacity="0.8" width="7" x="2" y="10"></rect>
+<rect fill="#64748b" height="7" opacity="0.8" width="7" x="11" y="10"></rect>
+</pattern>
+</defs>
+<!-- Ground Base (Soil / Barren) -->
+<rect fill="#2d3748" height="512" width="512"></rect>
+<!-- Agricultural Crop Field Top-Right -->
+<polygon fill="#3f4a36" points="260,0 512,0 512,240 280,210"></polygon>
+<polygon fill="url(#crop-pattern)" points="260,0 512,0 512,240 280,210"></polygon>
+<!-- Forest Grove Center-Right -->
+<path d="M300,120 Q360,90 440,130 T490,230 T360,260 T290,190 Z" fill="#1c3d2e" opacity="0.85"></path>
+<circle cx="340" cy="160" fill="#14532d" r="18"></circle>
+<circle cx="370" cy="180" fill="#166534" r="22"></circle>
+<circle cx="420" cy="170" fill="#14532d" r="25"></circle>
+<circle cx="390" cy="220" fill="#15803d" r="20"></circle>
+<!-- Meandering Water Canal -->
+<path d="M0,320 C140,300 170,390 280,360 C380,330 440,430 512,400 L512,470 C430,490 350,380 270,410 C160,450 120,360 0,380 Z" fill="#0c4a6e"></path>
+<path d="M10,345 C150,325 180,415 290,385 C390,355 450,455 510,425" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="2"></path>
+<!-- Urban High-Density Residential Grid Left / Center-Left -->
+<rect fill="url(#urban-grid)" height="280" width="220" x="20" y="20"></rect>
+<!-- Dense Building Footprints -->
+<g fill="#475569" stroke="#1e293b" stroke-width="1.5">
+<rect height="40" width="55" x="30" y="30"></rect>
+<rect height="40" width="45" x="95" y="30"></rect>
+<rect height="40" width="70" x="150" y="30"></rect>
+<rect height="50" width="40" x="30" y="85"></rect>
+<rect height="50" width="60" x="80" y="85"></rect>
+<rect height="50" width="70" x="150" y="85"></rect>
+<rect height="65" width="70" x="30" y="150"></rect>
+<rect height="65" width="45" x="110" y="150"></rect>
+<rect height="65" width="55" x="165" y="150"></rect>
+<rect height="60" width="55" x="30" y="230"></rect>
+<rect height="60" width="60" x="95" y="230"></rect>
+<rect height="60" width="55" x="165" y="230"></rect>
+</g>
+<!-- Major Highway Road Network -->
+<path d="M0,140 L250,140 L270,0" stroke="#cbd5e1" stroke-width="8"></path>
+<path d="M250,140 L250,330" stroke="#cbd5e1" stroke-width="8"></path>
+<path d="M246,140 L246,330" stroke="#f8fafc" stroke-dasharray="6 4" stroke-width="1"></path>
+<path d="M0,140 L250,140" stroke="#f8fafc" stroke-dasharray="6 4" stroke-width="1"></path>
+<!-- Rural Secondary Road -->
+<path d="M250,220 C320,230 380,290 512,280" stroke="#94a3b8" stroke-width="4"></path>
+<!-- Southern Riverbank Farmland / Barren -->
+<polygon fill="#473e35" points="0,420 180,410 240,512 0,512"></polygon>
+<polygon fill="#524433" points="260,450 512,440 512,512 250,512"></polygon>
+<!-- Reticle crosshair centered -->
+<circle cx="256" cy="256" fill="none" r="16" stroke="#4cd7f6" stroke-opacity="0.6" stroke-width="1"></circle>
+<line stroke="#4cd7f6" stroke-opacity="0.6" stroke-width="1" x1="256" x2="256" y1="234" y2="278"></line>
+<line stroke="#4cd7f6" stroke-opacity="0.6" stroke-width="1" x1="234" x2="278" y1="256" y2="256"></line>
+</svg>
+<!-- Coordinate Readout Overlay -->
+<div class="absolute bottom-2 left-2 px-2 py-1 rounded bg-surface-container-lowest/90 backdrop-blur-md font-code-sm text-[11px] text-on-surface-variant pointer-events-none flex items-center gap-1.5 shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span>Lat 31.9842° N, Lon 118.7841° E</span>
+<span class="text-outline">|</span>
+<span class="text-primary-fixed">GSD 0.3m</span>
+</div>
+<div class="absolute top-2 right-2 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-md font-code-sm text-[10px] text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-tertiary">lock</span>
+<span>100% Synced</span>
+</div>
+</div>
+<!-- Panel Footer Status -->
+<div class="px-space-md py-2 bg-surface-container flex items-center justify-between font-code-sm text-code-sm">
+<span class="text-outline">Sensor: GeoEye-1 Level 1C</span>
+<span class="text-on-surface-variant">NIR-R-G False Color</span>
+</div>
+</div>
+<!-- Panel 2: Predicted Land-Cover Mask -->
+<div class="flex flex-col rounded-xl bg-surface-container-low overflow-hidden shadow-sm">
+<!-- Header -->
+<div class="flex items-center justify-between px-space-md py-2.5 bg-surface-container">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">category</span>
+<span class="font-code-sm text-code-sm font-semibold text-primary">2. Land-Cover Mask</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="px-1.5 py-0.5 rounded bg-primary-container/20 text-primary-fixed font-code-sm text-[10px]">Dual-Pathway Gated</span>
+</div>
+</div>
+<!-- Canvas Area: 7-Class Segmented Mask -->
+<div class="relative w-full aspect-square bg-surface-container-lowest overflow-hidden">
+<svg class="w-full h-full" fill="none" id="canvas-mask" viewbox="0 0 512 512">
+<!-- Background (#334155) -->
+<rect fill="#334155" height="512" width="512"></rect>
+<!-- Agriculture Field (#eab308) Top-Right -->
+<polygon fill="#eab308" points="260,0 512,0 512,240 280,210"></polygon>
+<!-- Forest Area (#22c55e) -->
+<path d="M300,120 Q360,90 440,130 T490,230 T360,260 T290,190 Z" fill="#22c55e"></path>
+<!-- Water Channel (#06b6d4) -->
+<path d="M0,320 C140,300 170,390 280,360 C380,330 440,430 512,400 L512,470 C430,490 350,380 270,410 C160,450 120,360 0,380 Z" fill="#06b6d4"></path>
+<!-- Barren Plots (#a855f7) -->
+<polygon fill="#a855f7" points="0,420 180,410 240,512 0,512"></polygon>
+<polygon fill="#a855f7" points="260,450 512,440 512,512 250,512"></polygon>
+<!-- Building Clusters (#ef4444) -->
+<g fill="#ef4444">
+<rect height="40" width="55" x="30" y="30"></rect>
+<rect height="40" width="45" x="95" y="30"></rect>
+<rect height="40" width="70" x="150" y="30"></rect>
+<rect height="50" width="40" x="30" y="85"></rect>
+<rect height="50" width="60" x="80" y="85"></rect>
+<rect height="50" width="70" x="150" y="85"></rect>
+<rect height="65" width="70" x="30" y="150"></rect>
+<rect height="65" width="45" x="110" y="150"></rect>
+<rect height="65" width="55" x="165" y="150"></rect>
+<rect height="60" width="55" x="30" y="230"></rect>
+<rect height="60" width="60" x="95" y="230"></rect>
+<rect height="60" width="55" x="165" y="230"></rect>
+</g>
+<!-- Road System (#e2e8f0) -->
+<path d="M0,140 L250,140 L270,0" stroke="#e2e8f0" stroke-linecap="square" stroke-width="8"></path>
+<path d="M250,140 L250,330" stroke="#e2e8f0" stroke-linecap="square" stroke-width="8"></path>
+<path d="M250,220 C320,230 380,290 512,280" stroke="#e2e8f0" stroke-linecap="round" stroke-width="5"></path>
+<!-- Boundary Overlay Layer (Interactive alpha control) -->
+<g class="pointer-events-none opacity-40 transition-opacity duration-150" id="mask-boundary-overlay">
+<!-- Outlines of all segmented elements in amber -->
+<path d="M260,0 L512,0 L512,240 L280,210 Z" fill="none" stroke="#f59e0b" stroke-width="2.5"></path>
+<path d="M300,120 Q360,90 440,130 T490,230 T360,260 T290,190 Z" fill="none" stroke="#f59e0b" stroke-width="2.5"></path>
+<path d="M0,320 C140,300 170,390 280,360 C380,330 440,430 512,400 L512,470 C430,490 350,380 270,410 C160,450 120,360 0,380 Z" fill="none" stroke="#f59e0b" stroke-width="3"></path>
+<rect fill="none" height="40" stroke="#f59e0b" stroke-width="2.5" width="55" x="30" y="30"></rect>
+<rect fill="none" height="40" stroke="#f59e0b" stroke-width="2.5" width="45" x="95" y="30"></rect>
+<rect fill="none" height="40" stroke="#f59e0b" stroke-width="2.5" width="70" x="150" y="30"></rect>
+<rect fill="none" height="50" stroke="#f59e0b" stroke-width="2.5" width="40" x="30" y="85"></rect>
+<rect fill="none" height="50" stroke="#f59e0b" stroke-width="2.5" width="60" x="80" y="85"></rect>
+<rect fill="none" height="50" stroke="#f59e0b" stroke-width="2.5" width="70" x="150" y="85"></rect>
+<rect fill="none" height="65" stroke="#f59e0b" stroke-width="2.5" width="70" x="30" y="150"></rect>
+<rect fill="none" height="65" stroke="#f59e0b" stroke-width="2.5" width="45" x="110" y="150"></rect>
+<rect fill="none" height="65" stroke="#f59e0b" stroke-width="2.5" width="55" x="165" y="150"></rect>
+<rect fill="none" height="60" stroke="#f59e0b" stroke-width="2.5" width="55" x="30" y="230"></rect>
+<rect fill="none" height="60" stroke="#f59e0b" stroke-width="2.5" width="60" x="95" y="230"></rect>
+<rect fill="none" height="60" stroke="#f59e0b" stroke-width="2.5" width="55" x="165" y="230"></rect>
+</g>
+</svg>
+<div class="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-md font-code-sm text-[10px] text-primary flex items-center gap-1">
+<span>SS2D 4-Way Scan</span>
+</div>
+</div>
+<!-- Color-Key Legend Pill Bar -->
+<div class="px-space-sm py-2 bg-surface-container flex flex-wrap items-center justify-between gap-1 text-[11px] font-code-sm border-t-0">
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#334155] inline-block"></span>Bg
+        </span>
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#ef4444] inline-block"></span>Bldg
+        </span>
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#e2e8f0] inline-block"></span>Road
+        </span>
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#06b6d4] inline-block"></span>Water
+        </span>
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#a855f7] inline-block"></span>Barren
+        </span>
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#22c55e] inline-block"></span>Forest
+        </span>
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container-lowest text-on-surface-variant">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#eab308] inline-block"></span>Agri
+        </span>
+</div>
+</div>
+<!-- Panel 3: Boundary Confidence Heatmap (B_pred) -->
+<div class="flex flex-col rounded-xl bg-surface-container-low overflow-hidden shadow-sm">
+<!-- Header -->
+<div class="flex items-center justify-between px-space-md py-2.5 bg-surface-container">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">flare</span>
+<span class="font-code-sm text-code-sm font-semibold text-secondary">3. Boundary Head (B_pred)</span>
+</div>
+<span class="px-1.5 py-0.5 rounded bg-secondary-container/20 text-secondary-fixed font-code-sm text-[10px]">Sigmoid Logits</span>
+</div>
+<!-- Canvas Area: Progressive Amber Boundary Heatmap -->
+<div class="relative w-full aspect-square bg-[#0b0f17] overflow-hidden">
+<svg class="w-full h-full" fill="none" id="canvas-boundary" viewbox="0 0 512 512">
+<defs>
+<!-- Amber Glow Filter -->
+<filter height="140%" id="amber-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="3"></fegaussianblur>
+<femerge>
+<femergenode in="blur"></femergenode>
+<femergenode in="blur"></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+<!-- Coarse Outer Haze Filter -->
+<filter height="160%" id="haze-glow" width="160%" x="-30%" y="-30%">
+<fegaussianblur result="blur2" stddeviation="8"></fegaussianblur>
+<femerge>
+<femergenode in="blur2"></femergenode>
+<femergenode in="SourceGraphic"></femergenode>
+</femerge>
+</filter>
+</defs>
+<!-- Deep Zero-Confidence Background -->
+<rect fill="#090d14" height="512" width="512"></rect>
+<!-- Faint Coarse Boundary Fields (Low probability 0.15 - 0.35) -->
+<g fill="none" filter="url(#haze-glow)" stroke="#f59e0b" stroke-opacity="0.25">
+<polygon points="260,0 512,0 512,240 280,210" stroke-width="12"></polygon>
+<path d="M300,120 Q360,90 440,130 T490,230 T360,260 T290,190 Z" stroke-width="14"></path>
+<path d="M0,320 C140,300 170,390 280,360 C380,330 440,430 512,400 L512,470 C430,490 350,380 270,410 C160,450 120,360 0,380 Z" stroke-width="14"></path>
+<rect height="270" stroke-width="10" width="200" x="25" y="25"></rect>
+</g>
+<!-- Medium Boundary Logits (0.5 - 0.75) -->
+<g fill="none" filter="url(#amber-glow)" stroke="#f97316" stroke-opacity="0.65" stroke-width="4">
+<!-- Agricultural Perimeter -->
+<polygon points="260,0 512,0 512,240 280,210"></polygon>
+<!-- Forest Edge -->
+<path d="M300,120 Q360,90 440,130 T490,230 T360,260 T290,190 Z"></path>
+<!-- River Edge -->
+<path d="M0,320 C140,300 170,390 280,360 C380,330 440,430 512,400"></path>
+<path d="M0,380 C120,360 160,450 270,410 C350,380 430,490 512,470"></path>
+<!-- Road Outer Lines -->
+<path d="M0,136 L246,136 L266,0"></path>
+<path d="M0,144 L254,144 L274,0"></path>
+<path d="M246,144 L246,330"></path>
+<path d="M254,144 L254,330"></path>
+</g>
+<!-- Sharp Delineated Core Boundaries (Logit 0.85 - 1.0) -->
+<g fill="none" stroke="#fbbf24" stroke-width="1.8">
+<!-- Buildings (Extremely sharp contour) -->
+<rect height="40" width="55" x="30" y="30"></rect>
+<rect height="40" width="45" x="95" y="30"></rect>
+<rect height="40" width="70" x="150" y="30"></rect>
+<rect height="50" width="40" x="30" y="85"></rect>
+<rect height="50" width="60" x="80" y="85"></rect>
+<rect height="50" width="70" x="150" y="85"></rect>
+<rect height="65" width="70" x="30" y="150"></rect>
+<rect height="65" width="45" x="110" y="150"></rect>
+<rect height="65" width="55" x="165" y="150"></rect>
+<rect height="60" width="55" x="30" y="230"></rect>
+<rect height="60" width="60" x="95" y="230"></rect>
+<rect height="60" width="55" x="165" y="230"></rect>
+<!-- High Sharpness Agricultural Edges -->
+<line stroke="#fde68a" stroke-width="1.5" x1="260" x2="280" y1="0" y2="210"></line>
+<line stroke="#fde68a" stroke-width="1.5" x1="280" x2="512" y1="210" y2="240"></line>
+<!-- River Interface Line -->
+<path d="M0,320 C140,300 170,390 280,360 C380,330 440,430 512,400" stroke="#fde68a" stroke-width="1.8"></path>
+<path d="M0,380 C120,360 160,450 270,410 C350,380 430,490 512,470" stroke="#fde68a" stroke-width="1.8"></path>
+</g>
+</svg>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-surface-container-lowest/90 backdrop-blur-md font-code-sm text-[10px] text-secondary flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>Max Logit: 0.984</span>
+</div>
+</div>
+<!-- Colorbar Legend -->
+<div class="px-space-md py-2 bg-surface-container flex flex-col gap-1 font-code-sm text-code-sm">
+<div class="h-2 w-full rounded-sm bg-gradient-to-r from-[#090d14] via-[#ea580c] to-[#fde68a]"></div>
+<div class="flex items-center justify-between text-[10px] text-outline">
+<span>0.0 (Interior)</span>
+<span>0.5 (Edge Margin)</span>
+<span class="text-secondary font-medium">1.0 (Sharp Boundary)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Controls Toolbar -->
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md">
+<!-- Slider for Mask Overlay Blend -->
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center gap-space-md">
+<div class="flex items-center gap-2 min-w-max">
+<span class="material-symbols-outlined text-[18px] text-secondary">tune</span>
+<span class="font-code-sm text-code-sm font-semibold text-on-surface">Boundary Blend on Mask:</span>
+<span class="font-code-sm text-code-sm text-secondary font-bold" id="slider-val">40%</span>
+</div>
+<div class="flex-1 flex items-center gap-space-sm">
+<span class="font-code-sm text-[11px] text-outline">0%</span>
+<input class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary" id="blend-slider" max="100" min="0" oninput="updateBlend(this.value)" type="range" value="40"/>
+<span class="font-code-sm text-[11px] text-outline">100%</span>
+</div>
+</div>
+<!-- Toggle Modes -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="flex items-center bg-surface-container p-0.5 rounded-lg">
+<button class="px-2.5 py-1 rounded bg-surface-container-highest text-primary font-code-sm text-code-sm font-medium shadow-xs" type="button">Split View</button>
+<button class="px-2.5 py-1 rounded hover:bg-surface-container-high text-on-surface-variant font-code-sm text-code-sm transition-colors" type="button">Overlay</button>
+<button class="px-2.5 py-1 rounded hover:bg-surface-container-high text-on-surface-variant font-code-sm text-code-sm transition-colors" type="button">Edge Diff</button>
+</div>
+<div class="h-4 w-px bg-surface-container-high hidden sm:block"></div>
+<!-- Scale Toggle -->
+<div class="flex items-center bg-surface-container p-0.5 rounded-lg">
+<button class="px-2.5 py-1 rounded bg-surface-container-highest text-on-surface font-code-sm text-code-sm font-medium" type="button">1024×1024</button>
+<button class="px-2.5 py-1 rounded hover:bg-surface-container-high text-on-surface-variant font-code-sm text-code-sm transition-colors" type="button">512 Crop</button>
+<button class="px-2.5 py-1 rounded hover:bg-surface-container-high text-on-surface-variant font-code-sm text-code-sm transition-colors" type="button">200%</button>
+</div>
+</div>
+</div>
+<!-- Prediction Telemetry Metrics Strip -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-space-sm">
+<!-- Metric 1: mIoU -->
+<div class="p-space-sm px-space-md rounded-xl bg-surface-container-low flex flex-col gap-1 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">mIoU (Overall)</span>
+<span class="material-symbols-outlined text-[15px] text-primary">data_thresholding</span>
+</div>
+<div class="flex items-baseline gap-1.5">
+<span class="font-code-lg text-headline-sm font-bold text-primary">54.82%</span>
+</div>
+<span class="font-code-sm text-[11px] text-tertiary font-medium">+3.41% vs VMamba-Base</span>
+</div>
+<!-- Metric 2: OA -->
+<div class="p-space-sm px-space-md rounded-xl bg-surface-container-low flex flex-col gap-1 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">Overall Acc (OA)</span>
+<span class="material-symbols-outlined text-[15px] text-on-surface-variant">check_circle</span>
+</div>
+<div class="flex items-baseline gap-1.5">
+<span class="font-code-lg text-headline-sm font-bold text-on-surface">74.19%</span>
+</div>
+<span class="font-code-sm text-[11px] text-outline">+1.90% vs SegNeXt</span>
+</div>
+<!-- Metric 3: Boundary IoU -->
+<div class="p-space-sm px-space-md rounded-xl bg-surface-container-low flex flex-col gap-1 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-secondary uppercase">Boundary IoU (BIoU)</span>
+<span class="material-symbols-outlined text-[15px] text-secondary">polyline</span>
+</div>
+<div class="flex items-baseline gap-1.5">
+<span class="font-code-lg text-headline-sm font-bold text-secondary">48.65%</span>
+</div>
+<span class="font-code-sm text-[11px] text-secondary font-medium">+5.82% vs Plain UNet</span>
+</div>
+<!-- Metric 4: Boundary F1 -->
+<div class="p-space-sm px-space-md rounded-xl bg-surface-container-low flex flex-col gap-1 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-secondary uppercase">Boundary F1 (d=3)</span>
+<span class="material-symbols-outlined text-[15px] text-secondary">adjust</span>
+</div>
+<div class="flex items-baseline gap-1.5">
+<span class="font-code-lg text-headline-sm font-bold text-secondary">61.20%</span>
+</div>
+<span class="font-code-sm text-[11px] text-tertiary font-medium">+4.15% vs FarSeg</span>
+</div>
+<!-- Metric 5: Inference Latency -->
+<div class="p-space-sm px-space-md rounded-xl bg-surface-container-low flex flex-col gap-1 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">Latency (RTX 4090)</span>
+<span class="material-symbols-outlined text-[15px] text-on-surface-variant">speed</span>
+</div>
+<div class="flex items-baseline gap-1.5">
+<span class="font-code-lg text-headline-sm font-bold text-on-surface">41.8 ms</span>
+</div>
+<span class="font-code-sm text-[11px] text-primary">23.9 FPS throughput</span>
+</div>
+<!-- Metric 6: VRAM Consumption -->
+<div class="p-space-sm px-space-md rounded-xl bg-surface-container-low flex flex-col gap-1 shadow-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">GPU VRAM Alloc</span>
+<span class="material-symbols-outlined text-[15px] text-on-surface-variant">memory</span>
+</div>
+<div class="flex items-baseline gap-1.5">
+<span class="font-code-lg text-headline-sm font-bold text-on-surface">1.84 GB</span>
+</div>
+<span class="font-code-sm text-[11px] text-tertiary">Linear O(N) memory</span>
+</div>
+</div>
+<!-- Expandable Technical Panel: Progressive Decoder Boundary Inspection -->
+<div class="p-space-md rounded-xl bg-surface-container-low shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-wrap items-center justify-between gap-space-sm pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">account_tree</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Progressive Decoder Boundary Inspection (Coarse-to-Fine)</span>
+</div>
+<span class="font-code-sm text-code-sm text-outline">Multi-Scale Skip Supervision Analysis</span>
+</div>
+<!-- Stage Navigation Tabs -->
+<div class="flex flex-wrap items-center gap-space-xs p-1 rounded-lg bg-surface-container" id="stage-tabs">
+<button class="flex-1 min-w-[170px] py-1.5 px-3 rounded text-left font-code-sm text-code-sm text-on-surface-variant hover:text-on-surface transition-colors" onclick="switchStage(this, 's4')" type="button">
+<span class="block text-outline text-[10px]">STAGE 4 (1/32 scale)</span>
+<span class="font-medium">Latent Deep Edges</span>
+</button>
+<button class="flex-1 min-w-[170px] py-1.5 px-3 rounded text-left font-code-sm text-code-sm text-on-surface-variant hover:text-on-surface transition-colors" onclick="switchStage(this, 's3')" type="button">
+<span class="block text-outline text-[10px]">STAGE 3 (1/16 scale)</span>
+<span class="font-medium">Coarse Structural Contours</span>
+</button>
+<button class="flex-1 min-w-[170px] py-1.5 px-3 rounded text-left font-code-sm text-code-sm text-on-surface-variant hover:text-on-surface transition-colors" onclick="switchStage(this, 's2')" type="button">
+<span class="block text-outline text-[10px]">STAGE 2 (1/8 scale)</span>
+<span class="font-medium">Object Margins & Gating</span>
+</button>
+<button class="flex-1 min-w-[170px] py-1.5 px-3 rounded text-left font-code-sm text-code-sm bg-surface-container-highest text-secondary shadow-xs font-semibold" onclick="switchStage(this, 'final')" type="button">
+<span class="block text-secondary text-[10px]">★ FINAL BOUNDARY HEAD</span>
+<span class="font-medium">1/4 Scale (B_pred) Active</span>
+</button>
+</div>
+<!-- Progressive Visualization Strip & Loss Formulation Equation -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md items-center">
+<!-- Mini Stage Visualization Cards -->
+<div class="lg:col-span-2 grid grid-cols-4 gap-space-sm">
+<!-- Mini S4 -->
+<div class="flex flex-col gap-1 p-2 rounded-lg bg-surface-container text-center">
+<span class="font-code-sm text-[10px] text-outline">S4: 32×32 px</span>
+<div class="w-full aspect-video bg-surface-container-lowest rounded flex items-center justify-center p-1">
+<svg class="w-full h-full" fill="none" viewbox="0 0 40 20">
+<rect height="12" stroke="#f59e0b" stroke-dasharray="3 3" stroke-opacity="0.3" stroke-width="3" width="30" x="5" y="4"></rect>
+</svg>
+</div>
+<span class="font-code-sm text-[10px] text-outline truncate">Loss: 0.412</span>
+</div>
+<!-- Mini S3 -->
+<div class="flex flex-col gap-1 p-2 rounded-lg bg-surface-container text-center">
+<span class="font-code-sm text-[10px] text-outline">S3: 64×64 px</span>
+<div class="w-full aspect-video bg-surface-container-lowest rounded flex items-center justify-center p-1">
+<svg class="w-full h-full" fill="none" viewbox="0 0 40 20">
+<path d="M4 14 Q 20 2, 36 12" stroke="#f59e0b" stroke-opacity="0.5" stroke-width="2.5"></path>
+<rect height="8" stroke="#f59e0b" stroke-opacity="0.5" stroke-width="1.8" width="10" x="8" y="5"></rect>
+</svg>
+</div>
+<span class="font-code-sm text-[10px] text-outline truncate">Loss: 0.287</span>
+</div>
+<!-- Mini S2 -->
+<div class="flex flex-col gap-1 p-2 rounded-lg bg-surface-container text-center">
+<span class="font-code-sm text-[10px] text-outline">S2: 128×128 px</span>
+<div class="w-full aspect-video bg-surface-container-lowest rounded flex items-center justify-center p-1">
+<svg class="w-full h-full" fill="none" viewbox="0 0 40 20">
+<path d="M4 14 Q 20 4, 36 12" stroke="#f59e0b" stroke-opacity="0.75" stroke-width="1.8"></path>
+<rect height="8" stroke="#f59e0b" stroke-opacity="0.8" stroke-width="1.2" width="10" x="8" y="5"></rect>
+<rect height="7" stroke="#f59e0b" stroke-opacity="0.8" stroke-width="1.2" width="12" x="22" y="6"></rect>
+</svg>
+</div>
+<span class="font-code-sm text-[10px] text-outline truncate">Loss: 0.165</span>
+</div>
+<!-- Mini Final Head -->
+<div class="flex flex-col gap-1 p-2 rounded-lg bg-surface-container text-center ring-1 ring-secondary/50">
+<span class="font-code-sm text-[10px] text-secondary font-medium">B_pred: 256×256</span>
+<div class="w-full aspect-video bg-surface-container-lowest rounded flex items-center justify-center p-1">
+<svg class="w-full h-full" fill="none" viewbox="0 0 40 20">
+<path d="M4 14 Q 20 4, 36 12" stroke="#fbbf24" stroke-width="1.2"></path>
+<rect height="8" stroke="#fbbf24" stroke-width="1" width="10" x="8" y="5"></rect>
+<rect height="7" stroke="#fbbf24" stroke-width="1" width="12" x="22" y="6"></rect>
+<line stroke="#f59e0b" stroke-dasharray="2 2" stroke-width="0.8" x1="2" x2="38" y1="2" y2="18"></line>
+</svg>
+</div>
+<span class="font-code-sm text-[10px] text-secondary font-semibold">Loss: 0.082</span>
+</div>
+</div>
+<!-- Formulation Snippet Card -->
+<div class="p-space-sm rounded-lg bg-surface-container flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-caps text-label-caps text-outline uppercase">Boundary Loss Objective</span>
+<span class="font-code-sm text-[10px] text-secondary">λ_bnd = 0.4</span>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest font-code-sm text-code-sm text-on-surface overflow-x-auto">
+<code>L_total = L_seg + λ_bnd · ∑ α_i · L_bnd(B_i, Y_bnd)</code>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest font-code-sm text-[11px] text-primary overflow-x-auto">
+<code>boundary_gate = torch.sigmoid(conv_bnd(dec_feat)) * skip_feat</code>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Client-side Interactive Behavior -->
+<script>
+  function updateBlend(val) {
+    document.getElementById('slider-val').innerText = val + '%';
+    const overlay = document.getElementById('mask-boundary-overlay');
+    if (overlay) {
+      overlay.style.opacity = (val / 100).toString();
+    }
+  }
+
+  function selectTile(btn) {
+    const grid = document.getElementById('sample-tiles-grid');
+    const buttons = grid.querySelectorAll('button');
+    buttons.forEach(b => {
+      b.classList.remove('ring-1', 'ring-primary', 'bg-surface-container-highest');
+      b.classList.add('bg-surface-container');
+      const pill = b.querySelector('.text-primary');
+      if (pill && pill.innerText === 'Active') {
+        pill.remove();
+      }
+    });
+
+    btn.classList.remove('bg-surface-container');
+    btn.classList.add('ring-1', 'ring-primary', 'bg-surface-container-highest');
+    const thumb = btn.querySelector('.aspect-video');
+    if (thumb && !thumb.querySelector('.text-primary')) {
+      const activePill = document.createElement('span');
+      activePill.className = 'absolute bottom-1 right-1 px-1 rounded bg-surface-container-lowest/80 text-primary font-code-sm text-[10px]';
+      activePill.innerText = 'Active';
+      thumb.appendChild(activePill);
+    }
+  }
+
+  function switchStage(btn, stageId) {
+    const container = document.getElementById('stage-tabs');
+    const buttons = container.querySelectorAll('button');
+    buttons.forEach(b => {
+      b.classList.remove('bg-surface-container-highest', 'text-secondary', 'font-semibold', 'shadow-xs');
+      b.classList.add('text-on-surface-variant');
+      const topLabel = b.querySelector('span:first-child');
+      if (topLabel) topLabel.classList.replace('text-secondary', 'text-outline');
+    });
+
+    btn.classList.remove('text-on-surface-variant');
+    btn.classList.add('bg-surface-container-highest', 'text-secondary', 'font-semibold', 'shadow-xs');
+    const label = btn.querySelector('span:first-child');
+    if (label) label.classList.replace('text-outline', 'text-secondary');
+  }
+</script></div></main></div></body></html>
