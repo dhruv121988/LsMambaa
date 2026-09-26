@@ -52,7 +52,7 @@ use_aux_loss = False
 data_root = _cli_args.data_root or os.environ.get("DATA_ROOT", "data/LoveDA/Train")
 train_dataset = LoveDATrainDataset(transform=train_aug, data_root=data_root)
 val_data_root = data_root.replace("Train", "Val") if "Train" in data_root else "data/LoveDA/Val"
-val_dataset = LoveDAValDataset(transform=val_aug, data_root=val_data_root)
+val_dataset = LoveDATrainDataset(data_root=val_data_root, mosaic_ratio=0.0, transform=val_aug)
 
 train_loader = DataLoader(
     dataset=train_dataset,
