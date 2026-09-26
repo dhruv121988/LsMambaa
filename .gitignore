@@ -4,8 +4,8 @@ __pycache__/
 *$py.class
 
 # PyTorch Lightning & Logs
-lightning_logs/
 *.log
+
 
 # Checkpoints and Model Weights
 *.ckpt
