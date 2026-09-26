@@ -108,11 +108,13 @@ val_dataset = SEN2LULCDataset(
     max_samples=_cli_args.max_val_samples
 )
 
+num_workers = _cli_args.num_workers
 train_loader = DataLoader(
     dataset=train_dataset,
     batch_size=train_batch_size,
-    num_workers=_cli_args.num_workers,
+    num_workers=num_workers,
     pin_memory=True,
+    persistent_workers=(num_workers > 0),
     shuffle=True,
     drop_last=True
 )
@@ -120,8 +122,9 @@ train_loader = DataLoader(
 val_loader = DataLoader(
     dataset=val_dataset,
     batch_size=val_batch_size,
-    num_workers=_cli_args.num_workers,
+    num_workers=num_workers,
     pin_memory=True,
+    persistent_workers=(num_workers > 0),
     shuffle=False,
     drop_last=False
 )
