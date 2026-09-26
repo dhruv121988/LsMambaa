@@ -134,10 +134,10 @@ class GlobalLocalAttention(nn.Module):
 
     def pad(self, x, ps):
         _, _, H, W = x.size()
-        if W % ps != 0:
-            x = F.pad(x, (0, ps - W % ps), mode='reflect')
-        if H % ps != 0:
-            x = F.pad(x, (0, 0, 0, ps - H % ps), mode='reflect')
+        pad_w = (ps - W % ps) % ps
+        pad_h = (ps - H % ps) % ps
+        if pad_w > 0 or pad_h > 0:
+            x = F.pad(x, (0, pad_w, 0, pad_h), mode='replicate')
         return x
 
     def pad_out(self, x):

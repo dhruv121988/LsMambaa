@@ -35,6 +35,8 @@ _parser.add_argument("--max_train_samples", type=int, default=None)
 _parser.add_argument("--max_val_samples", type=int, default=None)
 _parser.add_argument("--num_workers", type=int, default=8)
 _parser.add_argument("--check_val_every_n_epoch", type=int, default=1)
+_parser.add_argument("--resume_ckpt_path", "--resume-ckpt-path", type=str, default=None)
+_parser.add_argument("--resume", action="store_true", default=False)
 
 _cli_args, _ = _parser.parse_known_args()
 
@@ -60,7 +62,12 @@ gpus = "auto"
 accelerator = "gpu"
 devices = 1
 
-resume_ckpt_path = None
+resume_ckpt_path = _cli_args.resume_ckpt_path or os.environ.get("RESUME_CKPT_PATH", None)
+if resume_ckpt_path is None and (_cli_args.resume or os.environ.get("AUTO_RESUME", "0") == "1"):
+    last_ckpt = os.path.join(weights_path, "last.ckpt")
+    if os.path.isfile(last_ckpt):
+        resume_ckpt_path = last_ckpt
+        print(f"\n[AUTO-RESUME] Found existing checkpoint, resuming from: {last_ckpt}\n")
 pretrained_ckpt_path = None
 pretrained_backbone_path = "model_weights/vmamba_tiny_e292.pth"
 

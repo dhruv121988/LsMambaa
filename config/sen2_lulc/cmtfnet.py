@@ -19,6 +19,8 @@ _parser.add_argument("--max_train_samples", type=int, default=None)
 _parser.add_argument("--max_val_samples", type=int, default=None)
 _parser.add_argument("--num_workers", type=int, default=8)
 _parser.add_argument("--check_val_every_n_epoch", type=int, default=4)
+_parser.add_argument("--resume_ckpt_path", "--resume-ckpt-path", type=str, default=None)
+_parser.add_argument("--resume", action="store_true", default=False)
 _cli_args, _ = _parser.parse_known_args()
 
 max_epoch = _cli_args.epochs
@@ -36,7 +38,12 @@ save_last = True
 check_val_every_n_epoch = _cli_args.check_val_every_n_epoch
 pretrained_ckpt_path = None
 gpus = 'auto'
-resume_ckpt_path = None
+resume_ckpt_path = _cli_args.resume_ckpt_path or os.environ.get("RESUME_CKPT_PATH", None)
+if resume_ckpt_path is None and (_cli_args.resume or os.environ.get("AUTO_RESUME", "0") == "1"):
+    last_ckpt = os.path.join(weights_path, "last.ckpt")
+    if os.path.isfile(last_ckpt):
+        resume_ckpt_path = last_ckpt
+        print(f"\n[AUTO-RESUME] Found existing checkpoint, resuming from: {last_ckpt}\n")
 
 net = CMTFNet(num_classes=num_classes, pretrained=True, dropout=0.1)
 loss = JointLoss(SoftCrossEntropyLoss(smooth_factor=0.05, ignore_index=ignore_index),
