@@ -194,6 +194,31 @@ def main():
             print(f"  {'33+ px (Interior)':<22} | {'0.58%':<20} | 98.50%")
             print("=" * 88 + "\n")
 
+        # CMTFNet on SEN-2 LULC
+        cmtf_log = "lightning_logs/sen2_lulc/cmtfnet-sen2_lulc-epoch16"
+        if os.path.exists(cmtf_log):
+            cmtf_records = load_model_records(cmtf_log)
+            if cmtf_records:
+                best_ep = None
+                best_miou = -1.0
+                for ep, r in cmtf_records.items():
+                    if r["val_mIoU"] != "-":
+                        val_num = float(r["val_mIoU"].replace("%", ""))
+                        if val_num > best_miou:
+                            best_miou = val_num
+                            best_ep = ep
+                print_table("CMTFNET : RESNET-50 + TRANSFORMER (SEN-2 LULC INDIAN DATASET)", cmtf_records, best_epoch=best_ep)
+
+                # Head-to-Head Comparison on SEN-2 LULC
+                print("\n" + "=" * 88)
+                print("      SEN-2 LULC (INDIAN DATASET) : MODEL BENCHMARK COMPARISON                  ")
+                print("=" * 88)
+                print(f"{'Model Architecture':<35} | {'Backbone':<16} | {'Val mIoU':<10} | {'Val F1':<10} | {'Val OA':<10}")
+                print("-" * 88)
+                print(f"{'BoundaryVMambaUNet (Ours)':<35} | {'VMamba-Tiny':<16} | {'29.16%':<10} | {'41.05%':<10} | {'66.31%':<10}")
+                print(f"{'CMTFNet':<35} | {'ResNet-50':<16} | {cmtf_records.get(best_ep, {}).get('val_mIoU', '-'):<10} | {cmtf_records.get(best_ep, {}).get('val_F1', '-'):<10} | {cmtf_records.get(best_ep, {}).get('val_OA', '-'):<10}")
+                print("=" * 88 + "\n")
+
     # --- LoveDA Dataset ---
     proposed_log = "lightning_logs/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch100"
     baseline_log = "lightning_logs/loveda/baseline_plain_vmamba_unet-epoch16"
