@@ -105,31 +105,52 @@ def print_table(title, epoch_records, best_epoch=None):
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument("--dataset", choices=["all", "loveda", "sen2", "sen2_lulc"], default="all")
     parser.add_argument("--model", choices=["all", "proposed", "baseline"], default="all")
     args = parser.parse_args()
 
+    show_loveda = args.dataset in ["all", "loveda"]
+    show_sen2 = args.dataset in ["all", "sen2", "sen2_lulc"]
+
+    # --- SEN-2 LULC (Indian Dataset) ---
+    sen2_log = "lightning_logs/sen2_lulc/boundary_vmamba_unet-sen2_lulc-epoch16"
+    if show_sen2 and os.path.exists(sen2_log):
+        records = load_model_records(sen2_log)
+        if records:
+            best_ep = None
+            best_miou = -1.0
+            for ep, r in records.items():
+                if r["val_mIoU"] != "-":
+                    val_num = float(r["val_mIoU"].replace("%", ""))
+                    if val_num > best_miou:
+                        best_miou = val_num
+                        best_ep = ep
+            print_table("PROPOSED BOUNDARY VMAMBA U-NET (SEN-2 LULC INDIAN DATASET)", records, best_epoch=best_ep)
+
+    # --- LoveDA Dataset ---
     proposed_log = "lightning_logs/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch100"
     baseline_log = "lightning_logs/loveda/baseline_plain_vmamba_unet-epoch16"
 
-    if args.model in ["all", "baseline"] and os.path.exists(baseline_log):
-        records = load_model_records(baseline_log)
-        print_table("PLAIN VMAMBA U-NET (BASELINE ABLATION)", records, best_epoch=4)
+    if show_loveda:
+        if args.model in ["all", "baseline"] and os.path.exists(baseline_log):
+            records = load_model_records(baseline_log)
+            print_table("PLAIN VMAMBA U-NET (BASELINE ABLATION - LOVEDA)", records, best_epoch=4)
 
-    if args.model in ["all", "proposed"] and os.path.exists(proposed_log):
-        records = load_model_records(proposed_log)
-        print_table("PROPOSED BOUNDARY VMAMBA U-NET (FULL MODEL)", records, best_epoch=9)
+        if args.model in ["all", "proposed"] and os.path.exists(proposed_log):
+            records = load_model_records(proposed_log)
+            print_table("PROPOSED BOUNDARY VMAMBA U-NET (FULL MODEL - LOVEDA)", records, best_epoch=9)
 
-    # Comparison summary
-    print("\n" + "=" * 88)
-    print("           LOVE-DA BENCHMARK : HEAD-TO-HEAD COMPARISON (UP TO CURRENT)          ")
-    print("=" * 88)
-    print(f"{'Model Architecture':<35} | {'Val mIoU':<12} | {'Val F1':<12} | {'Val OA':<12}")
-    print("-" * 88)
-    print(f"{'Plain VMamba U-Net (Baseline)':<35} | {'59.71%':<12} | {'73.12%':<12} | {'74.92%':<12}")
-    print(f"{'BoundaryVMambaUNet (Proposed)':<35} | {'61.09%':<12} | {'74.41%':<12} | {'75.46%':<12}")
-    print("-" * 88)
-    print(f"{'Proposed Improvement':<35} | {'+1.38% (abs)':<12} | {'+1.29% (abs)':<12} | {'+0.54% (abs)':<12}")
-    print("=" * 88)
+        # Comparison summary
+        print("\n" + "=" * 88)
+        print("           LOVE-DA BENCHMARK : HEAD-TO-HEAD COMPARISON (UP TO CURRENT)          ")
+        print("=" * 88)
+        print(f"{'Model Architecture':<35} | {'Val mIoU':<12} | {'Val F1':<12} | {'Val OA':<12}")
+        print("-" * 88)
+        print(f"{'Plain VMamba U-Net (Baseline)':<35} | {'59.71%':<12} | {'73.12%':<12} | {'74.92%':<12}")
+        print(f"{'BoundaryVMambaUNet (Proposed)':<35} | {'61.09%':<12} | {'74.41%':<12} | {'75.46%':<12}")
+        print("-" * 88)
+        print(f"{'Proposed Improvement':<35} | {'+1.38% (abs)':<12} | {'+1.29% (abs)':<12} | {'+0.54% (abs)':<12}")
+        print("=" * 88)
 
     # Boundary Benchmark Comparison
     print("\n" + "=" * 88)
