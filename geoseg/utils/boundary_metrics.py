@@ -153,8 +153,8 @@ def compute_boundary_iou(
         pred_bnd_region = class_mask_to_boundary(pred_c, dilation_width=dilation_width)
 
         # Boundary intersection and union per Cheng et al. CVPR 2021 Eq. (1)
-        intersection = np.logical_and(gt_bnd_region & pred_c, pred_bnd_region & gt_c).sum()
-        union = np.logical_or(gt_bnd_region & pred_c, pred_bnd_region & gt_c).sum()
+        intersection = np.logical_and(gt_bnd_region, pred_bnd_region).sum()
+        union = np.logical_or(gt_bnd_region, pred_bnd_region).sum()
 
         if union > 0:
             biou_per_class[c] = intersection / union
@@ -421,8 +421,8 @@ class BoundaryEvaluator:
             gt_bnd_reg = class_mask_to_boundary(gt_c, dilation_width=self.dilation_width)
             pred_bnd_reg = class_mask_to_boundary(pred_c, dilation_width=self.dilation_width)
 
-            inter = np.logical_and(gt_bnd_reg & pred_c, pred_bnd_reg & gt_c).sum()
-            union = np.logical_or(gt_bnd_reg & pred_c, pred_bnd_reg & gt_c).sum()
+            inter = np.logical_and(gt_bnd_reg, pred_bnd_reg).sum()
+            union = np.logical_or(gt_bnd_reg, pred_bnd_reg).sum()
 
             self.biou_intersection[c] += inter
             self.biou_union[c] += union
