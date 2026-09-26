@@ -211,8 +211,18 @@ def main():
             print(f"  {'5 - 8 px':<22} | {'7.07%':<20} | 94.93%")
             print(f"  {'9 - 16 px':<22} | {'5.50%':<20} | 98.09%")
             print(f"  {'17 - 32 px':<22} | {'2.45%':<20} | 99.24%")
-            print(f"  {'33+ px (Interior)':<22} | {'0.58%':<20} | 98.50%")
             print("=" * 88 + "\n")
+
+        # SEN-2 LULC Head-to-Head Comparison Table
+        print("=" * 88)
+        print("          SEN-2 LULC BENCHMARK : HEAD-TO-HEAD COMPARISON (UP TO CURRENT)        ")
+        print("=" * 88)
+        print(f"{'Model Architecture':<35} | {'Val mIoU':<12} | {'Val F1':<12} | {'Val OA':<12}")
+        print("-" * 88)
+        print(f"{'UNetFormer (ResNet-18)':<35} | {'41.81%':<12} | {'56.64%':<12} | {'74.89%':<12}")
+        print(f"{'CMTFNet (ResNet-50 + Transformer)':<35} | {'45.17%':<12} | {'60.27%':<12} | {'76.92%':<12}")
+        print(f"{'BoundaryVMambaUNet (Proposed)':<35} | {'29.16%':<12} | {'41.05%':<12} | {'66.31%':<12}")
+        print("=" * 88 + "\n")
 
     # --- LoveDA Dataset ---
     proposed_log = "lightning_logs/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch100"
@@ -235,6 +245,7 @@ def main():
             print("=" * 88)
             print(f"{'Model Architecture':<35} | {'Val mIoU':<12} | {'Val F1':<12} | {'Val OA':<12}")
             print("-" * 88)
+            print(f"{'A2FPN (ResNet-18)':<35} | {'59.16%':<12} | {'72.80%':<12} | {'71.91%':<12}")
             print(f"{'Plain VMamba U-Net (Baseline)':<35} | {'59.71%':<12} | {'73.12%':<12} | {'74.92%':<12}")
             print(f"{'BoundaryVMambaUNet (Proposed)':<35} | {'61.09%':<12} | {'74.41%':<12} | {'75.46%':<12}")
             print(f"{'CMTFNet (ResNet-50 + Transformer)':<35} | {'63.13%':<12} | {'76.00%':<12} | {'77.74%':<12}")
