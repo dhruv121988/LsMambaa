@@ -242,10 +242,8 @@ def main():
         if os.path.exists(proposed_log) or os.path.exists(baseline_log):
             print("\n" + "=" * 88)
             print("           LOVE-DA BENCHMARK : HEAD-TO-HEAD COMPARISON (UP TO CURRENT)          ")
-            print("=" * 88)
             print(f"{'Model Architecture':<35} | {'Val mIoU':<12} | {'Val F1':<12} | {'Val OA':<12}")
             print("-" * 88)
-            print(f"{'A2FPN (ResNet-18)':<35} | {'59.16%':<12} | {'72.80%':<12} | {'71.91%':<12}")
             print(f"{'Plain VMamba U-Net (Baseline)':<35} | {'59.71%':<12} | {'73.12%':<12} | {'74.92%':<12}")
             print(f"{'BoundaryVMambaUNet (Proposed)':<35} | {'61.09%':<12} | {'74.41%':<12} | {'75.46%':<12}")
             print(f"{'CMTFNet (ResNet-50 + Transformer)':<35} | {'63.13%':<12} | {'76.00%':<12} | {'77.74%':<12}")
