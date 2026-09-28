@@ -243,12 +243,13 @@ def main():
             print("\n" + "=" * 88)
             print("           LOVE-DA BENCHMARK : HEAD-TO-HEAD COMPARISON (UP TO CURRENT)          ")
             print(f"{'Model Architecture':<35} | {'Val mIoU':<12} | {'Val F1':<12} | {'Val OA':<12}")
-            print("-" * 88)
+            print(f"{'TransUNet (ViT-B + ResNet-50)':<35} | {'47.80%':<12} | {'60.87%':<12} | {'73.59%':<12}")
             print(f"{'Plain VMamba U-Net (Baseline)':<35} | {'59.71%':<12} | {'73.12%':<12} | {'74.92%':<12}")
             print(f"{'BoundaryVMambaUNet (Proposed)':<35} | {'61.09%':<12} | {'74.41%':<12} | {'75.46%':<12}")
             print(f"{'CMTFNet (ResNet-50 + Transformer)':<35} | {'63.13%':<12} | {'76.00%':<12} | {'77.74%':<12}")
             print("-" * 88)
             print(f"{'Proposed vs Plain MambaUNet':<35} | {'+1.38% (abs)':<12} | {'+1.29% (abs)':<12} | {'+0.54% (abs)':<12}")
+            print(f"{'Proposed vs TransUNet':<35} | {'+13.29% (abs)':<12} | {'+13.54% (abs)':<12} | {'+1.87% (abs)':<12}")
             print("=" * 88)
 
         # Boundary Benchmark Comparison
@@ -258,6 +259,7 @@ def main():
             print("=" * 88)
             print(f"{'Model Architecture':<30} | {'Model Category':<20} | {'Boundary F1':<14} | {'Boundary IoU':<14}")
             print("-" * 88)
+            print(f"{'TransUNet':<30} | {'Transformer + CNN':<20} | {'18.59%':<14} | {'5.68%':<14}")
             print(f"{'CMTFNet':<30} | {'CNN + Transformer':<20} | {'32.51%':<14} | {'11.76%':<14}")
             print(f"{'ResMamba':<30} | {'State-Space Model':<20} | {'22.45%':<14} | {'12.16%':<14}")
             print(f"{'LOGCAN++':<30} | {'CNN + Attention':<20} | {'25.46%':<14} | {'14.33%':<14}")
