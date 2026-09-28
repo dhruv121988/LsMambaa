@@ -22,8 +22,8 @@ _cli_args, _ = _parser.parse_known_args()
 
 max_epoch = _cli_args.epochs if _cli_args.epochs is not None else 16
 ignore_index = len(CLASSES)
-train_batch_size = _cli_args.batch_size if _cli_args.batch_size is not None else 12
-val_batch_size = _cli_args.val_batch_size if _cli_args.val_batch_size is not None else 4
+train_batch_size = _cli_args.batch_size if _cli_args.batch_size is not None else 2
+val_batch_size = _cli_args.val_batch_size if _cli_args.val_batch_size is not None else 2
 lr = _cli_args.lr if _cli_args.lr is not None else 3e-4
 weight_decay = 0.01
 num_classes = len(CLASSES)

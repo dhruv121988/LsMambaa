@@ -86,7 +86,7 @@ class ViTBlock(nn.Module):
 
     def forward(self, x):
         norm_x = self.norm1(x)
-        attn_out, _ = self.attn(norm_x, norm_x, norm_x)
+        attn_out, _ = self.attn(norm_x, norm_x, norm_x, need_weights=False)
         x = x + attn_out
         x = x + self.mlp(self.norm2(x))
         return x
