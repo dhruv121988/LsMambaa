@@ -39,31 +39,53 @@
 ### 1. LoveDA Benchmark (Ultra-High Resolution 0.3m Aerial Imagery)
 *Evaluated on all 1,669 validation images ($1024 \times 1024$ resolution). Boundary evaluation conducted using standard CVPR 2021 protocol with tolerance $\theta = 2$ px.*
 
-| Model Architecture | Model Family | Backbone Pretraining | Val mIoU | Val F1 | Val OA | Boundary IoU (mBIoU) | Boundary F1 (mBF1) | Boundary Precision |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **BoundaryVMambaUNet (Ours)** | **Boundary-Gated SSM** | **Pretrained** | **61.09%** | **74.41%** | **75.46%** | **21.81%** 🥇 | **35.81%** | **22.20%** |
-| **CMTFNet** | CNN + Transformer | Pretrained | **63.13%** | 76.00% | 77.74% | 11.76% | 32.51% | 23.95% |
-| **Plain VMamba U-Net** | Baseline SSM | Pretrained | 59.71% | 73.12% | 74.92% | *(Evaluating)* | *(Evaluating)* | *(Evaluating)* |
-| **TransUNet** | ViT-B + ResNet-50 | Pretrained | 47.80% | 60.87% | 73.59% | **5.68%** | **18.59%** | 14.68% |
-| **SSNet** | ViT-B Attention | Pretrained | 45.20% | 59.86% | 60.55% | — | — | — |
+| Model Architecture | Model Family | Backbone Pretraining | Val mIoU | Val F1 | Val OA | Boundary IoU (mBIoU) | Boundary F1 (mBF1) | Boundary Precision | Boundary Recall |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **CMTFNet** | CNN + Transformer | ImageNet-1k | **63.14%** | **76.01%** | **77.74%** | 11.76% | 32.51% | 23.95% | 50.56% |
+| **BoundaryVMambaUNet (Ours)** | **Boundary-Gated SSM** | ImageNet-1k | 61.09% * | 74.41% * | 75.46% * | 21.81% * | 35.81% * | 22.20% * | 28.05% * |
+| **UNetFormer** | ResNet-18 + GLSA | ImageNet-1k | 60.22% | 73.03% | 75.76% | **12.84%** | 31.42% | 21.84% | 36.91% |
+| **Plain VMamba U-Net** | Baseline SSM | ImageNet-1k | 59.71% | 73.12% | 74.92% | 9.42% | 25.56% | 18.25% | 43.15% |
+| **TransUNet** | ViT-B + ResNet-50 | ImageNet-1k | 47.80% | 60.87% | 73.58% | 5.68% | 18.59% | 14.68% | 25.37% |
+| **SSNet** | ViT-B Attention | ImageNet-1k | 45.20% | 59.86% | 60.55% | — | — | — | — |
 
-> 🏆 **Key Finding**: **BoundaryVMambaUNet ranks #1 in Boundary IoU (21.81%)**, outperforming CMTFNet (**11.76%**, +10.05% margin) and TransUNet (**5.68%**, +16.13% margin). Additionally, BoundaryVMambaUNet substantially outperforms vision transformer alternatives in region mIoU (+13.29% over TransUNet, +15.89% over SSNet). TransUNet suffers a catastrophic drop at boundaries (5.68% mBIoU) due to $16 \times 16$ patch quantization blurring sub-pixel aerial edges.
+> \* *Note on BoundaryVMambaUNet*: Historical exploratory run (100 epochs, lr=1e-4). Standardized 16-epoch head-to-head evaluation under identical learning rate schedule and held-out DEV tuning is being completed.
+>
+> 💡 **Boundary Analysis**: UNetFormer (12.84% mBIoU) and CMTFNet (11.76% mBIoU) outperform Plain VMamba U-Net (9.42% mBIoU) and TransUNet (5.68% mBIoU) on aerial boundaries. TransUNet experiences severe boundary collapse on class 0 (background, only 1.05% BIoU), which drastically pulls down its macro-average boundary IoU despite reasonable global pixel accuracy.
 
 ---
 
 ### 2. SEN-2 LULC Benchmark (Sentinel-2 10m Indian Satellite Dataset)
-*Evaluated on 2,000 validation tiles across 7 Indian land-cover classes (Water, Dense Forest, Sparse Forest, Barren Land, Built-up, Agriculture Land, Fallow Land).*
+*Evaluated on 2,000 validation tiles across 7 Indian land-cover classes (Water, Dense Forest, Sparse Forest, Barren Land, Built-up, Agriculture Land, Fallow Land) under identical 16-epoch training.*
 
-| Model Architecture | Model Family | Backbone Pretraining | Val mIoU | Val F1 | Val OA | Boundary IoU (mBIoU) | Boundary F1 (mBF1) | Boundary Precision |
-| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **TransUNet** | ViT-B + ResNet-50 | ImageNet Pretrained | **49.31%** | **63.66%** | **81.39%** | **37.34%** | **80.70%** | **98.30%** |
-| **CMTFNet** | ResNet-50 + Transformer | ImageNet Pretrained | **45.46%** | **60.60%** | **76.68%** | **27.84%** | **76.79%** | **99.11%** |
-| **UNetFormer** | ResNet-18 + GLSA | ImageNet Pretrained | 41.81% | 56.64% | 74.89% | — | — | — |
-| **BoundaryVMambaUNet** | Boundary-Gated SSM | Random Initialization | 29.16% | 41.05% | 66.31% | 14.53% | 50.48% | 95.78% |
+| Model Architecture | Model Family | Backbone Pretraining | Val mIoU | Val F1 | Val OA | Boundary IoU (mBIoU) | Boundary F1 (mBF1) | Boundary Precision | Boundary Recall |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **TransUNet** | ViT-B + ResNet-50 | ImageNet-1k | **49.31%** | **63.66%** | **81.39%** | **37.34%** | **80.70%** | 98.30% | 68.47% |
+| **CMTFNet** | ResNet-50 + Transformer | ImageNet-1k | 45.46% | 60.60% | 76.68% | 27.84% | 76.79% | **99.11%** | 62.69% |
+| **SSNet** | ViT-B Attention | ImageNet-1k | 44.10% | 58.86% | 76.51% | 31.99% | 75.98% | 98.81% | 63.60% |
+| **UNetFormer** | ResNet-18 + GLSA | ImageNet-1k | 44.09% | 58.86% | 76.51% | 25.37% | 73.14% | 98.71% | 65.61% |
+| **BoundaryVMambaUNet** | Boundary-Gated SSM | Random Init | 29.16% | 41.05% | 66.31% | 14.53% | 50.48% | 95.78% | 72.70% |
 
 ---
 
-### 3. Segmentation Accuracy vs. Distance to True Boundary
+### 3. Model Efficiency & Computational Complexity Benchmark
+*Benchmarked on NVIDIA RTX 2000 Ada (16GB VRAM) under PyTorch 2.6 + CUDA 12.4 with `torch.autocast(fp16)`. GFLOPs measured at $512 \times 512$ and $1024 \times 1024$ resolutions with Triton SS2D analytical correction ($36 \times L \times D \times N$).*
+
+| Model Architecture | Parameters | GFLOPs ($512^2$) | GFLOPs ($1024^2$) | Throughput (FPS, $512^2$ B1) | Throughput (FPS, $512^2$ B8) | Throughput (FPS, $1024^2$ B1) | Peak VRAM ($512^2$ B8) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **UNetFormer** | **11.73M** | 11.98G | 47.93G | **348.7** | **319.3** | **93.2** | **1,080 MB** |
+| **Plain VMamba U-Net** | 24.23M | **4.98G** | **19.93G** | 5.3 | 5.3 | 1.3 | 7,556 MB |
+| **BoundaryVMambaUNet (Ours)** | 24.53M | **4.98G** | **19.93G** | 5.6 | 5.4 | 1.3 | 7,460 MB |
+| **CMTFNet** | 29.91M | 55.52G | 228.92G | 123.5 | 99.8 | 21.4 | 1,705 MB |
+| **SSNet** | 60.24M | 105.77G | 423.07G | 61.4 | 42.5 | 12.6 | 2,340 MB |
+| **TransUNet** | 73.43M | 115.08G | 460.30G | 64.3 | 43.4 | 12.9 | 2,135 MB |
+
+> 📌 **Efficiency Highlights**:
+> - **Theoretical Complexity**: VMamba's 2D selective state-space model achieves the lowest theoretical FLOPs (**4.98 GFLOPs** at $512^2$, a **$23\times$ reduction** compared to TransUNet's 115.08 GFLOPs and **$11\times$ reduction** compared to CMTFNet's 55.52 GFLOPs).
+> - **Throughput & Latency**: UNetFormer provides the highest inference speed (348.7 FPS at $512^2$) due to pure Tensor-Core-aligned convolutional and spatial attention operators. VMamba's sequential scan kernels in Triton prioritize linear scaling with token count over dense GEMM throughput.
+
+---
+
+### 4. Segmentation Accuracy vs. Distance to True Boundary
 
 To quantify how models handle high-frequency boundary contours versus homogeneous interior regions, pixel accuracy was computed across Euclidean distance intervals:
 
@@ -77,6 +99,7 @@ Distance Range from Boundary    LoveDA: TransUNet    LoveDA: Ours (BoundaryVMamb
 17 – 32 px                            76.27%                    81.08%                    99.91%            99.79%
 >33 px (Interior Core)                79.60%                    89.77%                    99.84%            99.61%
 ```
+
 
 ---
 

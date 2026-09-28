@@ -215,18 +215,21 @@ def main():
 
         # SEN-2 LULC Head-to-Head Comparison Table
         print("=" * 88)
-        print("          SEN-2 LULC BENCHMARK : HEAD-TO-HEAD COMPARISON (UP TO CURRENT)        ")
+        print("          SEN-2 LULC BENCHMARK : HEAD-TO-HEAD COMPARISON (16 EPOCHS)            ")
         print("=" * 88)
         print(f"{'Model Architecture':<35} | {'Val mIoU':<12} | {'Val F1':<12} | {'Val OA':<12}")
         print("-" * 88)
         print(f"{'BoundaryVMambaUNet (Random Init)':<35} | {'29.16%':<12} | {'41.05%':<12} | {'66.31%':<12}")
-        print(f"{'UNetFormer (ResNet-18)':<35} | {'41.81%':<12} | {'56.64%':<12} | {'74.89%':<12}")
-        print(f"{'CMTFNet (ResNet-50 + Transformer)':<35} | {'45.17%':<12} | {'60.27%':<12} | {'76.92%':<12}")
+        print(f"{'UNetFormer (ResNet-18)':<35} | {'44.09%':<12} | {'58.86%':<12} | {'76.51%':<12}")
+        print(f"{'SSNet (ViT-B)':<35} | {'44.10%':<12} | {'58.86%':<12} | {'76.51%':<12}")
+        print(f"{'CMTFNet (ResNet-50 + Transformer)':<35} | {'45.46%':<12} | {'60.60%':<12} | {'76.68%':<12}")
         print(f"{'TransUNet (ViT-B + ResNet-50)':<35} | {'49.31%':<12} | {'63.66%':<12} | {'81.39%':<12}")
         print("-" * 88)
         print("  Boundary Metrics (CVPR 2021 Protocol, tolerance=2px):")
         print(f"  • BoundaryVMambaUNet : 14.53% mBIoU | 50.48% mBF1 | 95.78% Precision")
+        print(f"  • UNetFormer         : 25.37% mBIoU | 73.14% mBF1 | 98.71% Precision")
         print(f"  • CMTFNet            : 27.84% mBIoU | 76.79% mBF1 | 99.11% Precision")
+        print(f"  • SSNet              : 31.99% mBIoU | 75.98% mBF1 | 98.81% Precision")
         print(f"  • TransUNet          : 37.34% mBIoU | 80.70% mBF1 | 98.30% Precision")
         print("=" * 88 + "\n")
 
@@ -245,40 +248,60 @@ def main():
                 print_table(f"LoveDA: {name}", records)
 
         # Comparison summary
-        if os.path.exists(proposed_log) or os.path.exists(baseline_log):
-            print("\n" + "=" * 88)
-            print("           LOVE-DA BENCHMARK : HEAD-TO-HEAD COMPARISON (UP TO CURRENT)          ")
-            print(f"{'Model Architecture':<35} | {'Val mIoU':<12} | {'Val F1':<12} | {'Val OA':<12}")
-            print(f"{'SSNet (ViT-B)':<35} | {'45.20%':<12} | {'59.86%':<12} | {'60.55%':<12}")
-            print(f"{'TransUNet (ViT-B + ResNet-50)':<35} | {'47.80%':<12} | {'60.87%':<12} | {'73.59%':<12}")
-            print(f"{'Plain VMamba U-Net (Baseline)':<35} | {'59.71%':<12} | {'73.12%':<12} | {'74.92%':<12}")
-            print(f"{'BoundaryVMambaUNet (Proposed)':<35} | {'61.09%':<12} | {'74.41%':<12} | {'75.46%':<12}")
-            print(f"{'CMTFNet (ResNet-50 + Transformer)':<35} | {'63.13%':<12} | {'76.00%':<12} | {'77.74%':<12}")
-            print("-" * 88)
-            print(f"{'Proposed vs Plain MambaUNet':<35} | {'+1.38% (abs)':<12} | {'+1.29% (abs)':<12} | {'+0.54% (abs)':<12}")
-            print(f"{'Proposed vs SSNet':<35} | {'+15.89% (abs)':<12} | {'+14.55% (abs)':<12} | {'+14.91% (abs)':<12}")
-            print(f"{'Proposed vs TransUNet':<35} | {'+13.29% (abs)':<12} | {'+13.54% (abs)':<12} | {'+1.87% (abs)':<12}")
-            print("=" * 88)
+        print("\n" + "=" * 88)
+        print("           LOVE-DA BENCHMARK : HEAD-TO-HEAD COMPARISON (16 EPOCHS)              ")
+        print("=" * 88)
+        print(f"{'Model Architecture':<35} | {'Val mIoU':<12} | {'Val F1':<12} | {'Val OA':<12}")
+        print("-" * 88)
+        print(f"{'SSNet (ViT-B)':<35} | {'45.20%':<12} | {'59.86%':<12} | {'60.55%':<12}")
+        print(f"{'TransUNet (ViT-B + ResNet-50)':<35} | {'47.80%':<12} | {'60.87%':<12} | {'73.58%':<12}")
+        print(f"{'Plain VMamba U-Net (Baseline)':<35} | {'59.71%':<12} | {'73.12%':<12} | {'74.92%':<12}")
+        print(f"{'UNetFormer (ResNet-18)':<35} | {'60.22%':<12} | {'73.03%':<12} | {'75.76%':<12}")
+        print(f"{'CMTFNet (ResNet-50 + Transformer)':<35} | {'63.14%':<12} | {'76.01%':<12} | {'77.74%':<12}")
+        print("-" * 88)
+        print(f"{'BoundaryVMambaUNet (Proposed)':<35} | {'61.09% *':<12} | {'74.41% *':<12} | {'75.46% *':<12}")
+        print("  * Historical 100-ep run; to be standardized under shared recipe in Phase 4.")
+        print("=" * 88)
 
         # Boundary Benchmark Comparison
-        if (args.dataset in ["loveda"] or args.model in ["all", "proposed", "boundary"]):
-            print("\n" + "=" * 88)
-            print("     BOUNDARY DELINEATION BENCHMARK (Cheng et al. CVPR 2021 Protocol)           ")
-            print("=" * 88)
-            print(f"{'Model Architecture':<30} | {'Model Category':<20} | {'Boundary F1':<14} | {'Boundary IoU':<14}")
-            print("-" * 88)
-            print(f"{'TransUNet':<30} | {'Transformer + CNN':<20} | {'18.59%':<14} | {'5.68%':<14}")
-            print(f"{'CMTFNet':<30} | {'CNN + Transformer':<20} | {'32.51%':<14} | {'11.76%':<14}")
-            print("-" * 88)
-            print(f"{'BoundaryVMambaUNet (Ours)':<30} | {'Boundary-Gated SSM':<20} | {'35.81%':<14} | {'21.81% *':<14}")
-            print("=" * 88)
-            print("  * Ranks #1: Outperforms CMTFNet (+10.05% abs) and TransUNet (+16.13% abs)")
-            print("=" * 88 + "\n")
+        print("\n" + "=" * 88)
+        print("     LOVE-DA BOUNDARY BENCHMARK (Cheng et al. CVPR 2021 Protocol, tol=2px)      ")
+        print("=" * 88)
+        print(f"{'Model Architecture':<30} | {'Model Category':<20} | {'Boundary F1':<14} | {'Boundary IoU':<14}")
+        print("-" * 88)
+        print(f"{'TransUNet':<30} | {'Transformer + CNN':<20} | {'18.59%':<14} | {'5.68%':<14}")
+        print(f"{'Plain VMamba U-Net':<30} | {'State Space Model':<20} | {'25.56%':<14} | {'9.42%':<14}")
+        print(f"{'CMTFNet':<30} | {'CNN + Transformer':<20} | {'32.51%':<14} | {'11.76%':<14}")
+        print(f"{'UNetFormer':<30} | {'Transformer + CNN':<20} | {'31.42%':<14} | {'12.84%':<14}")
+        print(f"{'SSNet':<30} | {'Transformer':<20} | {'N/A (no ckpt)':<14} | {'N/A (no ckpt)':<14}")
+        print("-" * 88)
+        print(f"{'BoundaryVMambaUNet (Ours)':<30} | {'Boundary-Gated SSM':<20} | {'35.81% *':<14} | {'21.81% *':<14}")
+        print("  * Note: Historical README claim; pending full-val re-evaluation under shared protocol.")
+        print("=" * 88 + "\n")
 
     # Cross-Dataset LoveDA vs SEN-2 LULC comparison
     if show_loveda and show_sen2:
         print_cross_dataset_comparison()
 
+    # Efficiency Benchmark Table
+    if os.path.exists("efficiency_benchmark_results.csv"):
+        print("\n" + "=" * 98)
+        print("                 MODEL EFFICIENCY & COMPUTATIONAL COMPLEXITY BENCHMARK                    ")
+        print("=" * 98)
+        print(f"{'Model Architecture':<28} | {'Params':<8} | {'GFLOPs (512)':<13} | {'FPS (512, B1)':<14} | {'FPS (1024, B1)':<15} | {'Peak Mem (MB)':<12}")
+        print("-" * 98)
+        with open("efficiency_benchmark_results.csv", "r") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                p = f"{float(row['Params(M)']):.2f}M"
+                g = f"{float(row['GFLOPs_512']):.2f}G"
+                fps512 = f"{float(row['FPS_512_B1']):.1f}"
+                fps1024 = f"{float(row['FPS_1024_B1']):.1f}"
+                mem = f"{float(row['PeakMem_512_B8_MB']):.1f}" if row['PeakMem_512_B8_MB'] != "OOM" else "OOM"
+                print(f"{row['Model']:<28} | {p:<8} | {g:<13} | {fps512:<14} | {fps1024:<15} | {mem:<12}")
+        print("=" * 98 + "\n")
+
 
 if __name__ == "__main__":
     main()
+

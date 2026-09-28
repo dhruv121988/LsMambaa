@@ -166,7 +166,7 @@ class RandomScale(object):
         oh, ow = img.size
         scale_amt = 1.0
         if self.mode == 'value':
-            scale_amt = np.random.choice(self.scale_list, 1)
+            scale_amt = float(np.random.choice(self.scale_list))
         elif self.mode == 'range':
             scale_amt = random.uniform(self.scale_list[0], self.scale_list[-1])
         h = int(scale_amt * oh)

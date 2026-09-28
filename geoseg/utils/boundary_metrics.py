@@ -102,6 +102,45 @@ def class_mask_to_boundary(
     return boundary
 
 
+def class_mask_to_boundary_official(
+    binary_mask: np.ndarray,
+    dilation_ratio: float = 0.02,
+    dilation_px: Optional[int] = None,
+) -> np.ndarray:
+    """
+    Extract boundary region of a binary mask per Cheng et al. CVPR 2021 (boundary-iou-api).
+
+    If dilation_px is provided, uses that fixed pixel distance.
+    Otherwise, computes dilation = int(round(dilation_ratio * img_diag)).
+    Applies 1px zero-padding to capture boundaries at image edges correctly.
+
+    Args:
+        binary_mask: (H, W) boolean or 0/1 array
+        dilation_ratio: ratio of image diagonal (default 0.02, per CVPR 2021)
+        dilation_px: optional fixed pixel dilation (overrides dilation_ratio if given)
+
+    Returns:
+        boundary: (H, W) boolean array
+    """
+    if not np.any(binary_mask):
+        return np.zeros_like(binary_mask, dtype=bool)
+
+    h, w = binary_mask.shape
+    if dilation_px is not None:
+        dilation = max(1, int(dilation_px))
+    else:
+        img_diag = np.sqrt(h ** 2 + w ** 2)
+        dilation = max(1, int(round(dilation_ratio * img_diag)))
+
+    mask_u8 = binary_mask.astype(np.uint8)
+    new_mask = cv2.copyMakeBorder(mask_u8, 1, 1, 1, 1, cv2.BORDER_CONSTANT, value=0)
+    kernel = np.ones((3, 3), dtype=np.uint8)
+    new_mask_erode = cv2.erode(new_mask, kernel, iterations=dilation)
+    mask_erode = new_mask_erode[1 : h + 1, 1 : w + 1]
+    boundary = (mask_u8 - mask_erode) > 0
+    return boundary
+
+
 # =====================================================================
 # Metric Functions (Functional API)
 # =====================================================================
@@ -110,7 +149,8 @@ def compute_boundary_iou(
     gt_mask: np.ndarray,
     pred_mask: np.ndarray,
     num_classes: int,
-    dilation_width: int = 2,
+    dilation_width: Optional[int] = 2,
+    dilation_ratio: Optional[float] = None,
     ignore_index: Optional[int] = None,
 ) -> Tuple[np.ndarray, float]:
     """
@@ -125,7 +165,8 @@ def compute_boundary_iou(
         gt_mask: (H, W) ground truth integer mask
         pred_mask: (H, W) predicted integer mask
         num_classes: number of semantic classes
-        dilation_width: pixel boundary width d (default: 2)
+        dilation_width: pixel boundary width d (e.g. 2 px). If None and dilation_ratio given, uses ratio.
+        dilation_ratio: ratio of image diagonal (e.g. 0.02).
         ignore_index: class index to ignore
 
     Returns:
@@ -149,8 +190,13 @@ def compute_boundary_iou(
             continue
 
         # Extract boundary pixels within distance d of class boundary
-        gt_bnd_region = class_mask_to_boundary(gt_c, dilation_width=dilation_width)
-        pred_bnd_region = class_mask_to_boundary(pred_c, dilation_width=dilation_width)
+        if dilation_ratio is not None and dilation_width is None:
+            gt_bnd_region = class_mask_to_boundary_official(gt_c, dilation_ratio=dilation_ratio)
+            pred_bnd_region = class_mask_to_boundary_official(pred_c, dilation_ratio=dilation_ratio)
+        else:
+            d_w = dilation_width if dilation_width is not None else 2
+            gt_bnd_region = class_mask_to_boundary(gt_c, dilation_width=d_w)
+            pred_bnd_region = class_mask_to_boundary(pred_c, dilation_width=d_w)
 
         # Boundary intersection and union per Cheng et al. CVPR 2021 Eq. (1)
         intersection = np.logical_and(gt_bnd_region, pred_bnd_region).sum()
@@ -338,6 +384,7 @@ class BoundaryEvaluator:
         self.num_classes = num_classes
         self.tolerance = tolerance
         self.dilation_width = dilation_width
+        self.dilation_ratio = 0.02
         self.ignore_index = ignore_index
         self.distance_buckets = (
             distance_buckets if distance_buckets is not None else DEFAULT_DISTANCE_BUCKETS
@@ -347,10 +394,14 @@ class BoundaryEvaluator:
 
     def reset(self):
         """Reset all metric accumulators."""
-        # Boundary IoU accumulators (per class)
+        # Boundary IoU accumulators (per class) - 2px fixed
         self.biou_intersection = np.zeros(self.num_classes, dtype=np.float64)
         self.biou_union = np.zeros(self.num_classes, dtype=np.float64)
         self.biou_class_present = np.zeros(self.num_classes, dtype=bool)
+
+        # Boundary IoU accumulators (per class) - Official CVPR 2021 ratio
+        self.biou_intersection_ratio = np.zeros(self.num_classes, dtype=np.float64)
+        self.biou_union_ratio = np.zeros(self.num_classes, dtype=np.float64)
 
         # Overall boundary F1/P/R accumulators
         self.overall_tp_pred = 0.0
@@ -418,14 +469,21 @@ class BoundaryEvaluator:
 
             self.biou_class_present[c] = True
 
+            # 1a. Fixed pixel boundary (legacy 2px mode)
             gt_bnd_reg = class_mask_to_boundary(gt_c, dilation_width=self.dilation_width)
             pred_bnd_reg = class_mask_to_boundary(pred_c, dilation_width=self.dilation_width)
-
             inter = np.logical_and(gt_bnd_reg, pred_bnd_reg).sum()
             union = np.logical_or(gt_bnd_reg, pred_bnd_reg).sum()
-
             self.biou_intersection[c] += inter
             self.biou_union[c] += union
+
+            # 1b. Official ratio-based boundary (Cheng et al. CVPR 2021)
+            gt_bnd_ratio = class_mask_to_boundary_official(gt_c, dilation_ratio=self.dilation_ratio)
+            pred_bnd_ratio = class_mask_to_boundary_official(pred_c, dilation_ratio=self.dilation_ratio)
+            inter_ratio = np.logical_and(gt_bnd_ratio, pred_bnd_ratio).sum()
+            union_ratio = np.logical_or(gt_bnd_ratio, pred_bnd_ratio).sum()
+            self.biou_intersection_ratio[c] += inter_ratio
+            self.biou_union_ratio[c] += union_ratio
 
         # 2. Extract multi-class transition boundaries for overall Boundary F1
         gt_bnd_full = mask_to_boundary(gt_mask, connectivity=8, ignore_index=self.ignore_index)
@@ -518,6 +576,23 @@ class BoundaryEvaluator:
         valid = bious[~np.isnan(bious)]
         return float(np.mean(valid)) if len(valid) > 0 else 0.0
 
+    def boundary_iou_ratio(self) -> np.ndarray:
+        """Return per-class Boundary IoU array of shape (num_classes,) [Official CVPR 2021 ratio mode]."""
+        biou = np.full(self.num_classes, np.nan, dtype=np.float64)
+        for c in range(self.num_classes):
+            if self.biou_class_present[c]:
+                if self.biou_union_ratio[c] > 0:
+                    biou[c] = self.biou_intersection_ratio[c] / (self.biou_union_ratio[c] + self.eps)
+                else:
+                    biou[c] = 0.0
+        return biou
+
+    def mean_boundary_iou_ratio(self) -> float:
+        """Return mean Boundary IoU across classes [Official CVPR 2021 ratio mode]."""
+        bious = self.boundary_iou_ratio()
+        valid = bious[~np.isnan(bious)]
+        return float(np.mean(valid)) if len(valid) > 0 else 0.0
+
     def overall_boundary_metrics(self) -> Tuple[float, float, float]:
         """Return (overall_precision, overall_recall, overall_f1)."""
         prec = float(self.overall_tp_pred / (self.overall_n_pred + self.eps))
@@ -572,11 +647,14 @@ class BoundaryEvaluator:
     def summary(self, class_names: Optional[List[str]] = None) -> Dict[str, Union[float, np.ndarray, dict]]:
         """Return a structured summary of all boundary metrics."""
         prec, rec, f1 = self.overall_boundary_metrics()
-        biou_per_c = self.boundary_iou()
+        biou_per_c_2px = self.boundary_iou()
+        m_biou_2px = self.mean_boundary_iou()
+        biou_per_c_ratio = self.boundary_iou_ratio()
+        m_biou_ratio = self.mean_boundary_iou_ratio()
+
         bf1_per_c = self.class_boundary_f1()
         bprec_per_c = self.class_boundary_precision()
         brec_per_c = self.class_boundary_recall()
-        m_biou = self.mean_boundary_iou()
         valid_bf1 = bf1_per_c[~np.isnan(bf1_per_c)]
         m_bf1 = float(np.mean(valid_bf1)) if len(valid_bf1) > 0 else 0.0
         dist_acc = self.distance_accuracy()
@@ -585,9 +663,13 @@ class BoundaryEvaluator:
             "overall_precision": prec,
             "overall_recall": rec,
             "overall_f1": f1,
-            "mean_boundary_iou": m_biou,
+            "mean_boundary_iou": m_biou_2px,
+            "mean_boundary_iou_2px": m_biou_2px,
+            "mean_boundary_iou_ratio": m_biou_ratio,
+            "boundary_iou_per_class": biou_per_c_2px,
+            "boundary_iou_per_class_2px": biou_per_c_2px,
+            "boundary_iou_per_class_ratio": biou_per_c_ratio,
             "mean_boundary_f1": m_bf1,
-            "boundary_iou_per_class": biou_per_c,
             "boundary_f1_per_class": bf1_per_c,
             "boundary_precision_per_class": bprec_per_c,
             "boundary_recall_per_class": brec_per_c,
