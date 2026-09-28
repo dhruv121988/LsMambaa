@@ -1,325 +1,309 @@
-## Version 2.0 (stable)
+# LsMamba: Boundary-Guided State Space Model for Remote Sensing Segmentation
 
-[Welcome to my homepage!](https://WangLibo1995.github.io)
+[![GitHub Stars](https://img.shields.io/github/stars/dhruv121988/LsMambaa?style=social)](https://github.com/dhruv121988/LsMambaa)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![PyTorch 2.6+](https://img.shields.io/badge/PyTorch-2.6%2B-ee4c2c.svg)](https://pytorch.org/)
+[![PyTorch Lightning](https://img.shields.io/badge/Lightning-2.5%2B-792ee5.svg)](https://www.pytorchlightning.ai/)
+[![CUDA 12/13](https://img.shields.io/badge/CUDA-Enabled-green.svg)](https://developer.nvidia.com/cuda-zone)
+[![Triton](https://img.shields.io/badge/Triton-Accelerated-007acc.svg)](https://github.com/openai/triton)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## News 
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/transformer-meets-dcfam-a-novel-semantic/semantic-segmentation-on-isprs-potsdam)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-potsdam?p=transformer-meets-dcfam-a-novel-semantic)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/transformer-meets-dcfam-a-novel-semantic/semantic-segmentation-on-isprs-vaihingen)](https://paperswithcode.com/sota/semantic-segmentation-on-isprs-vaihingen?p=transformer-meets-dcfam-a-novel-semantic)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/efficient-hybrid-transformer-learning-global/semantic-segmentation-on-uavid)](https://paperswithcode.com/sota/semantic-segmentation-on-uavid?p=efficient-hybrid-transformer-learning-global)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/efficient-hybrid-transformer-learning-global/semantic-segmentation-on-loveda)](https://paperswithcode.com/sota/semantic-segmentation-on-loveda?p=efficient-hybrid-transformer-learning-global)
+**LsMamba** is a high-performance remote sensing semantic segmentation and boundary delineation framework built upon **Selective State Space Models (Mamba / SS2D)**. It introduces **BoundaryVMambaUNet**, an architecture combining 2D continuous state-space scanning with progressive multi-scale boundary gating to solve the long-standing trade-off between global receptive field modeling and fine-grained edge delineation in complex satellite and aerial Earth observation datasets.
 
-- The code of [PyramidMamba](./geoseg/models/PyramidMamba.py) is released.
-- I have updated this repo to pytorch 2.0 and pytorch-lightning 2.0, support multi-gpu training, etc. 
-- Pretrained Weights of backbones can be access from [Google Drive](https://drive.google.com/drive/folders/1ELpFKONJZbXmwB5WCXG7w42eHtrXzyPn?usp=sharing)
-- [UNetFormer](https://www.sciencedirect.com/science/article/pii/S0924271622001654) (accepted by ISPRS, [PDF](https://www.researchgate.net/profile/Libo-Wang-17/publication/361736439_UNetFormer_A_UNet-like_transformer_for_efficient_semantic_segmentation_of_remote_sensing_urban_scene_imagery/links/62c2a1ed1cbf3a1d12ac1c87/UNetFormer-A-UNet-like-transformer-for-efficient-semantic-segmentation-of-remote-sensing-urban-scene-imagery.pdf)) and **UAVid dataset** are supported.
-- ISPRS Vaihingen and Potsdam datasets are supported. Since private sharing is not allowed, you need to download the datasets from the official website and split them by **Folder Structure**.
-- More networks are updated and the link of pretrained weights is provided.
-- **config/loveda/dcswin.py** provides a detailed explain about **config** setting.
-- Inference on huge RS images are supported (inference_huge_image.py).
+---
 
-## Introduction
+## 🌟 Key Highlights & Architectural Innovations
 
-**GeoSeg** is an open-source  semantic segmentation toolbox based on PyTorch, [pytorch lightning](https://www.pytorchlightning.ai/) and [timm](https://github.com/rwightman/pytorch-image-models), 
-which mainly focuses on developing advanced Vision Transformers for remote sensing image segmentation.
+1. **Boundary-Gated 2D Selective State Space Model (BoundaryVMambaUNet)**:
+   - Replaces heavy, memory-intensive quadratic self-attention ($O(N^2)$) with linear-complexity ($O(N)$) 2D selective state-space sequence modeling (SS2D).
+   - Dynamically couples spatial scanning with boundary feature maps via continuous multiplicative edge gates:
+     $$\mathbf{F}_{\text{gated}} = \mathbf{F}_{\text{SSM}} \odot (1 + \sigma(\mathbf{F}_{\text{boundary}}))$$
+   - Eliminates boundary blur typically induced by Transformer patch tokenization.
 
+2. **Custom Triton-Accelerated SSM Kernels**:
+   - High-throughput Triton cross-scan memory layout routines for parallel 4-directional scanning ($H \times W \leftrightarrow 4 \times HW$).
+   - Mixed-precision (`16-mixed` AMP) fused scan operators optimized for modern NVIDIA GPUs (RTX Ada / Hopper / Ampere).
 
-## Major Features
+3. **CVPR 2021 Boundary Delineation Evaluation Protocol**:
+   - Integrates strict boundary IoU ($\text{mBIoU}$) and boundary F1 ($\text{mBF}_1$) metrics under standard distance tolerance ($\theta = 2$ px) per [Cheng et al., CVPR 2021].
+   - Distance-to-boundary accuracy breakdown ($0\text{-}1\text{ px}$, $2\text{-}4\text{ px}$, $5\text{-}8\text{ px}$, $\dots$, $>33\text{ px}$) to quantify edge vs. interior performance.
 
-- Unified Benchmark
+4. **Multi-Dataset Benchmarking**:
+   - **LoveDA**: Ultra-high-resolution (0.3m GSD) aerial imagery with 7 land-cover classes across urban and rural environments.
+   - **SEN-2 LULC**: Spaceborne Sentinel-2 (10m GSD) Indian satellite dataset covering 7 diverse tropical and agro-ecological zones.
 
-  we provide a unified training script for various segmentation methods.
-  
-- Simple and Effective
+---
 
-  Thanks to **pytorch lightning** and **timm** , the code is easy for further development.
-  
-- Supported Remote Sensing Datasets
- 
-  - [ISPRS Vaihingen and Potsdam](https://www.isprs.org/education/benchmarks/UrbanSemLab/default.aspx) 
-  - [UAVid](https://uavid.nl/)
-  - [LoveDA](https://codalab.lisn.upsaclay.fr/competitions/421)
-  - [OpenEarthMap](https://open-earth-map.org/)
-  - More datasets will be supported in the future.
-  
-- Multi-scale Training and Testing
-- Inference on Huge Remote Sensing Images
+## 📊 Benchmark Results
 
-## Supported Networks
+### 1. LoveDA Benchmark (Ultra-High Resolution 0.3m Aerial Imagery)
+*Evaluated on all 1,669 validation images ($1024 \times 1024$ resolution). Boundary evaluation conducted using standard CVPR 2021 protocol with tolerance $\theta = 2$ px.*
 
-- Mamba
+| Model Architecture | Model Family | Backbone Pretraining | Val mIoU | Val F1 | Val OA | Boundary IoU (mBIoU) | Boundary F1 (mBF1) | Boundary Precision |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **BoundaryVMambaUNet (Ours)** | **Boundary-Gated SSM** | **Pretrained** | **61.09%** | **74.41%** | **75.46%** | **21.81%** 🥇 | **35.81%** | **22.20%** |
+| **CMTFNet** | CNN + Transformer | Pretrained | **63.13%** | 76.00% | 77.74% | 11.76% | 32.51% | 23.95% |
+| **Plain VMamba U-Net** | Baseline SSM | Pretrained | 59.71% | 73.12% | 74.92% | 12.16% | 22.45% | 18.20% |
+| **TransUNet** | ViT-B + ResNet-50 | Pretrained | 47.80% | 60.87% | 73.59% | **5.68%** | **18.59%** | 14.68% |
+| *SAPLNet (CVPR)* | Boundary Network | Pretrained | 52.31% | 66.89% | 70.12% | 21.50% | 37.66% | — |
+| *CIGformer* | Pure Transformer | Pretrained | 51.05% | 65.40% | 68.90% | 17.18% | 31.01% | — |
+| *CASSNet* | Context-Aware CNN | Pretrained | 50.84% | 64.92% | 67.55% | 16.28% | 29.29% | — |
+| *LOGCAN++* | CNN + Attention | Pretrained | 50.12% | 63.88% | 66.80% | 14.33% | 25.46% | — |
+| *ResMamba* | Pure SSM Baseline | Pretrained | 58.74% | 72.10% | 73.80% | 12.16% | 22.45% | — |
 
-  - [PyramidMamba](https://arxiv.org/abs/2406.10828)
+> 🏆 **SOTA Finding**: **BoundaryVMambaUNet ranks #1 overall in Boundary IoU (21.81%)**, outperforming previous state-of-the-art SAPLNet (+0.31%), CMTFNet (+10.05%), and TransUNet (+16.13%). TransUNet suffers a catastrophic drop at boundaries (5.68% mBIoU) due to $16 \times 16$ patch quantization blurring sub-pixel aerial edges.
 
-- Vision Transformer
+---
 
-  - [UNetFormer](https://authors.elsevier.com/a/1fIji3I9x1j9Fs) 
-  - [DC-Swin](https://ieeexplore.ieee.org/abstract/document/9681903)
-  - [BANet](https://www.mdpi.com/2072-4292/13/16/3065)
-  
-- CNN
- 
-  - [MANet](https://ieeexplore.ieee.org/abstract/document/9487010) 
-  - [ABCNet](https://www.sciencedirect.com/science/article/pii/S0924271621002379)
-  - [A2FPN](https://www.tandfonline.com/doi/full/10.1080/01431161.2022.2030071)
-  
-## Folder Structure
+### 2. SEN-2 LULC Benchmark (Sentinel-2 10m Indian Satellite Dataset)
+*Evaluated on 2,000 validation tiles across 7 Indian land-cover classes (Water, Dense Forest, Sparse Forest, Barren Land, Built-up, Agriculture Land, Fallow Land).*
 
-Prepare the following folders to organize this repo:
-```none
-airs
-├── GeoSeg (code)
-├── pretrain_weights (pretrained weights of backbones, such as vit, swin, etc)
-├── model_weights (save the model weights trained on ISPRS vaihingen, LoveDA, etc)
-├── fig_results (save the masks predicted by models)
-├── lightning_logs (CSV format training logs)
-├── data
-│   ├── LoveDA
-│   │   ├── Train
-│   │   │   ├── Urban
-│   │   │   │   ├── images_png (original images)
-│   │   │   │   ├── masks_png (original masks)
-│   │   │   │   ├── masks_png_convert (converted masks used for training)
-│   │   │   │   ├── masks_png_convert_rgb (original rgb format masks)
-│   │   │   ├── Rural
-│   │   │   │   ├── images_png 
-│   │   │   │   ├── masks_png 
-│   │   │   │   ├── masks_png_convert
-│   │   │   │   ├── masks_png_convert_rgb
-│   │   ├── Val (the same with Train)
-│   │   ├── Test
-│   │   ├── train_val (Merge Train and Val)
-│   ├── uavid
-│   │   ├── uavid_train (original)
-│   │   ├── uavid_val (original)
-│   │   ├── uavid_test (original)
-│   │   ├── uavid_train_val (Merge uavid_train and uavid_val)
-│   │   ├── train (processed)
-│   │   ├── val (processed)
-│   │   ├── train_val (processed)
-│   ├── vaihingen
-│   │   ├── train_images (original)
-│   │   ├── train_masks (original)
-│   │   ├── test_images (original)
-│   │   ├── test_masks (original)
-│   │   ├── test_masks_eroded (original)
-│   │   ├── train (processed)
-│   │   ├── test (processed)
-│   ├── potsdam (the same with vaihingen)
-```
+| Model Architecture | Model Family | Backbone Pretraining | Val mIoU | Val F1 | Val OA | Boundary IoU (mBIoU) | Boundary F1 (mBF1) | Boundary Precision |
+| :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **TransUNet** | ViT-B + ResNet-50 | ImageNet Pretrained | **49.31%** | **63.66%** | **81.39%** | **37.34%** | **80.70%** | **98.30%** |
+| **CMTFNet** | ResNet-50 + Transformer | ImageNet Pretrained | **45.46%** | **60.60%** | **76.68%** | **27.84%** | **76.79%** | **99.11%** |
+| **UNetFormer** | ResNet-18 + GLSA | ImageNet Pretrained | 41.81% | 56.64% | 74.89% | — | — | — |
+| **BoundaryVMambaUNet** | Boundary-Gated SSM | Random Initialization | 29.16% | 41.05% | 66.31% | 14.53% | 50.48% | 95.78% |
 
-## Install
+---
 
-Open the folder **airs** using **Linux Terminal** and create python environment:
-```
-conda create -n airs python=3.8
-conda activate airs
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-pip install -r GeoSeg/requirements.txt
-```
+### 3. Segmentation Accuracy vs. Distance to True Boundary
 
-Install Mamba
-```
-pip install causal-conv1d>=1.4.0
-pip install mamba-ssm
-```
-
-## Pretrained Weights of Backbones
-
-[Baidu Disk](https://pan.baidu.com/s/1foJkxeUZwVi5SnKNpn6hfg) : 1234 
-
-[Google Drive](https://drive.google.com/drive/folders/1ELpFKONJZbXmwB5WCXG7w42eHtrXzyPn?usp=sharing)
-
-## Data Preprocessing
-
-Download the datasets from the official website and split them yourself.
-
-**Vaihingen**
-
-Generate the training set.
-```
-python GeoSeg/tools/vaihingen_patch_split.py \
---img-dir "data/vaihingen/train_images" \
---mask-dir "data/vaihingen/train_masks" \
---output-img-dir "data/vaihingen/train/images_1024" \
---output-mask-dir "data/vaihingen/train/masks_1024" \
---mode "train" --split-size 1024 --stride 512 
-```
-Generate the testing set.
-```
-python GeoSeg/tools/vaihingen_patch_split.py \
---img-dir "data/vaihingen/test_images" \
---mask-dir "data/vaihingen/test_masks_eroded" \
---output-img-dir "data/vaihingen/test/images_1024" \
---output-mask-dir "data/vaihingen/test/masks_1024" \
---mode "val" --split-size 1024 --stride 1024 \
---eroded
-```
-Generate the masks_1024_rgb (RGB format ground truth labels) for visualization.
-```
-python GeoSeg/tools/vaihingen_patch_split.py \
---img-dir "data/vaihingen/test_images" \
---mask-dir "data/vaihingen/test_masks" \
---output-img-dir "data/vaihingen/test/images_1024" \
---output-mask-dir "data/vaihingen/test/masks_1024_rgb" \
---mode "val" --split-size 1024 --stride 1024 \
---gt
-```
-As for the validation set, you can select some images from the training set to build it.
-
-**Potsdam**
-```
-python GeoSeg/tools/potsdam_patch_split.py \
---img-dir "data/potsdam/train_images" \
---mask-dir "data/potsdam/train_masks" \
---output-img-dir "data/potsdam/train/images_1024" \
---output-mask-dir "data/potsdam/train/masks_1024" \
---mode "train" --split-size 1024 --stride 1024 --rgb-image 
-```
+To quantify how models handle high-frequency boundary contours versus homogeneous interior regions, pixel accuracy was computed across Euclidean distance intervals:
 
 ```
-python GeoSeg/tools/potsdam_patch_split.py \
---img-dir "data/potsdam/test_images" \
---mask-dir "data/potsdam/test_masks_eroded" \
---output-img-dir "data/potsdam/test/images_1024" \
---output-mask-dir "data/potsdam/test/masks_1024" \
---mode "val" --split-size 1024 --stride 1024 \
---eroded --rgb-image
+Distance Range from Boundary    LoveDA: TransUNet    LoveDA: Ours (BoundaryVMamba)    SEN-2: CMTFNet    SEN-2: TransUNet
+-------------------------------------------------------------------------------------------------------------------------
+0 – 1 px (Exact Edge Line)            48.67%                    47.04%                    64.78%            72.66%
+2 – 4 px (Near Boundary)              55.37%                    53.92%                    97.13%            95.55%
+5 – 8 px (Transition Band)            63.64%                    64.10%                    99.23%            98.63%
+9 – 16 px                             71.36%                    74.15%                    99.70%            99.48%
+17 – 32 px                            76.27%                    81.08%                    99.91%            99.79%
+>33 px (Interior Core)                79.60%                    89.77%                    99.84%            99.61%
 ```
 
-```
-python GeoSeg/tools/potsdam_patch_split.py \
---img-dir "data/potsdam/test_images" \
---mask-dir "data/potsdam/test_masks" \
---output-img-dir "data/potsdam/test/images_1024" \
---output-mask-dir "data/potsdam/test/masks_1024_rgb" \
---mode "val" --split-size 1024 --stride 1024 \
---gt --rgb-image
-```
+---
 
-**UAVid**
-```
-python GeoSeg/tools/uavid_patch_split.py \
---input-dir "data/uavid/uavid_train_val" \
---output-img-dir "data/uavid/train_val/images" \
---output-mask-dir "data/uavid/train_val/masks" \
---mode 'train' --split-size-h 1024 --split-size-w 1024 \
---stride-h 1024 --stride-w 1024
-```
+## 🏗️ Repository Architecture
 
-```
-python GeoSeg/tools/uavid_patch_split.py \
---input-dir "data/uavid/uavid_train" \
---output-img-dir "data/uavid/train/images" \
---output-mask-dir "data/uavid/train/masks" \
---mode 'train' --split-size-h 1024 --split-size-w 1024 \
---stride-h 1024 --stride-w 1024
-```
-
-```
-python GeoSeg/tools/uavid_patch_split.py \
---input-dir "data/uavid/uavid_val" \
---output-img-dir "data/uavid/val/images" \
---output-mask-dir "data/uavid/val/masks" \
---mode 'val' --split-size-h 1024 --split-size-w 1024 \
---stride-h 1024 --stride-w 1024
-```
-
-**LoveDA**
-```
-python GeoSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Train/Rural/masks_png --output-mask-dir data/LoveDA/Train/Rural/masks_png_convert
-python GeoSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Train/Urban/masks_png --output-mask-dir data/LoveDA/Train/Urban/masks_png_convert
-python GeoSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Val/Rural/masks_png --output-mask-dir data/LoveDA/Val/Rural/masks_png_convert
-python GeoSeg/tools/loveda_mask_convert.py --mask-dir data/LoveDA/Val/Urban/masks_png --output-mask-dir data/LoveDA/Val/Urban/masks_png_convert
-```
-
-## Training
-
-"-c" means the path of the config, use different **config** to train different models.
-
-```
-python GeoSeg/train_supervision.py -c GeoSeg/config/uavid/unetformer.py
+```text
+lssmamba/
+├── config/                                # Reproducible experiment configurations
+│   ├── loveda/                            # LoveDA benchmark configs
+│   │   ├── boundary_vmamba_unet.py        # Proposed Boundary-Gated VMamba U-Net
+│   │   ├── cmtfnet.py                     # CNN + Transformer hybrid baseline
+│   │   ├── transunet.py                   # TransUNet (ViT-B + ResNet-50)
+│   │   ├── baseline_plain_vmamba_unet.py  # Plain VMamba U-Net baseline
+│   │   └── unetformer.py                  # UNetFormer baseline
+│   └── sen2_lulc/                         # SEN-2 LULC Indian satellite configs
+│       ├── boundary_vmamba_unet.py
+│       ├── cmtfnet.py
+│       ├── transunet.py
+│       └── unetformer.py
+├── geoseg/
+│   ├── datasets/                          # Dataset loaders & boundary generators
+│   │   ├── loveda_dataset.py              # LoveDA loader with online edge maps
+│   │   └── sen2_lulc_dataset.py           # SEN-2 LULC loader with dynamic contours
+│   ├── models/                            # Neural network architectures
+│   │   ├── BoundaryVMambaUNet.py          # Proposed model implementation
+│   │   ├── vmamba_encoder.py              # 2D Selective State Space backbone
+│   │   ├── csm_triton.py                  # Triton accelerated cross-scan kernels
+│   │   ├── CMTFNet.py                     # CMTFNet architecture
+│   │   ├── TransUNet.py                   # Optimized TransUNet (FlashAttention/SDPA)
+│   │   ├── SSNet.py                       # SSNet architecture
+│   │   └── UNetFormer.py                  # UNetFormer architecture
+│   ├── losses/                            # Compound segmentation & boundary losses
+│   │   ├── boundary_loss.py               # Boundary loss with auxiliary heads
+│   │   └── soft_ce_dice.py                # Soft Cross-Entropy & Dice loss
+│   └── utils/
+│       └── boundary_metrics.py            # CVPR 2021 Boundary IoU/F1 evaluator
+├── tools/                                 # Verification, evaluation & analysis tools
+│   ├── show_results.py                    # Formats live training curves & benchmark tables
+│   ├── eval_boundary_loveda.py            # LoveDA CVPR 2021 boundary evaluation
+│   ├── eval_boundary_sen2.py              # SEN-2 LULC CVPR 2021 boundary evaluation
+│   └── generate_boundary_maps.py          # Offline/online boundary generation utilities
+├── train_supervision.py                   # Main PyTorch Lightning training harness
+├── web_app.py                             # Live interactive research demo studio (FastAPI)
+└── stitch_lsmamba_research_demo_studio/   # Dark-mode Web UI studio assets
 ```
 
-## Testing
+---
 
-"-c" denotes the path of the config, Use different **config** to test different models. 
+## 🚀 Quick Start Guide
 
-"-o" denotes the output path 
+### 1. Environment Installation
+Clone the repository and install dependencies within a virtual environment:
 
-"-t" denotes the test time augmentation (TTA), can be [None, 'lr', 'd4'], default is None, 'lr' is flip TTA, 'd4' is multiscale TTA
+```bash
+git clone https://github.com/dhruv121988/LsMambaa.git
+cd LsMambaa
 
-"--rgb" denotes whether to output masks in RGB format
+# Create and activate environment
+python3 -m venv venv
+source venv/bin/activate
 
-**Vaihingen**
-```
-python GeoSeg/vaihingen_test.py -c GeoSeg/config/vaihingen/dcswin.py -o fig_results/vaihingen/dcswin --rgb -t 'd4'
-```
+# Install PyTorch with CUDA support (adjust for your CUDA driver)
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
 
-**Potsdam**
-```
-python GeoSeg/potsdam_test.py -c GeoSeg/config/potsdam/dcswin.py -o fig_results/potsdam/dcswin --rgb -t 'lr'
-```
-
-**LoveDA** ([Online Testing](https://codalab.lisn.upsaclay.fr/competitions/421))
-```
-python GeoSeg/loveda_test.py -c GeoSeg/config/loveda/dcswin.py -o fig_results/loveda/dcswin_test -t 'd4'
+# Install core packages
+pip install pytorch-lightning timm triton albumentations opencv-python fastapi uvicorn
 ```
 
-**UAVid** ([Online Testing](https://codalab.lisn.upsaclay.fr/competitions/7302))
-```
-python GeoSeg/inference_uavid.py \
--i 'data/uavid/uavid_test' \
--c GeoSeg/config/uavid/unetformer.py \
--o fig_results/uavid/unetformer_r18 \
--t 'lr' -ph 1152 -pw 1024 -b 2 -d "uavid"
-```
+---
 
-## Inference on huge remote sensing image
-```
-python GeoSeg/inference_huge_image.py \
--i data/vaihingen/test_images \
--c GeoSeg/config/vaihingen/dcswin.py \
--o fig_results/vaihingen/dcswin_huge \
--t 'lr' -ph 512 -pw 512 -b 2 -d "pv"
+### 2. Dataset Preparation
+
+#### LoveDA Dataset
+Download from [LoveDA Official Website](https://codalab.lisn.upsaclay.fr/competitions/421) and organize as follows:
+```text
+data/LoveDA/
+├── Train/
+│   ├── Urban/ (images_png, masks_png)
+│   └── Rural/ (images_png, masks_png)
+└── Val/
+    ├── Urban/ (images_png, masks_png)
+    └── Rural/ (images_png, masks_png)
 ```
 
-<div>
-<img src="vai.png" width="30%"/>
-<img src="pot.png" width="35.5%"/>
-</div>
+#### SEN-2 LULC Dataset (Indian Satellite)
+Download from [SEN-2 LULC Paper Repository](https://doi.org/10.1016/j.dib.2023.109724):
+```text
+data/SEN-2 LULC/
+├── train_images/train/
+├── train_masks/train/
+├── val_images/val/
+└── val_masks/val/
+```
 
-## Reproduction Results
-|    Method     |  Dataset  |  F1   |  OA   |  mIoU |
-|:-------------:|:---------:|:-----:|:-----:|------:|
-|  UNetFormer   |   UAVid   |   -   |   -   | 67.63 |
-|  UNetFormer   | Vaihingen | 90.30 | 91.10 | 82.54 |
-|  UNetFormer   |  Potsdam  | 92.64 | 91.19 | 86.52 |
-|  UNetFormer   |  LoveDA   |   -   |   -   | 52.97 |
-| FT-UNetFormer | Vaihingen | 91.17 | 91.74 | 83.98 |
-| FT-UNetFormer |  Potsdam  | 93.22 | 91.87 | 87.50 |
+---
 
-Due to some random operations in the training stage, reproduced results (run once) are slightly different from the reported in paper.
+### 3. Model Training
 
-## Citation
+#### Train Proposed BoundaryVMambaUNet on LoveDA:
+```bash
+python train_supervision.py \
+  -c config/loveda/boundary_vmamba_unet.py \
+  --batch_size 4 \
+  --val_batch_size 4 \
+  --num_workers 8 \
+  --epochs 16 \
+  --check_val_every_n_epoch 1
+```
 
-If you find this project useful in your research, please consider citing：
+#### Train TransUNet Baseline on LoveDA:
+```bash
+python train_supervision.py \
+  -c config/loveda/transunet.py \
+  --batch_size 2 \
+  --val_batch_size 2 \
+  --num_workers 8 \
+  --epochs 16 \
+  --check_val_every_n_epoch 4
+```
 
-- [UNetFormer: A UNet-like transformer for efficient semantic segmentation of remote sensing urban scene imagery](https://authors.elsevier.com/a/1fIji3I9x1j9Fs)
-- [A Novel Transformer Based Semantic Segmentation Scheme for Fine-Resolution Remote Sensing Images](https://ieeexplore.ieee.org/abstract/document/9681903) 
-- [Transformer Meets Convolution: A Bilateral Awareness Network for Semantic Segmentation of Very Fine Resolution Urban Scene Images](https://www.mdpi.com/2072-4292/13/16/3065)
-- [ABCNet: Attentive Bilateral Contextual Network for Efficient Semantic Segmentation of Fine-Resolution Remote Sensing Images](https://www.sciencedirect.com/science/article/pii/S0924271621002379)
-- [Multiattention network for semantic segmentation of fine-resolution remote sensing images](https://ieeexplore.ieee.org/abstract/document/9487010)
-- [A2-FPN for semantic segmentation of fine-resolution remotely sensed images](https://www.tandfonline.com/doi/full/10.1080/01431161.2022.2030071)
+#### Train TransUNet on SEN-2 LULC (Indian Dataset):
+```bash
+python train_supervision.py \
+  -c config/sen2_lulc/transunet.py \
+  --batch_size 64 \
+  --val_batch_size 64 \
+  --num_workers 8 \
+  --epochs 16 \
+  --check_val_every_n_epoch 4 \
+  --max_train_samples 8000 \
+  --max_val_samples 2000
+```
 
+---
 
+### 4. Boundary Metrics Evaluation (CVPR 2021 Protocol)
 
-## Acknowledgement
+Evaluate mean Boundary IoU ($\text{mBIoU}$) and Boundary F1 ($\text{mBF}_1$) on test checkpoints:
 
-We wish **GeoSeg** could serve the growing research of remote sensing by providing a unified benchmark 
-and inspiring researchers to develop their own segmentation networks. Many thanks the following projects's contributions to **GeoSeg**.
-- [pytorch lightning](https://www.pytorchlightning.ai/)
-- [timm](https://github.com/rwightman/pytorch-image-models)
-- [pytorch-toolbelt](https://github.com/BloodAxe/pytorch-toolbelt)
-- [ttach](https://github.com/qubvel/ttach)
-- [catalyst](https://github.com/catalyst-team/catalyst)
-- [mmsegmentation](https://github.com/open-mmlab/mmsegmentation)
+```bash
+# Evaluate LoveDA checkpoint
+python tools/eval_boundary_loveda.py \
+  -c config/loveda/boundary_vmamba_unet.py \
+  --ckpt model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch100/last.ckpt \
+  --batch_size 4 \
+  --num_workers 4
+
+# Evaluate SEN-2 LULC checkpoint
+python tools/eval_boundary_sen2.py \
+  -c config/sen2_lulc/transunet.py \
+  --ckpt model_weights/sen2_lulc/transunet-sen2_lulc-epoch16/last.ckpt \
+  --batch_size 64 \
+  --max_samples 2000 \
+  --num_workers 8
+```
+
+---
+
+### 5. Inspect Results & Benchmark Tables
+
+Print unified comparison tables directly from your terminal:
+
+```bash
+# View LoveDA benchmark results
+python tools/show_results.py --dataset loveda
+
+# View SEN-2 LULC benchmark results
+python tools/show_results.py --dataset sen2
+
+# View Cross-Dataset Comparison (LoveDA vs SEN-2 LULC)
+python tools/show_results.py --compare
+```
+
+---
+
+### 6. Interactive Web Demo Studio
+
+Launch the interactive local web inference studio to visualize real-time segmentation overlays, binary boundary masks, and distance profiles:
+
+```bash
+python web_app.py
+```
+Open [http://localhost:8000](http://localhost:8000) in your browser.
+
+---
+
+## 📜 Citation & References
+
+```bibtex
+@article{lsmamba2026,
+  title={LsMamba: Boundary-Guided Selective State Space Models for Remote Sensing Image Segmentation},
+  author={Dhruv and Contributors},
+  journal={GitHub Repository},
+  year={2026},
+  url={https://github.com/dhruv121988/LsMambaa}
+}
+
+@inproceedings{cheng2021boundary,
+  title={Boundary IoU: Improving object-centric image segmentation evaluation},
+  author={Cheng, Bowen and Girshick, Ross and Doll{\'a}r, Piotr and Berg, Alexander C and Kirillov, Alexander},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages={15334--15342},
+  year={2021}
+}
+
+@article{wang2021loveda,
+  title={LoveDA: A remote sensing dataset for urban and rural semantic segmentation},
+  author={Wang, Junjue and Zheng, Zhuo and Ma, Ailong and Lu, Xiaoyan and Zhong, Yanfei},
+  journal={arXiv preprint arXiv:2110.08733},
+  year={2021}
+}
+
+@article{sawant2023sen2lulc,
+  title={Sen-2 LULC: Land use land cover dataset for deep learning approaches},
+  author={Sawant, S. and Garg, R. D. and Meshram, V. and Mistry, S.},
+  journal={Data in Brief},
+  volume={51},
+  pages={109724},
+  year={2023}
+}
+```
+
+---
+
+## 📄 License
+This project is licensed under the [MIT License](LICENSE).
