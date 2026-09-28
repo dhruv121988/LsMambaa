@@ -219,9 +219,14 @@ def main():
         print("=" * 88)
         print(f"{'Model Architecture':<35} | {'Val mIoU':<12} | {'Val F1':<12} | {'Val OA':<12}")
         print("-" * 88)
+        print(f"{'BoundaryVMambaUNet (Random Init)':<35} | {'29.16%':<12} | {'41.05%':<12} | {'66.31%':<12}")
         print(f"{'UNetFormer (ResNet-18)':<35} | {'41.81%':<12} | {'56.64%':<12} | {'74.89%':<12}")
         print(f"{'CMTFNet (ResNet-50 + Transformer)':<35} | {'45.17%':<12} | {'60.27%':<12} | {'76.92%':<12}")
-        print(f"{'BoundaryVMambaUNet (Proposed)':<35} | {'29.16%':<12} | {'41.05%':<12} | {'66.31%':<12}")
+        print(f"{'TransUNet (ViT-B + ResNet-50)':<35} | {'49.31%':<12} | {'63.66%':<12} | {'81.39%':<12}")
+        print("-" * 88)
+        print("  Boundary Metrics (CVPR 2021 Protocol, tolerance=2px):")
+        print(f"  • BoundaryVMambaUNet : 14.53% mBIoU | 50.48% mBF1 | 95.78% Precision")
+        print(f"  • TransUNet          : 37.34% mBIoU | 80.70% mBF1 | 98.30% Precision")
         print("=" * 88 + "\n")
 
     # --- LoveDA Dataset ---

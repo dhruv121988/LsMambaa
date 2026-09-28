@@ -19,10 +19,21 @@ from tools.metric import Evaluator
 
 
 def main():
-    config_path = "config/sen2_lulc/boundary_vmamba_unet.py"
-    ckpt_path = "model_weights/sen2_lulc/boundary_vmamba_unet-sen2_lulc-epoch16/boundary_vmamba_unet-sen2_lulc-epoch16.ckpt"
-    if not os.path.exists(ckpt_path):
-        ckpt_path = "model_weights/sen2_lulc/boundary_vmamba_unet-sen2_lulc-epoch16/last.ckpt"
+    import argparse
+    parser = argparse.ArgumentParser(description="Evaluate boundary metrics on SEN-2 LULC")
+    parser.add_argument("-c", "--config", type=str, default="config/sen2_lulc/boundary_vmamba_unet.py")
+    parser.add_argument("--ckpt", type=str, default=None)
+    parser.add_argument("--batch_size", type=int, default=64)
+    parser.add_argument("--max_samples", type=int, default=2000)
+    parser.add_argument("--num_workers", type=int, default=8)
+    args = parser.parse_args()
+
+    config_path = args.config
+    ckpt_path = args.ckpt
+    if ckpt_path is None:
+        ckpt_path = "model_weights/sen2_lulc/boundary_vmamba_unet-sen2_lulc-epoch16/boundary_vmamba_unet-sen2_lulc-epoch16.ckpt"
+        if not os.path.exists(ckpt_path):
+            ckpt_path = "model_weights/sen2_lulc/boundary_vmamba_unet-sen2_lulc-epoch16/last.ckpt"
 
     print(f"Loading config: {config_path}")
     print(f"Loading checkpoint: {ckpt_path}")
@@ -32,18 +43,32 @@ def main():
     model.cuda()
     model.eval()
 
-    # Load 3000 validation samples
+    # Load validation samples
     from geoseg.datasets.sen2_lulc_dataset import SEN2LULCDataset
+    val_data_root = getattr(config, 'data_root', None)
+    if val_data_root is None:
+        if hasattr(config, 'val_dataset') and hasattr(config.val_dataset, 'data_root'):
+            val_data_root = config.val_dataset.data_root
+        else:
+            val_data_root = "/home/admin/Downloads/SEN-2 LULC"
+
+    target_size = getattr(config, 'target_size', None)
+    if target_size is None:
+        if hasattr(config, 'val_dataset') and hasattr(config.val_dataset, 'target_size'):
+            target_size = config.val_dataset.target_size
+        else:
+            target_size = 128
+
     val_dataset = SEN2LULCDataset(
-        data_root=config.data_root,
+        data_root=val_data_root,
         split="val",
-        target_size=config.target_size,
-        max_samples=3000
+        target_size=target_size,
+        max_samples=args.max_samples
     )
     val_loader = DataLoader(
         val_dataset,
-        batch_size=128,
-        num_workers=8,
+        batch_size=args.batch_size,
+        num_workers=args.num_workers,
         shuffle=False,
         pin_memory=True
     )
