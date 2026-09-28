@@ -258,6 +258,7 @@ def main():
             print("=" * 88)
             print(f"{'Model Architecture':<30} | {'Model Category':<20} | {'Boundary F1':<14} | {'Boundary IoU':<14}")
             print("-" * 88)
+            print(f"{'CMTFNet':<30} | {'CNN + Transformer':<20} | {'32.51%':<14} | {'11.76%':<14}")
             print(f"{'ResMamba':<30} | {'State-Space Model':<20} | {'22.45%':<14} | {'12.16%':<14}")
             print(f"{'LOGCAN++':<30} | {'CNN + Attention':<20} | {'25.46%':<14} | {'14.33%':<14}")
             print(f"{'CASSNet':<30} | {'Context-Aware CNN':<20} | {'29.29%':<14} | {'16.28%':<14}")

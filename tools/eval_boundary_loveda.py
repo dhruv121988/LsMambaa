@@ -18,8 +18,16 @@ from tools.metric import Evaluator
 
 
 def main():
-    config_path = "config/loveda/boundary_vmamba_unet.py"
-    ckpt_path = "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch100/last.ckpt"
+    import argparse
+    parser = argparse.ArgumentParser(description="Evaluate boundary metrics on LoveDA")
+    parser.add_argument("-c", "--config", type=str, default="config/loveda/boundary_vmamba_unet.py")
+    parser.add_argument("--ckpt", type=str, default="model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch100/last.ckpt")
+    parser.add_argument("--batch_size", type=int, default=4)
+    parser.add_argument("--num_workers", type=int, default=4)
+    args = parser.parse_args()
+
+    config_path = args.config
+    ckpt_path = args.ckpt
 
     print(f"Loading config: {config_path}")
     print(f"Loading checkpoint: {ckpt_path}")
@@ -32,8 +40,8 @@ def main():
     val_dataset = config.val_dataset
     val_loader = DataLoader(
         val_dataset,
-        batch_size=1,
-        num_workers=4,
+        batch_size=args.batch_size,
+        num_workers=args.num_workers,
         shuffle=False,
         pin_memory=True
     )
