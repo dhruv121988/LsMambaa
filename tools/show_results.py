@@ -226,6 +226,7 @@ def main():
         print("-" * 88)
         print("  Boundary Metrics (CVPR 2021 Protocol, tolerance=2px):")
         print(f"  • BoundaryVMambaUNet : 14.53% mBIoU | 50.48% mBF1 | 95.78% Precision")
+        print(f"  • CMTFNet            : 27.84% mBIoU | 76.79% mBF1 | 99.11% Precision")
         print(f"  • TransUNet          : 37.34% mBIoU | 80.70% mBF1 | 98.30% Precision")
         print("=" * 88 + "\n")
 
