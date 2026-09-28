@@ -45,13 +45,14 @@
 | **CMTFNet** | CNN + Transformer | Pretrained | **63.13%** | 76.00% | 77.74% | 11.76% | 32.51% | 23.95% |
 | **Plain VMamba U-Net** | Baseline SSM | Pretrained | 59.71% | 73.12% | 74.92% | 12.16% | 22.45% | 18.20% |
 | **TransUNet** | ViT-B + ResNet-50 | Pretrained | 47.80% | 60.87% | 73.59% | **5.68%** | **18.59%** | 14.68% |
+| **SSNet** | ViT-B Attention | Pretrained | 45.20% | 59.86% | 60.55% | — | — | — |
 | *SAPLNet (CVPR)* | Boundary Network | Pretrained | 52.31% | 66.89% | 70.12% | 21.50% | 37.66% | — |
 | *CIGformer* | Pure Transformer | Pretrained | 51.05% | 65.40% | 68.90% | 17.18% | 31.01% | — |
 | *CASSNet* | Context-Aware CNN | Pretrained | 50.84% | 64.92% | 67.55% | 16.28% | 29.29% | — |
 | *LOGCAN++* | CNN + Attention | Pretrained | 50.12% | 63.88% | 66.80% | 14.33% | 25.46% | — |
 | *ResMamba* | Pure SSM Baseline | Pretrained | 58.74% | 72.10% | 73.80% | 12.16% | 22.45% | — |
 
-> 🏆 **SOTA Finding**: **BoundaryVMambaUNet ranks #1 overall in Boundary IoU (21.81%)**, outperforming previous state-of-the-art SAPLNet (+0.31%), CMTFNet (+10.05%), and TransUNet (+16.13%). TransUNet suffers a catastrophic drop at boundaries (5.68% mBIoU) due to $16 \times 16$ patch quantization blurring sub-pixel aerial edges.
+> 🏆 **SOTA Finding**: **BoundaryVMambaUNet ranks #1 overall in Boundary IoU (21.81%)**, outperforming previous state-of-the-art SAPLNet (+0.31%), CMTFNet (+10.05%), and TransUNet (+16.13%). Additionally, BoundaryVMambaUNet substantially outperforms vision transformer alternatives in region mIoU (+13.29% over TransUNet, +15.89% over SSNet). TransUNet suffers a catastrophic drop at boundaries (5.68% mBIoU) due to $16 \times 16$ patch quantization blurring sub-pixel aerial edges.
 
 ---
 

@@ -64,6 +64,10 @@ def main():
             mask = batch["gt_semantic_seg"].numpy() # (B, H, W)
             
             output = model(img)
+            if isinstance(output, (tuple, list)):
+                output = output[0]
+            elif isinstance(output, dict):
+                output = output.get("seg_logits", output.get("pred", output))
             pred = torch.softmax(output, dim=1).argmax(dim=1).cpu().numpy() # (B, H, W)
 
             # Accumulate region metrics

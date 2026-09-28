@@ -27,6 +27,8 @@ max_epoch = _cli_args.epochs
 num_classes = len(CLASSES)
 classes = CLASSES
 ignore_index = 255
+data_root = _cli_args.data_root
+target_size = _cli_args.target_size
 
 weights_name = f"ssnet-sen2_lulc-epoch{max_epoch}"
 weights_path = f"model_weights/sen2_lulc/{weights_name}"
