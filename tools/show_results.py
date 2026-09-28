@@ -241,6 +241,8 @@ def main():
         loveda_logs = glob.glob("lightning_logs/loveda/*")
         for log_dir in sorted(loveda_logs):
             name = os.path.basename(log_dir)
+            if "a2fpn" in name.lower():
+                continue
             if args.model != "all" and args.model.lower() not in name.lower():
                 continue
             records = load_model_records(log_dir)
