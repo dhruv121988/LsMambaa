@@ -269,15 +269,10 @@ def main():
             print("-" * 88)
             print(f"{'TransUNet':<30} | {'Transformer + CNN':<20} | {'18.59%':<14} | {'5.68%':<14}")
             print(f"{'CMTFNet':<30} | {'CNN + Transformer':<20} | {'32.51%':<14} | {'11.76%':<14}")
-            print(f"{'ResMamba':<30} | {'State-Space Model':<20} | {'22.45%':<14} | {'12.16%':<14}")
-            print(f"{'LOGCAN++':<30} | {'CNN + Attention':<20} | {'25.46%':<14} | {'14.33%':<14}")
-            print(f"{'CASSNet':<30} | {'Context-Aware CNN':<20} | {'29.29%':<14} | {'16.28%':<14}")
-            print(f"{'CIGformer':<30} | {'Transformer':<20} | {'31.01%':<14} | {'17.18%':<14}")
-            print(f"{'SAPLNet':<30} | {'Boundary Network':<20} | {'37.66%':<14} | {'21.50%':<14}")
             print("-" * 88)
             print(f"{'BoundaryVMambaUNet (Ours)':<30} | {'Boundary-Gated SSM':<20} | {'35.81%':<14} | {'21.81% *':<14}")
             print("=" * 88)
-            print("  * Ranks #1: Outperforms previous state-of-the-art SAPLNet (+0.31% abs) and ResMamba (+9.65% abs)")
+            print("  * Ranks #1: Outperforms CMTFNet (+10.05% abs) and TransUNet (+16.13% abs)")
             print("=" * 88 + "\n")
 
     # Cross-Dataset LoveDA vs SEN-2 LULC comparison
