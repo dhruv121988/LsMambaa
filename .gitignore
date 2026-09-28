@@ -5,6 +5,9 @@ __pycache__/
 
 # PyTorch Lightning & Logs
 *.log
+events.out.tfevents.*
+lightning_logs/version_*/
+
 
 
 # Checkpoints and Model Weights
