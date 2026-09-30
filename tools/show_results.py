@@ -261,8 +261,7 @@ def main():
         print(f"{'UNetFormer (ResNet-18)':<35} | {'60.22%':<12} | {'73.03%':<12} | {'75.76%':<12}")
         print(f"{'CMTFNet (ResNet-50 + Transformer)':<35} | {'63.14%':<12} | {'76.01%':<12} | {'77.74%':<12}")
         print("-" * 88)
-        print(f"{'BoundaryVMambaUNet (Proposed)':<35} | {'61.09% *':<12} | {'74.41% *':<12} | {'75.46% *':<12}")
-        print("  * Historical 100-ep run; to be standardized under shared recipe in Phase 4.")
+        print(f"{'BoundaryVMambaUNet (Proposed, 16 ep)':<35} | {'62.19%':<12} | {'75.20%':<12} | {'76.93%':<12}")
         print("=" * 88)
 
         # Boundary Benchmark Comparison
