@@ -137,7 +137,7 @@ def print_cross_dataset_comparison():
     print(f"{'  • Overall Accuracy (OA)':<35} | {'75.46%':<26} | {'66.31%':<28}")
     print("-" * 96)
     print(" [2] BOUNDARY DELINEATION (CVPR 2021 PROTOCOL, tolerance=2px)")
-    print(f"{'  • Mean Boundary IoU (mBIoU)':<35} | {'21.81% (#1 SOTA)':<26} | {'14.53% (Corrected)':<28}")
+    print(f"{'  • Mean Boundary IoU (mBIoU)':<35} | {'Evaluating (16 ep)':<26} | {'14.53% (Corrected)':<28}")
     print(f"{'  • Mean Boundary F1 (mBF1)':<35} | {'32.49%':<26} | {'50.48%':<28}")
     print(f"{'  • Overall Boundary Precision':<35} | {'22.20%':<26} | {'95.78%':<28}")
     print(f"{'  • Overall Boundary Recall':<35} | {'28.05%':<26} | {'72.70%':<28}")
@@ -275,9 +275,8 @@ def main():
         print(f"{'CMTFNet':<30} | {'CNN + Transformer':<20} | {'32.51%':<14} | {'11.76%':<14}")
         print(f"{'UNetFormer':<30} | {'Transformer + CNN':<20} | {'31.42%':<14} | {'12.84%':<14}")
         print(f"{'SSNet':<30} | {'Transformer':<20} | {'N/A (no ckpt)':<14} | {'N/A (no ckpt)':<14}")
-        print("-" * 88)
-        print(f"{'BoundaryVMambaUNet (Ours)':<30} | {'Boundary-Gated SSM':<20} | {'35.81% *':<14} | {'21.81% *':<14}")
-        print("  * Note: Historical README claim; pending full-val re-evaluation under shared protocol.")
+        print(f"{'BoundaryVMambaUNet (Ours, 16 ep)':<30} | {'Boundary-Gated SSM':<20} | {'(Evaluating)':<14} | {'(Evaluating)':<14}")
+        print("  * 16-epoch checkpoint saved; boundary evaluation to complete tomorrow.")
         print("=" * 88 + "\n")
 
     # Cross-Dataset LoveDA vs SEN-2 LULC comparison
