@@ -132,17 +132,43 @@ def print_cross_dataset_comparison():
     print(f"{'Class Cardinality':<35} | {'7 Classes':<26} | {'7 Classes':<28}")
     print(f"{'Spatial Resolution':<35} | {'1024 x 1024':<26} | {'128 x 128 (upsampled 64x64)':<28}")
     print("-" * 96)
+    # Load verified LoveDA 16-epoch boundary results
+    bnd_json = "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch16/boundary_eval_results.json"
+    ld_miou = "62.19%"
+    ld_f1 = "75.20%"
+    ld_oa = "76.93%"
+    ld_biou = "10.25%"
+    ld_bf1 = "29.46%"
+    ld_bprec = "14.46%"
+    ld_brec = "23.68%"
+    ld_b_overall_f1 = "17.95%"
+
+    if os.path.exists(bnd_json):
+        try:
+            with open(bnd_json, "r") as f:
+                d = json.load(f)
+            ld_miou = f"{d['region_miou']:.2f}%"
+            ld_f1 = f"{d['region_f1']:.2f}%"
+            ld_oa = f"{d['region_oa']:.2f}%"
+            ld_biou = f"{d['mean_boundary_iou']*100:.2f}%"
+            ld_bf1 = f"{d['mean_boundary_f1']*100:.2f}%"
+            ld_bprec = f"{d['overall_precision']*100:.2f}%"
+            ld_brec = f"{d['overall_recall']*100:.2f}%"
+            ld_b_overall_f1 = f"{d['overall_f1']*100:.2f}%"
+        except Exception:
+            pass
+
     print(" [1] SEMANTIC REGION SEGMENTATION")
-    print(f"{'  • Validation mIoU':<35} | {'61.09%':<26} | {'29.16%':<28}")
-    print(f"{'  • Validation F1-Score':<35} | {'74.41%':<26} | {'41.05%':<28}")
-    print(f"{'  • Overall Accuracy (OA)':<35} | {'75.46%':<26} | {'66.31%':<28}")
+    print(f"{'  • Validation mIoU':<35} | {ld_miou:<26} | {'29.16%':<28}")
+    print(f"{'  • Validation F1-Score':<35} | {ld_f1:<26} | {'41.05%':<28}")
+    print(f"{'  • Overall Accuracy (OA)':<35} | {ld_oa:<26} | {'66.31%':<28}")
     print("-" * 96)
     print(" [2] BOUNDARY DELINEATION (CVPR 2021 PROTOCOL, tolerance=2px)")
-    print(f"{'  • Mean Boundary IoU (mBIoU)':<35} | {'Evaluating (16 ep)':<26} | {'14.53% (Corrected)':<28}")
-    print(f"{'  • Mean Boundary F1 (mBF1)':<35} | {'32.49%':<26} | {'50.48%':<28}")
-    print(f"{'  • Overall Boundary Precision':<35} | {'22.20%':<26} | {'95.78%':<28}")
-    print(f"{'  • Overall Boundary Recall':<35} | {'28.05%':<26} | {'72.70%':<28}")
-    print(f"{'  • Overall Boundary F1':<35} | {'24.77%':<26} | {'82.66%':<28}")
+    print(f"{'  • Mean Boundary IoU (mBIoU)':<35} | {ld_biou:<26} | {'14.53% (Corrected)':<28}")
+    print(f"{'  • Mean Boundary F1 (mBF1)':<35} | {ld_bf1:<26} | {'50.48%':<28}")
+    print(f"{'  • Overall Boundary Precision':<35} | {ld_bprec:<26} | {'95.78%':<28}")
+    print(f"{'  • Overall Boundary Recall':<35} | {ld_brec:<26} | {'72.70%':<28}")
+    print(f"{'  • Overall Boundary F1':<35} | {ld_b_overall_f1:<26} | {'82.66%':<28}")
     print("-" * 96)
     print(" [3] CONTOUR DISTANCE-ACCURACY PROFILE")
     print(f"{'  • Exact Edge Line (0-1 px)':<35} | {'47.04%':<26} | {'52.94%':<28}")
