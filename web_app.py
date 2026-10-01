@@ -1,3 +1,7 @@
+"""
+LsMamba Interactive Research Demo Studio
+FastAPI service providing live boundary and semantic inference on aerial imagery.
+"""
 import os
 import io
 import time
