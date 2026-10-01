@@ -238,7 +238,7 @@ class LoveDATrainDataset(Dataset):
             try:
                 img, mask, boundary = self.transform(img, mask, boundary)
             except TypeError:
-                # In case a legacy 2-argument transform function was provided
+                # In case a 2-argument transform function was provided
                 img, mask = self.transform(img, mask)
 
         img = torch.from_numpy(img).permute(2, 0, 1).float()
