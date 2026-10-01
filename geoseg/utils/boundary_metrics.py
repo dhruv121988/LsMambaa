@@ -469,7 +469,7 @@ class BoundaryEvaluator:
 
             self.biou_class_present[c] = True
 
-            # 1a. Fixed pixel boundary (legacy 2px mode)
+            # 1a. Fixed pixel boundary (2px tolerance mode)
             gt_bnd_reg = class_mask_to_boundary(gt_c, dilation_width=self.dilation_width)
             pred_bnd_reg = class_mask_to_boundary(pred_c, dilation_width=self.dilation_width)
             inter = np.logical_and(gt_bnd_reg, pred_bnd_reg).sum()

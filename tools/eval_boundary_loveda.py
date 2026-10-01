@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Evaluate corrected boundary metrics on LoveDA validation set with high-throughput async pipeline.
+Evaluate boundary metrics on LoveDA validation set with high-throughput async pipeline.
 """
 import os
 import sys
@@ -122,7 +122,7 @@ def main():
     region_oa = evaluator.OA() * 100
 
     print("\n" + "=" * 75)
-    print("        LOVEDA - CORRECTED EVALUATION REPORT (PROPOSED MODEL)        ")
+    print("        LOVEDA - BOUNDARY EVALUATION REPORT (PROPOSED MODEL)        ")
     print("=" * 75)
     print(f"Region mIoU: {region_miou:.2f}% | Region F1: {region_f1:.2f}% | Region OA: {region_oa:.2f}%")
     print("-" * 75)

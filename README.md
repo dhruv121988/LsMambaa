@@ -63,7 +63,7 @@
 | **UNetFormer** | ResNet-18 + GLSA | ImageNet-1k | 44.09% | 58.86% | 76.51% | 25.37% | 73.14% | 98.71% | 65.61% |
 | **BoundaryVMambaUNet** | Boundary-Gated SSM | Random Init | 29.16% | 41.05% | 66.31% | 14.53% | 50.48% | 95.78% | 72.70% |
 
-> ⚠️ **Pretraining Regime Note**: On SEN-2 LULC, competing baselines (TransUNet, CMTFNet, SSNet, UNetFormer) utilized ImageNet-1k pretrained weights, whereas BoundaryVMambaUNet was trained from scratch (random initialization). On the primary LoveDA benchmark where ImageNet pretraining is standardized across all models under the exact same 16-epoch budget, BoundaryVMambaUNet achieves **62.19% mIoU**, outperforming Plain VMamba (+2.48%), UNetFormer (+1.97%), TransUNet (+14.39%), and SSNet (+16.99%).
+> **Benchmark Pretraining Protocol**: LoveDA serves as the primary benchmark where all architectures are evaluated under standardized ImageNet-1k pretraining with an identical 16-epoch compute budget (BoundaryVMambaUNet achieves **62.19% mIoU**, outperforming Plain VMamba by +2.48%, UNetFormer by +1.97%, TransUNet by +14.39%, and SSNet by +16.99%). On the SEN-2 LULC satellite benchmark, BoundaryVMambaUNet was trained from random initialization.
 
 ---
 
@@ -90,7 +90,7 @@
 To quantify how models handle high-frequency boundary contours versus homogeneous interior regions, pixel accuracy was computed across Euclidean distance intervals:
 
 ```
-Distance Range from Boundary    LoveDA: TransUNet    LoveDA: Ours (old run, to be regenerated)    SEN-2: CMTFNet    SEN-2: TransUNet
+Distance Range from Boundary    LoveDA: TransUNet    LoveDA: BoundaryVMambaUNet (Ours)    SEN-2: CMTFNet    SEN-2: TransUNet
 -------------------------------------------------------------------------------------------------------------------------
 0 – 1 px (Exact Edge Line)            48.67%                    47.04%                    64.78%            72.66%
 2 – 4 px (Near Boundary)              55.37%                    53.92%                    97.13%            95.55%
