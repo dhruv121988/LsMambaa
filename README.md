@@ -238,12 +238,13 @@ python train_supervision.py \
 Evaluate mean Boundary IoU ($\text{mBIoU}$) and Boundary F1 ($\text{mBF}_1$) on test checkpoints:
 
 ```bash
-# Evaluate LoveDA checkpoint
+# Evaluate LoveDA checkpoint (High-throughput async evaluation)
 python tools/eval_boundary_loveda.py \
   -c config/loveda/boundary_vmamba_unet.py \
-  --ckpt model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch100/last.ckpt \
-  --batch_size 4 \
-  --num_workers 4
+  --ckpt model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch16/last.ckpt \
+  --batch_size 2 \
+  --num_workers 8 \
+  --amp
 
 # Evaluate SEN-2 LULC checkpoint
 python tools/eval_boundary_sen2.py \

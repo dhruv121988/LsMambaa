@@ -12,6 +12,7 @@ import os
 import glob
 import argparse
 import csv
+import json
 
 
 def load_model_records(log_dir):
@@ -234,7 +235,7 @@ def main():
         print("=" * 88 + "\n")
 
     # --- LoveDA Dataset ---
-    proposed_log = "lightning_logs/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch100"
+    proposed_log = "lightning_logs/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch16"
     baseline_log = "lightning_logs/loveda/baseline_plain_vmamba_unet-epoch16"
 
     if show_loveda:
@@ -265,6 +266,20 @@ def main():
         print("=" * 88)
 
         # Boundary Benchmark Comparison
+        bnd_json = "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch16/boundary_eval_results.json"
+        bnd_f1_str = "(Evaluating)"
+        bnd_iou_str = "(Evaluating)"
+        bnd_note = "  * 16-epoch checkpoint saved; boundary evaluation in progress."
+        if os.path.exists(bnd_json):
+            try:
+                with open(bnd_json, "r") as f:
+                    bnd_data = json.load(f)
+                bnd_f1_str = f"{bnd_data['mean_boundary_f1']*100:.2f}%"
+                bnd_iou_str = f"{bnd_data['mean_boundary_iou']*100:.2f}%"
+                bnd_note = "  * Verified from evaluated 16-epoch checkpoint (CVPR 2021 protocol, tol=2px)."
+            except Exception:
+                pass
+
         print("\n" + "=" * 88)
         print("     LOVE-DA BOUNDARY BENCHMARK (Cheng et al. CVPR 2021 Protocol, tol=2px)      ")
         print("=" * 88)
@@ -275,8 +290,8 @@ def main():
         print(f"{'CMTFNet':<30} | {'CNN + Transformer':<20} | {'32.51%':<14} | {'11.76%':<14}")
         print(f"{'UNetFormer':<30} | {'Transformer + CNN':<20} | {'31.42%':<14} | {'12.84%':<14}")
         print(f"{'SSNet':<30} | {'Transformer':<20} | {'N/A (no ckpt)':<14} | {'N/A (no ckpt)':<14}")
-        print(f"{'BoundaryVMambaUNet (Ours, 16 ep)':<30} | {'Boundary-Gated SSM':<20} | {'(Evaluating)':<14} | {'(Evaluating)':<14}")
-        print("  * 16-epoch checkpoint saved; boundary evaluation to complete tomorrow.")
+        print(f"{'BoundaryVMambaUNet (Ours, 16 ep)':<30} | {'Boundary-Gated SSM':<20} | {bnd_f1_str:<14} | {bnd_iou_str:<14}")
+        print(bnd_note)
         print("=" * 88 + "\n")
 
     # Cross-Dataset LoveDA vs SEN-2 LULC comparison
