@@ -1,0 +1,38 @@
+{
+  "checkpoint": "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch16/last.ckpt",
+  "region_miou": 62.19063624687918,
+  "region_f1": 75.1952083353432,
+  "region_oa": 76.93142654338052,
+  "mean_boundary_iou": 0.10252431811900813,
+  "mean_boundary_f1": 0.2945716747852024,
+  "overall_precision": 0.1445682248848471,
+  "overall_recall": 0.23678210027292312,
+  "overall_f1": 0.1795260932800829,
+  "classes": [
+    "background",
+    "building",
+    "road",
+    "water",
+    "barren",
+    "forest",
+    "agricultural"
+  ],
+  "boundary_iou_per_class": [
+    0.33815546138052655,
+    0.10983496960079978,
+    0.046655576990021326,
+    0.07907355215458782,
+    0.05129476395187769,
+    0.020236857768883034,
+    0.07241904498636076
+  ],
+  "boundary_f1_per_class": [
+    0.8319431571877937,
+    0.28725281124848745,
+    0.2095421325941187,
+    0.2650125224630059,
+    0.1898946969876008,
+    0.07259408054136245,
+    0.2057623224740479
+  ]
+}

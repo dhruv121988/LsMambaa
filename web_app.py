@@ -21,7 +21,7 @@ from train_supervision import Supervision_Train
 # =====================================================================
 # Configuration & LoveDA Specs (Accurate Class & Color Indexing)
 # =====================================================================
-CKPT_PATH = "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch100/last.ckpt"
+CKPT_PATH = "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch16/last.ckpt"
 CONFIG_PATH = "config/loveda/boundary_vmamba_unet.py"
 
 # In the model training:

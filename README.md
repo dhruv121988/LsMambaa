@@ -41,8 +41,8 @@
 
 | Model Architecture | Model Family | Backbone Pretraining | Val mIoU | Val F1 | Val OA | Boundary IoU (mBIoU) | Boundary F1 (mBF1) | Boundary Precision | Boundary Recall |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **CMTFNet** | CNN + Transformer | ImageNet-1k | **63.14%** | **76.01%** | **77.74%** | 11.76% | 32.51% | 23.95% | 50.56% |
-| **BoundaryVMambaUNet (Ours, 16 ep)** | **Boundary-Gated SSM** | ImageNet-1k | **62.19%** | **75.20%** | **76.93%** | *(Evaluating)* | *(Evaluating)* | *(Evaluating)* | *(Evaluating)* |
+| **CMTFNet** | CNN + Transformer | ImageNet-1k | **63.14%** | **76.01%** | **77.74%** | 11.76% | **32.51%** | **23.95%** | **50.56%** |
+| **BoundaryVMambaUNet (Ours, 16 ep)** | **Boundary-Gated SSM** | ImageNet-1k | **62.19%** | **75.20%** | **76.93%** | 10.25% | 29.46% | 14.46% | 23.68% |
 | **UNetFormer** | ResNet-18 + GLSA | ImageNet-1k | 60.22% | 73.03% | 75.76% | **12.84%** | 31.42% | 21.84% | 36.91% |
 | **Plain VMamba U-Net** | Baseline SSM | ImageNet-1k | 59.71% | 73.12% | 74.92% | 9.42% | 25.56% | 18.25% | 43.15% |
 | **TransUNet** | ViT-B + ResNet-50 | ImageNet-1k | 47.80% | 60.87% | 73.58% | 5.68% | 18.59% | 14.68% | 25.37% |

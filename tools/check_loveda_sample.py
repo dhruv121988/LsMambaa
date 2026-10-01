@@ -15,7 +15,7 @@ from tools.metric import Evaluator
 
 def main():
     config_path = "config/loveda/boundary_vmamba_unet.py"
-    ckpt_path = "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch100/last.ckpt"
+    ckpt_path = "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch16/last.ckpt"
 
     config = py2cfg(config_path)
     model = Supervision_Train.load_from_checkpoint(ckpt_path, config=config).cuda().eval()
