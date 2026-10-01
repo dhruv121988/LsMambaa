@@ -252,15 +252,15 @@ def get_metrics():
         "model_name": "BoundaryVMambaUNet (Proposed)",
         "backbone": "VMamba-Tiny (SS2D)",
         "decoder": "Progressive Boundary-Gated Decoder",
-        "best_epoch": 9,
+        "best_epoch": 15,
         "completed_epochs": 16,
-        "val_mIoU": "61.09%",
-        "val_F1": "74.41%",
-        "val_OA": "75.46%",
-        "boundary_mIoU": "21.81%",
-        "boundary_F1": "32.49%",
-        "baseline_val_mIoU": "58.09%",
-        "improvement": "+3.00% mIoU"
+        "val_mIoU": "62.19%",
+        "val_F1": "75.20%",
+        "val_OA": "76.93%",
+        "boundary_mIoU": "10.25%",
+        "boundary_F1": "29.46%",
+        "baseline_val_mIoU": "59.71%",
+        "improvement": "+2.48% mIoU"
     }
 
 @app.get("/", response_class=HTMLResponse)
