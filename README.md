@@ -63,6 +63,8 @@
 | **UNetFormer** | ResNet-18 + GLSA | ImageNet-1k | 44.09% | 58.86% | 76.51% | 25.37% | 73.14% | 98.71% | 65.61% |
 | **BoundaryVMambaUNet** | Boundary-Gated SSM | Random Init | 29.16% | 41.05% | 66.31% | 14.53% | 50.48% | 95.78% | 72.70% |
 
+> ⚠️ **Pretraining Regime Note**: On SEN-2 LULC, competing baselines (TransUNet, CMTFNet, SSNet, UNetFormer) utilized ImageNet-1k pretrained weights, whereas BoundaryVMambaUNet was trained from scratch (random initialization). On the primary LoveDA benchmark where ImageNet pretraining is standardized across all models under the exact same 16-epoch budget, BoundaryVMambaUNet achieves **62.19% mIoU**, outperforming Plain VMamba (+2.48%), UNetFormer (+1.97%), TransUNet (+14.39%), and SSNet (+16.99%).
+
 ---
 
 ### 3. Model Efficiency & Computational Complexity Benchmark
@@ -290,8 +292,8 @@ Open [http://localhost:8000](http://localhost:8000) in your browser.
 ```bibtex
 @article{lsmamba2026,
   title={LsMamba: Boundary-Guided Selective State Space Models for Remote Sensing Image Segmentation},
-  author={Dhruv and Contributors},
-  journal={GitHub Repository},
+  author={Sharma, Dhruv},
+  journal={arXiv preprint},
   year={2026},
   url={https://github.com/dhruv121988/LsMambaa}
 }
