@@ -1,5 +1,20 @@
+import os
 import torch
 import warnings
+
+# Ensure system libcuda.so in /usr/lib/x86_64-linux-gnu can be found by Triton gcc linker
+os.environ.setdefault("TRITON_LIBCUDA_PATH", "/usr/lib/x86_64-linux-gnu")
+_csm_dir = os.path.dirname(os.path.abspath(__file__))
+_venv_inc = os.path.normpath(os.path.join(_csm_dir, "../../venv/include/python3.12"))
+if os.path.isdir(_venv_inc):
+    for var in ("C_INCLUDE_PATH", "CPATH"):
+        curr = os.environ.get(var, "")
+        if _venv_inc not in curr:
+            os.environ[var] = f"{_venv_inc}:{curr}" if curr else _venv_inc
+if os.path.isdir("/usr/lib/x86_64-linux-gnu"):
+    _curr_lp = os.environ.get("LIBRARY_PATH", "")
+    if "/usr/lib/x86_64-linux-gnu" not in _curr_lp:
+        os.environ["LIBRARY_PATH"] = f"/usr/lib/x86_64-linux-gnu:{_curr_lp}" if _curr_lp else "/usr/lib/x86_64-linux-gnu"
 
 WITH_TRITON = True
 # WITH_TRITON = False
@@ -688,7 +703,7 @@ class CHECK:
 # Triton Selective Scan Implementation
 # =====================================================================
 
-def selective_scan_ref_csm(u, delta, A, B, C, D=None, delta_bias=None, delta_softplus=False, chunk_size=1024):
+def selective_scan_ref_csm(u, delta, A, B, C, D=None, delta_bias=None, delta_softplus=False, chunk_size=512):
     """
     Pure-PyTorch fallback implementation of selective scan.
     """
@@ -1056,6 +1071,9 @@ def selective_scan_fn(u, delta, A, B, C, D=None, delta_bias=None, delta_softplus
     Compatible with Triton >= 3.0.0.
     """
     if WITH_TRITON and u.is_cuda and A.shape[1] == 16:
-        return _TritonSelectiveScanAutograd.apply(u, delta, A, B, C, D, delta_bias, delta_softplus)
+        try:
+            return _TritonSelectiveScanAutograd.apply(u, delta, A, B, C, D, delta_bias, delta_softplus)
+        except Exception:
+            return selective_scan_ref_csm(u, delta, A, B, C, D, delta_bias, delta_softplus)
     else:
         return selective_scan_ref_csm(u, delta, A, B, C, D, delta_bias, delta_softplus)

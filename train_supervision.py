@@ -13,6 +13,19 @@ from pytorch_lightning.loggers import CSVLogger
 import random
 
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+os.environ.setdefault("TRITON_LIBCUDA_PATH", "/usr/lib/x86_64-linux-gnu")
+_repo_root = os.path.dirname(os.path.abspath(__file__))
+_venv_inc = os.path.join(_repo_root, "venv/include/python3.12")
+if os.path.isdir(_venv_inc):
+    for var in ("C_INCLUDE_PATH", "CPATH"):
+        curr = os.environ.get(var, "")
+        if _venv_inc not in curr:
+            os.environ[var] = f"{_venv_inc}:{curr}" if curr else _venv_inc
+if os.path.isdir("/usr/lib/x86_64-linux-gnu"):
+    curr_lp = os.environ.get("LIBRARY_PATH", "")
+    if "/usr/lib/x86_64-linux-gnu" not in curr_lp:
+        os.environ["LIBRARY_PATH"] = f"/usr/lib/x86_64-linux-gnu:{curr_lp}" if curr_lp else "/usr/lib/x86_64-linux-gnu"
+
 if torch.cuda.is_available():
     torch.set_float32_matmul_precision('high')
 
