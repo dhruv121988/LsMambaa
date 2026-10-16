@@ -14,7 +14,9 @@ lightning_logs/version_*/
 *.ckpt
 *.pth
 *.pt
-model_weights/
+model_weights/*
+!model_weights/**/
+!model_weights/**/*.json
 
 # Datasets
 data/
