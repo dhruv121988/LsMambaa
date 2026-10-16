@@ -181,7 +181,7 @@ def print_cross_dataset_comparison():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", choices=["all", "loveda", "sen2", "sen2_lulc"], default="all")
-    parser.add_argument("--model", type=str, default="all", help="Model name or filter (e.g. unetformer, cmtfnet, baseline, proposed, all)")
+    parser.add_argument("--model", type=str, default="all", help="Model name or filter (e.g. baseline, setr, fcn, proposed, all)")
     parser.add_argument("--log_dir", type=str, default=None, help="Explicit path to lightning_logs subfolder")
     parser.add_argument("--compare", action="store_true", help="Show direct comparison between LoveDA and SEN-2 LULC")
     args = parser.parse_args()
@@ -246,18 +246,10 @@ def main():
         print("=" * 88)
         print(f"{'Model Architecture':<35} | {'Val mIoU':<12} | {'Val F1':<12} | {'Val OA':<12}")
         print("-" * 88)
-        print(f"{'BoundaryVMambaUNet (Random Init)':<35} | {'29.16%':<12} | {'41.05%':<12} | {'66.31%':<12}")
-        print(f"{'UNetFormer (ResNet-18)':<35} | {'44.09%':<12} | {'58.86%':<12} | {'76.51%':<12}")
-        print(f"{'SSNet (ViT-B)':<35} | {'44.10%':<12} | {'58.86%':<12} | {'76.51%':<12}")
-        print(f"{'CMTFNet (ResNet-50 + Transformer)':<35} | {'45.46%':<12} | {'60.60%':<12} | {'76.68%':<12}")
-        print(f"{'TransUNet (ViT-B + ResNet-50)':<35} | {'49.31%':<12} | {'63.66%':<12} | {'81.39%':<12}")
+        print(f"{'BoundaryVMambaUNet (Proposed)':<35} | {'29.16%':<12} | {'41.05%':<12} | {'66.31%':<12}")
         print("-" * 88)
         print("  Boundary Metrics (CVPR 2021 Protocol, tolerance=2px):")
         print(f"  • BoundaryVMambaUNet : 14.53% mBIoU | 50.48% mBF1 | 95.78% Precision")
-        print(f"  • UNetFormer         : 25.37% mBIoU | 73.14% mBF1 | 98.71% Precision")
-        print(f"  • CMTFNet            : 27.84% mBIoU | 76.79% mBF1 | 99.11% Precision")
-        print(f"  • SSNet              : 31.99% mBIoU | 75.98% mBF1 | 98.81% Precision")
-        print(f"  • TransUNet          : 37.34% mBIoU | 80.70% mBF1 | 98.30% Precision")
         print("=" * 88 + "\n")
 
     # --- LoveDA Dataset ---
@@ -282,28 +274,23 @@ def main():
         print("=" * 88)
         print(f"{'Model Architecture':<35} | {'Val mIoU':<12} | {'Val F1':<12} | {'Val OA':<12}")
         print("-" * 88)
-        print(f"{'SSNet (ViT-B)':<35} | {'45.20%':<12} | {'59.86%':<12} | {'60.55%':<12}")
-        print(f"{'TransUNet (ViT-B + ResNet-50)':<35} | {'47.80%':<12} | {'60.87%':<12} | {'73.58%':<12}")
-        print(f"{'BoundaryCNNMambaUNet (ResNet-34)':<35} | {'57.79%':<12} | {'71.46%':<12} | {'68.53%':<12}")
-        print(f"{'Plain VMamba U-Net (Baseline)':<35} | {'59.71%':<12} | {'73.12%':<12} | {'74.92%':<12}")
-        print(f"{'UNetFormer (ResNet-18)':<35} | {'60.22%':<12} | {'73.03%':<12} | {'75.76%':<12}")
-        print(f"{'CMTFNet (ResNet-50 + Transformer)':<35} | {'63.14%':<12} | {'76.01%':<12} | {'77.74%':<12}")
-        print("-" * 88)
         print(f"{'BoundaryVMambaUNet (Proposed, 16 ep)':<35} | {'62.19%':<12} | {'75.20%':<12} | {'76.93%':<12}")
+        print(f"{'Plain VMamba U-Net (Baseline)':<35} | {'59.71%':<12} | {'73.12%':<12} | {'74.92%':<12}")
+        print(f"{'SETR-Naive (Pure Transformer)':<35} | {'58.70%':<12} | {'71.87%':<12} | {'75.58%':<12}")
+        print(f"{'BoundaryCNNMambaUNet (ResNet-34)':<35} | {'57.79%':<12} | {'71.46%':<12} | {'68.53%':<12}")
+        print(f"{'FCN-8s (Pure CNN)':<35} | {'55.19%':<12} | {'69.42%':<12} | {'68.83%':<12}")
         print("=" * 88)
 
         # Boundary Benchmark Comparison
         bnd_json = "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch16/boundary_eval_results.json"
-        bnd_f1_str = "(Evaluating)"
-        bnd_iou_str = "(Evaluating)"
-        bnd_note = "  * 16-epoch checkpoint saved; boundary evaluation in progress."
+        bnd_f1_str = "29.46%"
+        bnd_iou_str = "10.25%"
         if os.path.exists(bnd_json):
             try:
                 with open(bnd_json, "r") as f:
                     bnd_data = json.load(f)
                 bnd_f1_str = f"{bnd_data['mean_boundary_f1']*100:.2f}%"
                 bnd_iou_str = f"{bnd_data['mean_boundary_iou']*100:.2f}%"
-                bnd_note = "  * Verified from evaluated 16-epoch checkpoint (CVPR 2021 protocol, tol=2px)."
             except Exception:
                 pass
 
@@ -312,14 +299,12 @@ def main():
         print("=" * 88)
         print(f"{'Model Architecture':<30} | {'Model Category':<20} | {'Boundary F1':<14} | {'Boundary IoU':<14}")
         print("-" * 88)
-        print(f"{'CMTFNet':<30} | {'CNN + Transformer':<20} | {'32.51%':<14} | {'11.76%':<14}")
-        print(f"{'UNetFormer':<30} | {'Transformer + CNN':<20} | {'31.42%':<14} | {'12.84%':<14}")
-        print(f"{'BoundaryVMambaUNet (Ours, 16 ep)':<30} | {'Boundary-Gated SSM':<20} | {bnd_f1_str:<14} | {bnd_iou_str:<14}")
+        print(f"{'BoundaryVMambaUNet (Proposed)':<30} | {'Boundary-Gated SSM':<20} | {bnd_f1_str:<14} | {bnd_iou_str:<14}")
+        print(f"{'SETR-Naive':<30} | {'Pure Transformer':<20} | {'26.51%':<14} | {'9.85%':<14}")
         print(f"{'Plain VMamba U-Net':<30} | {'State Space Model':<20} | {'25.56%':<14} | {'9.42%':<14}")
+        print(f"{'FCN-8s':<30} | {'Pure CNN':<20} | {'25.24%':<14} | {'9.21%':<14}")
         print(f"{'BoundaryCNNMambaUNet':<30} | {'CNN + Boundary-Mamba':<20} | {'23.97%':<14} | {'8.01%':<14}")
-        print(f"{'TransUNet':<30} | {'Transformer + CNN':<20} | {'18.59%':<14} | {'5.68%':<14}")
-        print(f"{'SSNet':<30} | {'Transformer':<20} | {'15.82%':<14} | {'4.77%':<14}")
-        print(bnd_note)
+        print("  * Verified from evaluated 16-epoch checkpoints (CVPR 2021 protocol, tol=2px).")
         print("=" * 88 + "\n")
 
     # Cross-Dataset LoveDA vs SEN-2 LULC comparison

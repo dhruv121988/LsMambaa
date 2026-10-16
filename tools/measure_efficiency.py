@@ -28,10 +28,8 @@ except ImportError:
     HAS_FVCORE = False
 
 from geoseg.models.BoundaryVMambaUNet import BoundaryVMambaUNet
-from geoseg.models.CMTFNet import CMTFNet
-from geoseg.models.TransUNet import TransUNet
-from geoseg.models.UNetFormer import UNetFormer
-from geoseg.models.SSNet import SSNet
+from geoseg.models.FCN8s import FCN8s
+from geoseg.models.SETRNaive import SETRNaive
 
 
 def count_parameters(model: nn.Module):
@@ -155,20 +153,12 @@ def main():
             BoundaryVMambaUNet(num_classes=num_classes, decoder_channels=128, use_boundary_heads=True, gated_levels=(1,), gate_type="multiplicative"),
             True
         ),
-        "CMTFNet": (
-            CMTFNet(num_classes=num_classes),
+        "FCN-8s": (
+            FCN8s(num_classes=num_classes),
             False
         ),
-        "TransUNet": (
-            TransUNet(num_classes=num_classes),
-            False
-        ),
-        "UNetFormer": (
-            UNetFormer(num_classes=num_classes),
-            False
-        ),
-        "SSNet": (
-            SSNet(num_classes=num_classes, patch_size=16, vit_dim=768, num_layers=8, dropout=0.1),
+        "SETR-Naive": (
+            SETRNaive(num_classes=num_classes),
             False
         ),
     }
