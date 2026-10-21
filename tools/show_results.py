@@ -304,6 +304,9 @@ def print_complete_summary():
     # 4. Class-wise tables
     print_classwise_tables()
 
+    # 5. Cross-Dataset Master Comparison & Boundary Distance Breakdown
+    print_cross_dataset_comparison()
+
 
 def main():
     parser = argparse.ArgumentParser()
