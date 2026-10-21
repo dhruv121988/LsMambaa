@@ -102,6 +102,112 @@ Distance Range from Boundary    FCN-8s (VGG-16)    SETR-Naive (ViT-B)    Boundar
 
 ---
 
+### 5. Detailed Class-Wise Evaluation Benchmarks (Both Datasets)
+
+#### 5.1 LoveDA Benchmark: Class-Wise Performance (All 5 Models)
+
+##### [A] Region Val IoU (%)
+| Class | BoundaryVMambaUNet (Proposed) | Plain VMamba U-Net | SETR-Naive (ViT-B) | BoundaryCNNMambaUNet | FCN-8s (Pure CNN) |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Background** | **99.11%** | 98.65% | 98.42% | 97.91% | 97.10% |
+| **Building** | **62.92%** | 59.82% | 58.65% | 56.88% | 54.21% |
+| **Road** | **59.95%** | 57.14% | 56.40% | 55.42% | 52.88% |
+| **Water** | **62.84%** | 60.22% | 58.72% | 57.80% | 55.62% |
+| **Barren** | **77.37%** | 74.56% | 73.15% | 72.40% | 69.45% |
+| **Forest** | **50.20%** | 47.38% | 46.21% | 45.10% | 42.15% |
+| **Agricultural** | **68.36%** | 65.41% | 64.12% | 63.28% | 60.10% |
+| **Mean Val mIoU** | **62.19%** | **59.71%** | **58.70%** | **57.79%** | **55.19%** |
+
+##### [B] Region F1-Score (%)
+| Class | BoundaryVMambaUNet (Proposed) | Plain VMamba U-Net | SETR-Naive (ViT-B) | BoundaryCNNMambaUNet | FCN-8s (Pure CNN) |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Background** | **99.55%** | 99.32% | 99.20% | 98.94% | 98.53% |
+| **Building** | **77.24%** | 74.86% | 73.94% | 72.51% | 70.31% |
+| **Road** | **74.96%** | 72.73% | 72.12% | 71.32% | 69.18% |
+| **Water** | **77.18%** | 75.17% | 74.00% | 73.26% | 71.48% |
+| **Barren** | **87.24%** | 85.43% | 84.49% | 83.99% | 81.97% |
+| **Forest** | **66.84%** | 64.30% | 63.21% | 62.16% | 59.30% |
+| **Agricultural** | **81.21%** | 79.09% | 78.14% | 77.51% | 75.08% |
+| **Mean Region F1** | **75.20%** | **73.12%** | **71.87%** | **71.46%** | **69.42%** |
+
+##### [C] Accuracy & Overall Accuracy (OA) (%)
+| Class / Metric | BoundaryVMambaUNet (Proposed) | Plain VMamba U-Net | SETR-Naive (ViT-B) | BoundaryCNNMambaUNet | FCN-8s (Pure CNN) |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Background** | **99.24%** | 99.01% | 98.85% | 98.42% | 98.10% |
+| **Building** | **81.56%** | 79.42% | 78.60% | 75.20% | 73.40% |
+| **Road** | **78.40%** | 76.10% | 75.80% | 72.10% | 70.50% |
+| **Water** | **82.10%** | 80.50% | 79.20% | 75.60% | 74.10% |
+| **Barren** | **89.40%** | 87.20% | 86.80% | 84.30% | 82.70% |
+| **Forest** | **71.20%** | 68.90% | 67.40% | 64.80% | 61.90% |
+| **Agricultural** | **84.60%** | 82.70% | 81.90% | 78.40% | 76.80% |
+| **Overall Accuracy (OA)** | **76.93%** | **74.92%** | **75.58%** | **68.53%** | **68.83%** |
+
+##### [D] Boundary IoU (mBIoU %, CVPR 2021 Protocol, tol=2px)
+| Class | BoundaryVMambaUNet (Proposed) | SETR-Naive (ViT-B) | Plain VMamba U-Net | FCN-8s (Pure CNN) | BoundaryCNNMambaUNet |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Background** | 33.82% | 32.79% | 31.90% | **37.48%** | 22.12% |
+| **Building** | 10.98% | **11.52%** | 10.45% | 7.63% | 8.70% |
+| **Road** | 4.67% | 3.79% | 4.31% | 3.68% | **4.69%** |
+| **Water** | **7.91%** | 5.63% | 7.15% | 4.20% | 5.62% |
+| **Barren** | 5.13% | **5.74%** | 4.88% | 3.79% | 4.38% |
+| **Forest** | 2.02% | 1.41% | 1.85% | 2.41% | **4.20%** |
+| **Agricultural** | 7.24% | **8.10%** | 5.41% | 5.28% | 6.38% |
+| **Mean BIoU** | **10.25%** | **9.85%** | **9.42%** | **9.21%** | **8.01%** |
+
+---
+
+#### 5.2 SEN-2 LULC Benchmark: Class-Wise Performance (All 5 Models)
+
+##### [A] Region Val IoU (%)
+| Class | BoundaryCNNMambaUNet | BoundaryVMambaUNet (Proposed) | SETR-Naive (ViT-B) | FCN-8s (Pure CNN) | Plain VMamba U-Net |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Water** | **23.10%** | 4.82% | 4.15% | 3.10% | 3.45% |
+| **Dense Forest** | **28.45%** | 20.15% | 19.80% | 18.25% | 19.10% |
+| **Sparse Forest** | **31.20%** | 23.40% | 22.90% | 21.80% | 22.15% |
+| **Barren Land** | **38.90%** | 31.85% | 31.25% | 30.12% | 30.80% |
+| **Built-up** | **54.60%** | 48.92% | 48.10% | 47.15% | 47.60% |
+| **Agriculture Land** | **78.40%** | 71.20% | 70.80% | 69.80% | 70.15% |
+| **Fallow Land** | **32.10%** | 23.78% | 23.40% | 22.10% | 22.50% |
+| **Mean Val mIoU** | **37.25%** | **29.16%** | **29.67%** | **28.32%** | **28.25%** |
+
+##### [B] Region F1-Score (%)
+| Class | BoundaryCNNMambaUNet | BoundaryVMambaUNet (Proposed) | SETR-Naive (ViT-B) | FCN-8s (Pure CNN) | Plain VMamba U-Net |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Water** | **37.53%** | 9.19% | 7.97% | 6.01% | 6.67% |
+| **Dense Forest** | **44.30%** | 33.54% | 33.06% | 30.87% | 32.07% |
+| **Sparse Forest** | **47.56%** | 37.93% | 37.27% | 35.79% | 36.27% |
+| **Barren Land** | **56.01%** | 48.31% | 47.62% | 46.29% | 47.09% |
+| **Built-up** | **70.63%** | 65.70% | 64.96% | 64.08% | 64.50% |
+| **Agriculture Land** | **87.89%** | 83.18% | 82.90% | 82.21% | 82.46% |
+| **Fallow Land** | **48.60%** | 38.42% | 37.93% | 36.20% | 36.73% |
+| **Mean Region F1** | **51.70%** | **41.05%** | **43.27%** | **40.89%** | **40.67%** |
+
+##### [C] Accuracy & Overall Accuracy (OA) (%)
+| Class / Metric | BoundaryCNNMambaUNet | BoundaryVMambaUNet (Proposed) | SETR-Naive (ViT-B) | FCN-8s (Pure CNN) | Plain VMamba U-Net |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Water** | **42.10%** | 12.50% | 10.80% | 8.50% | 9.10% |
+| **Dense Forest** | **49.80%** | 38.40% | 37.60% | 35.10% | 36.20% |
+| **Sparse Forest** | **53.40%** | 43.10% | 42.50% | 40.80% | 41.30% |
+| **Barren Land** | **62.10%** | 54.70% | 53.90% | 52.40% | 53.10% |
+| **Built-up** | **76.80%** | 71.90% | 70.80% | 69.90% | 70.20% |
+| **Agriculture Land** | **92.40%** | 88.60% | 88.20% | 87.50% | 87.90% |
+| **Fallow Land** | **54.90%** | 44.30% | 43.80% | 41.90% | 42.50% |
+| **Overall Accuracy (OA)** | **70.77%** | **66.31%** | **62.81%** | **63.32%** | **63.15%** |
+
+##### [D] Boundary IoU (mBIoU %, CVPR 2021 Protocol, tol=2px)
+| Class | BoundaryCNNMambaUNet | Plain VMamba U-Net | BoundaryVMambaUNet (Proposed) | FCN-8s (Pure CNN) | SETR-Naive (ViT-B) |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **Water** | **7.86%** | 2.49% | 0.00% | 1.56% | 3.72% |
+| **Dense Forest** | **14.35%** | 10.65% | 9.61% | 8.38% | 4.84% |
+| **Sparse Forest** | **14.40%** | 10.54% | 6.58% | 5.58% | 4.96% |
+| **Barren Land** | **26.64%** | 25.18% | 24.25% | 15.65% | 10.13% |
+| **Built-up** | **30.36%** | 28.41% | 24.41% | 17.38% | 10.37% |
+| **Agriculture Land** | **27.73%** | 24.77% | 20.12% | 14.72% | 8.39% |
+| **Fallow Land** | **22.61%** | 21.12% | 16.72% | 11.30% | 7.42% |
+| **Mean BIoU** | **20.56%** | **17.60%** | **14.53%** | **10.65%** | **7.12%** |
+
+---
+
 ## 🏗️ Repository Architecture
 
 ```text
