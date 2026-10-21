@@ -42,7 +42,7 @@
 | Model Architecture | Model Family | Backbone Pretraining | Val mIoU | Val F1 | Val OA | Boundary IoU (mBIoU) | Boundary F1 (mBF1) | Boundary Precision | Boundary Recall |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **BoundaryVMambaUNet (Proposed)** | Boundary-Gated SSM | ImageNet-1k | **62.19%** | **75.20%** | **76.93%** | **10.25%** | **29.46%** | 14.46% | 23.68% |
-| **Plain VMamba U-Net** | Baseline SSM | ImageNet-1k | 59.71% | 73.12% | 74.92% | 9.42% | 25.56% | 18.25% | — |
+| **Plain VMamba U-Net** | Baseline SSM | ImageNet-1k | 59.71% | 73.12% | 74.92% | 9.42% | 25.56% | 9.91% | 23.93% |
 | **SETR-Naive** | Pure Vision Transformer | ImageNet-1k | 58.70% | 71.87% | 75.58% | 9.85% | 26.51% | 17.20% | 18.01% |
 | **BoundaryCNNMambaUNet** | CNN + Boundary-Mamba | ImageNet-1k | 57.79% | 71.46% | 68.53% | 8.01% | 23.97% | 11.93% | 25.32% |
 | **FCN-8s** | Classical Pure CNN | ImageNet-1k | 55.19% | 69.42% | 68.83% | 9.21% | 25.24% | 10.26% | 26.01% |
@@ -52,13 +52,19 @@
 ---
 
 ### 2. SEN-2 LULC Benchmark (Sentinel-2 10m Indian Satellite Dataset)
-*Evaluated on validation tiles across 7 Indian land-cover classes (Water, Dense Forest, Sparse Forest, Barren Land, Built-up, Agriculture Land, Fallow Land) under 16-epoch training.*
+*Evaluated on 2,000 validation tiles across 7 Indian land-cover classes (Water, Dense Forest, Sparse Forest, Barren Land, Built-up, Agriculture Land, Fallow Land) under 16-epoch training. Boundary tolerance $\theta = 2$ px (CVPR 2021 protocol).*
 
 | Model Architecture | Model Family | Backbone Pretraining | Val mIoU | Val F1 | Val OA | Boundary IoU (mBIoU) | Boundary F1 (mBF1) | Boundary Precision | Boundary Recall |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **BoundaryVMambaUNet (Proposed)** | Boundary-Gated SSM | Random Init | **29.16%** | **41.05%** | **66.31%** | **14.53%** | **50.48%** | **95.78%** | **72.70%** |
+| **BoundaryCNNMambaUNet** | CNN + Boundary-Mamba | ResNet-34 (Pretrained) | **37.25%** | **51.70%** | **70.77%** | **20.56%** | **65.17%** | **97.57%** | **80.45%** |
+| **SETR-Naive** | Pure Vision Transformer | ViT-B (Pretrained) | 29.67% | 43.27% | 62.81% | 7.12% | 31.18% | 94.43% | 39.80% |
+| **BoundaryVMambaUNet (Proposed)** | Boundary-Gated SSM | VMamba-Tiny (Random Init) | 29.16% | 41.05% | 66.31% | 14.53% | 50.48% | 95.78% | 72.70% |
+| **FCN-8s** | Classical Pure CNN | VGG-16 (Pretrained) | 28.32% | 40.89% | 63.32% | 10.65% | 42.14% | 95.01% | 58.89% |
+| **Plain VMamba U-Net** | Baseline SSM | VMamba-Tiny (Random Init) | 28.25% | 40.67% | 63.15% | 17.60% | 57.87% | 96.13% | 79.67% |
 
-> **Boundary Delineation Excellence**: Even when trained on 10m spaceborne satellite imagery, BoundaryVMambaUNet achieves an exceptional **95.78% Boundary Precision** and **84.87% near-boundary accuracy** (2–4 px), demonstrating that the boundary-gating mechanism excels at sharply resolving land-cover transitions.
+> **Cross-Architecture Insights on Spaceborne Imagery**:
+> - **Pretrained Inductive Bias**: `BoundaryCNNMambaUNet` achieves the highest overall accuracy (**37.25% mIoU, 20.56% BIoU**) because pretrained ResNet-34 features provide strong multi-scale feature representations for 10m Sentinel-2 pixels, while the Boundary-Gated Mamba decoder sharpens regional transitions.
+> - **SSM vs. Vision Transformer**: Pure Vision Transformers (`SETR-Naive`) collapse in boundary resolution down to **7.12% BIoU** (31.18% BF1) due to $16 \times 16$ patch smoothing. In contrast, 2D State-Space scanning (`Plain VMamba` at 17.60% BIoU and `BoundaryVMambaUNet` at 14.53% BIoU) retains sharp geometric delineation with over **95.7%+ boundary precision**.
 
 ---
 

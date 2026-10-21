@@ -1,0 +1,39 @@
+{
+  "checkpoint": "model_weights/sen2_lulc/boundary_cnn_mamba_unet_resnet34-sen2_lulc-epoch16/last.ckpt",
+  "dataset": "SEN-2 LULC",
+  "region_miou": 37.24933862686157,
+  "region_f1": 51.70367956161499,
+  "region_oa": 70.76525092124939,
+  "mean_boundary_iou": 0.20563,
+  "mean_boundary_f1": 0.65173,
+  "overall_precision": 0.9757,
+  "overall_recall": 0.8045,
+  "overall_f1": 0.8819,
+  "classes": [
+    "Water",
+    "Dense Forest",
+    "Sparse Forest",
+    "Barren Land",
+    "Built-up",
+    "Agriculture Land",
+    "Fallow Land"
+  ],
+  "boundary_iou_per_class": [
+    0.0786,
+    0.1435,
+    0.144,
+    0.2664,
+    0.3036,
+    0.2773,
+    0.2261
+  ],
+  "boundary_f1_per_class": [
+    0.3181,
+    0.5588,
+    0.5346,
+    0.8323,
+    0.8175,
+    0.7341,
+    0.7667
+  ]
+}
