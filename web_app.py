@@ -28,16 +28,16 @@ from train_supervision import Supervision_Train
 CKPT_PATH = "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch16/last.ckpt"
 CONFIG_PATH = "config/loveda/boundary_vmamba_unet.py"
 
-# Model Training Class & Color Indexing (Exact Trained Checkpoint Alignment):
-# 0: Unlabeled / Border
-# 1: Agricultural / Field (Ground)
+# Model Training Class & Color Indexing (Exact Publication Standard):
+# 0: Background / Border
+# 1: Agricultural / Field
 # 2: Building
 # 3: Road
 # 4: Water
 # 5: Barren
 # 6: Forest
 CLASSES = [
-    'Unlabeled', 
+    'Background / Border', 
     'Agricultural / Field', 
     'Building', 
     'Road', 
@@ -47,23 +47,23 @@ CLASSES = [
 ]
 
 CLASS_HEX = {
-    'Unlabeled': '#475569',              # Slate gray
-    'Agricultural / Field': '#eab308',   # Golden wheat / crop field
+    'Background / Border': '#ffffff',    # White border
+    'Agricultural / Field': '#84cc16',   # Vibrant lime/olive green
     'Building': '#ef4444',               # Vibrant red
-    'Road': '#f8fafc',                   # Asphalt road white
+    'Road': '#facc15',                   # Road yellow
     'Water': '#06b6d4',                  # River cyan / blue
     'Barren': '#a855f7',                 # Purple
-    'Forest': '#22c55e'                  # Emerald green
+    'Forest': '#15803d'                  # Deep emerald green
 }
 
 PALETTE = np.array([
-    [71, 85, 105],     # 0: Unlabeled (slate gray)
-    [234, 179, 8],     # 1: Agricultural / Field (golden wheat)
+    [255, 255, 255],   # 0: Background / Border (white)
+    [132, 204, 22],    # 1: Agricultural / Field (lime/olive green)
     [239, 68, 68],     # 2: Building (vibrant red)
-    [248, 250, 252],   # 3: Road (clean white / asphalt)
+    [250, 204, 21],    # 3: Road (yellow)
     [6, 182, 212],     # 4: Water (cyan / river blue)
     [168, 85, 247],    # 5: Barren (purple)
-    [34, 197, 94],     # 6: Forest (emerald green)
+    [21, 128, 61],     # 6: Forest (emerald green)
 ], dtype=np.uint8)
 
 MEAN = np.array([0.485, 0.456, 0.406], dtype=np.float32)
@@ -114,9 +114,11 @@ def pil_to_base64(img: Image.Image, format="PNG") -> str:
 
 def colorize_mask(mask: np.ndarray) -> Image.Image:
     h, w = mask.shape
-    colored = np.zeros((h, w, 3), dtype=np.uint8)
+    colored = np.full((h, w, 3), 255, dtype=np.uint8)
+    clean_mask = mask.copy()
+    clean_mask[clean_mask == 7] = 1  # Map 7 (LoveDA agricultural ignore) to Agricultural Field
     for c_idx in range(len(PALETTE)):
-        colored[mask == c_idx] = PALETTE[c_idx]
+        colored[clean_mask == c_idx] = PALETTE[c_idx]
     return Image.fromarray(colored)
 
 def make_plain_black_boundary(prob_map: np.ndarray, seg_pred: np.ndarray, thresh: float = 0.20, style: str = "white") -> Image.Image:
@@ -152,7 +154,7 @@ def make_plain_black_boundary(prob_map: np.ndarray, seg_pred: np.ndarray, thresh
 
     return Image.fromarray(black_canvas)
 
-def run_inference(image: Image.Image, target_size=(512, 512), bnd_thresh: float = 0.20, bnd_style: str = "white"):
+def run_inference(image: Image.Image, target_size=(512, 512), bnd_thresh: float = 0.20, bnd_style: str = "white", gt_mask_path: Optional[str] = None):
     orig_w, orig_h = image.size
     img_resized = image.resize(target_size, Image.BILINEAR)
     img_np = np.array(img_resized, dtype=np.float32) / 255.0
@@ -174,6 +176,13 @@ def run_inference(image: Image.Image, target_size=(512, 512), bnd_thresh: float 
 
     # Segmentation mask
     pred_mask_img = colorize_mask(seg_pred)
+
+    # Ground truth mask if available
+    gt_b64 = None
+    if gt_mask_path and os.path.exists(gt_mask_path):
+        gt_raw = np.array(Image.open(gt_mask_path).resize(target_size, Image.NEAREST))
+        gt_color_img = colorize_mask(gt_raw)
+        gt_b64 = pil_to_base64(gt_color_img)
 
     # Crisp boundary on pure black background
     bnd_black_img = make_plain_black_boundary(bnd_prob, seg_pred, thresh=bnd_thresh, style=bnd_style)
@@ -200,6 +209,7 @@ def run_inference(image: Image.Image, target_size=(512, 512), bnd_thresh: float 
     return {
         "latency_ms": latency_ms,
         "orig_b64": pil_to_base64(img_resized),
+        "gt_b64": gt_b64,
         "mask_b64": pil_to_base64(pred_mask_img),
         "bnd_b64": pil_to_base64(bnd_black_img),
         "overlay_b64": pil_to_base64(overlay_img),
@@ -233,7 +243,7 @@ def predict_sample(
         return JSONResponse(status_code=404, content={"error": "Tile not found"})
     
     img = Image.open(match["img_path"]).convert("RGB")
-    data = run_inference(img, bnd_thresh=bnd_thresh, bnd_style=bnd_style)
+    data = run_inference(img, bnd_thresh=bnd_thresh, bnd_style=bnd_style, gt_mask_path=match["mask_path"])
     data["tile_id"] = tile_id
     data["area"] = match["area"]
     return data

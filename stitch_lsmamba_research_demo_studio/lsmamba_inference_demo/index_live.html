@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>LSMamba Research Studio - Live Inference</title>
+  <title>LSMamba Research Studio - Live Inference & Qualitative Comparison</title>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -50,7 +50,7 @@
       <div class="flex items-center gap-2.5">
         <span class="w-3 h-3 rounded-full bg-primary animate-pulse"></span>
         <span class="font-headline font-bold text-lg tracking-tight text-white">LSMamba Studio</span>
-        <span class="px-2 py-0.5 rounded bg-surface-container-highest text-primary font-mono text-xs border border-primary/20">16-Epoch Live Model</span>
+        <span class="px-2 py-0.5 rounded bg-surface-container-highest text-primary font-mono text-xs border border-primary/20">BoundaryVMambaUNet</span>
       </div>
       <div class="h-4 w-px bg-outline/40"></div>
       <div class="flex items-center gap-2 text-xs font-mono text-on-surface-variant">
@@ -72,7 +72,7 @@
   </header>
 
   <!-- MAIN CONTAINER -->
-  <main class="flex-1 max-w-[1540px] w-full mx-auto p-6 flex flex-col gap-6">
+  <main class="flex-1 max-w-[1580px] w-full mx-auto p-6 flex flex-col gap-6">
 
     <!-- HERO METRICS STRIP -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -114,17 +114,17 @@
           <span class="text-xs font-mono uppercase font-semibold text-white tracking-wider">Select Benchmark Sample Tile:</span>
         </div>
         <div class="flex flex-wrap items-center gap-2" id="sample-buttons">
-          <button onclick="loadSampleTile('3514', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-primary/20 text-primary border border-primary/40 font-mono text-xs hover:bg-primary/30 transition-all font-semibold">
-            Urban #3514
+          <button onclick="loadSampleTile('3515', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-primary/20 text-primary border border-primary/40 font-mono text-xs hover:bg-primary/30 transition-all font-semibold">
+            Urban #3515 (City Block)
           </button>
-          <button onclick="loadSampleTile('3515', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all">
-            Urban #3515
+          <button onclick="loadSampleTile('2522', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all">
+            Rural #2522 (Village & Canal)
+          </button>
+          <button onclick="loadSampleTile('3514', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all">
+            Urban #3514 (Fields & Highway)
           </button>
           <button onclick="loadSampleTile('3516', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all">
             Urban #3516
-          </button>
-          <button onclick="loadSampleTile('2522', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all">
-            Rural #2522
           </button>
           <button onclick="loadSampleTile('2523', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all">
             Rural #2523
@@ -144,99 +144,130 @@
       </div>
     </div>
 
-    <!-- 3-PANEL INTERACTIVE COMPARISON VIEWER -->
+    <!-- 3-PANEL PAPER-STYLE QUALITATIVE COMPARISON VIEWER -->
+    <!-- (a) Aerial Image (RGB) | (b) Ground Truth | (c) BoundaryVMambaUNet (Proposed) -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
-      <!-- PANEL 1: ORIGINAL SATELLITE TILE -->
+      <!-- COLUMN 1: AERIAL IMAGE (RGB) -->
       <div class="flex flex-col rounded-xl bg-surface-container-low border border-surface-container-high overflow-hidden shadow-lg">
         <div class="px-4 py-3 bg-surface-container flex items-center justify-between border-b border-surface-container-high">
           <div class="flex items-center gap-2 font-mono text-xs font-semibold text-white">
             <span class="material-symbols-outlined text-primary text-[16px]">satellite_alt</span>
-            <span>1. Original Satellite Tile (RGB)</span>
+            <span>(a) Aerial Image (RGB)</span>
           </div>
-          <span id="tile-badge" class="px-2 py-0.5 rounded bg-surface-container-highest text-outline font-mono text-[10px]">Tile #3514</span>
+          <span id="tile-badge" class="px-2 py-0.5 rounded bg-surface-container-highest text-outline font-mono text-[10px]">Tile #3515</span>
         </div>
         <div class="relative aspect-square bg-surface-container-lowest flex items-center justify-center overflow-hidden">
           <img id="img-orig" class="w-full h-full object-cover transition-all" src="" alt="Original Satellite Tile"/>
-          <div id="loader" class="hidden absolute inset-0 bg-background/80 backdrop-blur-sm flex flex-col items-center justify-center gap-3">
+          <div id="loader" class="hidden absolute inset-0 bg-background/80 backdrop-blur-sm flex flex-col items-center justify-center gap-3 z-20">
             <div class="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
             <span class="font-mono text-xs text-primary animate-pulse">Running Vision Mamba Inference...</span>
           </div>
         </div>
         <div class="p-3 bg-surface-container text-xs font-mono text-on-surface-variant flex items-center justify-between">
-          <span>Resolution: 1024×1024 px (0.3m/px)</span>
-          <span>3-Band RGB</span>
+          <span>Resolution: 1024×1024 px</span>
+          <span>Input Image</span>
         </div>
       </div>
 
-      <!-- PANEL 2: PREDICTED SEGMENTATION MASK & OVERLAY -->
+      <!-- COLUMN 2: GROUND TRUTH MASK -->
       <div class="flex flex-col rounded-xl bg-surface-container-low border border-surface-container-high overflow-hidden shadow-lg">
         <div class="px-4 py-3 bg-surface-container flex items-center justify-between border-b border-surface-container-high">
           <div class="flex items-center gap-2 font-mono text-xs font-semibold text-white">
-            <span class="material-symbols-outlined text-tertiary text-[16px]">layers</span>
-            <span>2. Predicted Land-Cover Mask</span>
+            <span class="material-symbols-outlined text-secondary text-[16px]">fact_check</span>
+            <span>(b) Ground Truth Annotation</span>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="text-[10px] font-mono text-outline">Blend:</span>
-            <input id="blend-slider" type="range" min="0" max="100" value="100" class="w-20 accent-primary h-1 bg-surface-container-highest rounded" oninput="updateBlend(this.value)"/>
-            <span id="blend-val" class="font-mono text-[10px] text-primary w-7">100%</span>
-          </div>
+          <span class="px-2 py-0.5 rounded bg-surface-container-highest text-secondary font-mono text-[10px]">Reference Mask</span>
         </div>
         <div class="relative aspect-square bg-surface-container-lowest flex items-center justify-center overflow-hidden">
-          <img id="blend-underlay" class="absolute inset-0 w-full h-full object-cover" src="" alt="Underlay"/>
-          <img id="img-mask" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-100" src="" alt="Predicted Segmentation Mask"/>
+          <img id="img-gt" class="w-full h-full object-cover" src="" alt="Ground Truth Mask"/>
+          <div id="no-gt-msg" class="hidden absolute inset-0 bg-surface-container-lowest/90 flex flex-col items-center justify-center text-center p-6 text-on-surface-variant font-mono text-xs">
+            <span class="material-symbols-outlined text-outline text-[32px] mb-2">hide_image</span>
+            <span>Custom upload: No ground truth available for this tile.</span>
+          </div>
         </div>
         <div class="p-3 bg-surface-container text-xs font-mono text-on-surface-variant flex items-center justify-between">
-          <span>Architecture: BoundaryVMambaUNet</span>
-          <span class="text-tertiary font-semibold">Official LoveDA Palette</span>
+          <span>Benchmark: LoveDA Ground Truth</span>
+          <span class="text-secondary font-semibold">Pixel-True GT</span>
         </div>
       </div>
 
-      <!-- PANEL 3: PLAIN BLACK BOUNDARY MAP (ONLY BOUNDARIES SHOWN) -->
+      <!-- COLUMN 3: PROPOSED MODEL PREDICTION (WITH MODE TOGGLE) -->
       <div class="flex flex-col rounded-xl bg-surface-container-low border border-surface-container-high overflow-hidden shadow-lg">
         <div class="px-4 py-2.5 bg-surface-container flex items-center justify-between border-b border-surface-container-high">
           <div class="flex items-center gap-2 font-mono text-xs font-semibold text-white">
-            <span class="material-symbols-outlined text-secondary text-[16px]">crop_free</span>
-            <span>3. Boundary Map (Edges Only)</span>
+            <span class="material-symbols-outlined text-tertiary text-[16px]">auto_awesome</span>
+            <span>(c) BoundaryVMambaUNet (Proposed)</span>
           </div>
           
-          <!-- Boundary Controls (Style + Sensitivity) -->
-          <div class="flex items-center gap-2">
-            <select id="bnd-style-select" onchange="reloadBoundaryOnly()" class="bg-surface-container-highest text-white font-mono text-[10px] px-2 py-0.5 rounded border border-surface-container-high focus:outline-none">
-              <option value="white">White on Black</option>
-              <option value="amber">Amber on Black</option>
-              <option value="cyan">Cyan on Black</option>
-            </select>
+          <!-- View Modes: Mask / Overlay / Boundary -->
+          <div class="flex items-center gap-1 bg-surface-container-highest p-0.5 rounded-lg border border-surface-container-high">
+            <button id="view-mode-mask" onclick="setViewMode('mask')" class="px-2 py-0.5 rounded text-[10px] font-mono bg-primary text-black font-semibold transition-all">Mask</button>
+            <button id="view-mode-overlay" onclick="setViewMode('overlay')" class="px-2 py-0.5 rounded text-[10px] font-mono text-on-surface-variant hover:text-white transition-all">Overlay</button>
+            <button id="view-mode-boundary" onclick="setViewMode('boundary')" class="px-2 py-0.5 rounded text-[10px] font-mono text-on-surface-variant hover:text-white transition-all">Edges</button>
           </div>
         </div>
 
-        <div class="relative aspect-square bg-black flex items-center justify-center overflow-hidden">
-          <img id="img-boundary" class="w-full h-full object-cover" src="" alt="Clean Boundary Map on Pure Black"/>
+        <div class="relative aspect-square bg-surface-container-lowest flex items-center justify-center overflow-hidden">
+          <img id="pred-display" class="w-full h-full object-cover transition-opacity duration-150" src="" alt="Predicted Segmentation"/>
         </div>
 
-        <div class="p-2.5 bg-surface-container text-xs font-mono text-on-surface-variant flex items-center justify-between">
+        <div class="p-3 bg-surface-container text-xs font-mono text-on-surface-variant flex items-center justify-between">
           <div class="flex items-center gap-2">
             <span class="text-[10px] text-outline">Sensitivity:</span>
             <input id="bnd-thresh-slider" type="range" min="5" max="50" value="20" class="w-16 accent-secondary h-1 bg-surface-container-highest rounded" onchange="reloadBoundaryOnly()"/>
             <span id="thresh-val" class="text-[10px] text-secondary">0.20</span>
           </div>
-          <span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-white font-mono text-[10px]">Pure Black Canvas</span>
+          <span class="text-tertiary font-semibold">Active Prediction</span>
         </div>
       </div>
 
     </div>
 
-    <!-- COLOR-CODED LEGEND & CLASS DISTRIBUTION BREAKDOWN -->
+    <!-- PUBLICATION-STYLE HORIZONTAL COLOR LEGEND STRIP (MATCHING SCREENSHOT) -->
     <div class="p-5 rounded-xl bg-surface-container-low border border-surface-container-high flex flex-col gap-4">
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
         <span class="font-mono text-xs uppercase font-semibold text-white tracking-wider flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-[18px]">bar_chart</span>
-          <span>Land-Cover Classes (LoveDA Benchmark Palette)</span>
+          <span class="material-symbols-outlined text-primary text-[18px]">palette</span>
+          <span>Publication Color Palette (Official LoveDA Standard)</span>
         </span>
-        <span class="text-xs font-mono text-outline">Active Tile Breakdown</span>
+        <span class="text-xs font-mono text-outline">IEEE / CVPR Multi-Class Standard</span>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3" id="class-stats-grid">
+      <!-- HORIZONTAL LEGEND BOXES -->
+      <div class="flex flex-wrap items-center justify-center gap-6 py-2">
+        <div class="flex items-center gap-2.5">
+          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #84cc16;"></span>
+          <span class="font-serif text-sm text-white">Agricultural / Field</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #ef4444;"></span>
+          <span class="font-serif text-sm text-white">Building</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #facc15;"></span>
+          <span class="font-serif text-sm text-white">Road</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #06b6d4;"></span>
+          <span class="font-serif text-sm text-white">Water</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #a855f7;"></span>
+          <span class="font-serif text-sm text-white">Barren</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #15803d;"></span>
+          <span class="font-serif text-sm text-white">Forest</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #ffffff;"></span>
+          <span class="font-serif text-sm text-white">Background / Border</span>
+        </div>
+      </div>
+
+      <!-- ACTIVE TILE DISTRIBUTION PERCENTAGE CARDS -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 pt-3 border-t border-surface-container-high" id="class-stats-grid">
         <!-- Filled dynamically by JavaScript -->
       </div>
     </div>
@@ -250,8 +281,32 @@
 
   <!-- CLIENT-SIDE LOGIC -->
   <script>
-    let currentTileId = '3514';
+    let currentTileId = '3515';
     let currentUploadedFile = null;
+    let currentData = null;
+    let currentViewMode = 'mask'; // 'mask', 'overlay', 'boundary'
+
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      ['mask', 'overlay', 'boundary'].forEach(m => {
+        const btn = document.getElementById(`view-mode-${m}`);
+        if (m === mode) {
+          btn.className = 'px-2 py-0.5 rounded text-[10px] font-mono bg-primary text-black font-semibold transition-all';
+        } else {
+          btn.className = 'px-2 py-0.5 rounded text-[10px] font-mono text-on-surface-variant hover:text-white transition-all';
+        }
+      });
+
+      if (!currentData) return;
+      const displayImg = document.getElementById('pred-display');
+      if (mode === 'mask') {
+        displayImg.src = currentData.mask_b64;
+      } else if (mode === 'overlay') {
+        displayImg.src = currentData.overlay_b64;
+      } else if (mode === 'boundary') {
+        displayImg.src = currentData.bnd_b64;
+      }
+    }
 
     async function loadSampleTile(tileId, btnElement) {
       currentTileId = tileId;
@@ -264,14 +319,14 @@
         btnElement.className = 'sample-btn px-3 py-1.5 rounded-lg bg-primary/20 text-primary border border-primary/40 font-mono text-xs hover:bg-primary/30 transition-all font-semibold';
       }
 
-      const style = document.getElementById('bnd-style-select').value;
       const thresh = (parseInt(document.getElementById('bnd-thresh-slider').value) / 100).toFixed(2);
       document.getElementById('thresh-val').innerText = thresh;
 
       showLoader(true);
       try {
-        const res = await fetch(`/api/predict_sample?tile_id=${tileId}&bnd_thresh=${thresh}&bnd_style=${style}`);
+        const res = await fetch(`/api/predict_sample?tile_id=${tileId}&bnd_thresh=${thresh}&bnd_style=white`);
         const data = await res.json();
+        currentData = data;
         updateUI(data);
       } catch (err) {
         console.error("Error running sample inference:", err);
@@ -285,7 +340,6 @@
       if (!file) return;
       currentUploadedFile = file;
 
-      const style = document.getElementById('bnd-style-select').value;
       const thresh = (parseInt(document.getElementById('bnd-thresh-slider').value) / 100).toFixed(2);
 
       showLoader(true);
@@ -293,11 +347,12 @@
       formData.append("file", file);
 
       try {
-        const res = await fetch(`/api/predict_upload?bnd_thresh=${thresh}&bnd_style=${style}`, {
+        const res = await fetch(`/api/predict_upload?bnd_thresh=${thresh}&bnd_style=white`, {
           method: "POST",
           body: formData
         });
         const data = await res.json();
+        currentData = data;
         updateUI(data);
         document.getElementById('tile-badge').innerText = file.name.substring(0, 14);
       } catch (err) {
@@ -318,9 +373,19 @@
 
     function updateUI(data) {
       document.getElementById('img-orig').src = data.orig_b64;
-      document.getElementById('blend-underlay').src = data.orig_b64;
-      document.getElementById('img-mask').src = data.mask_b64;
-      document.getElementById('img-boundary').src = data.bnd_b64;
+      
+      const gtImg = document.getElementById('img-gt');
+      const noGtMsg = document.getElementById('no-gt-msg');
+      if (data.gt_b64) {
+        gtImg.src = data.gt_b64;
+        gtImg.classList.remove('hidden');
+        noGtMsg.classList.add('hidden');
+      } else {
+        gtImg.classList.add('hidden');
+        noGtMsg.classList.remove('hidden');
+      }
+
+      setViewMode(currentViewMode);
       document.getElementById('latency-chip').innerText = data.latency_ms + " ms";
 
       if (data.tile_id) {
@@ -335,7 +400,7 @@
         card.className = 'p-3 rounded-lg bg-surface-container border border-surface-container-high flex flex-col gap-1.5';
         card.innerHTML = `
           <div class="flex items-center gap-1.5">
-            <span class="w-3 h-3 rounded-sm inline-block" style="background-color: ${st.hex}"></span>
+            <span class="w-3 h-3 rounded-sm inline-block border border-black/30" style="background-color: ${st.hex}"></span>
             <span class="text-xs font-mono font-medium text-white truncate">${st.name}</span>
           </div>
           <div class="flex items-baseline justify-between font-mono">
@@ -349,14 +414,6 @@
       });
     }
 
-    function updateBlend(val) {
-      document.getElementById('blend-val').innerText = val + "%";
-      const maskImg = document.getElementById('img-mask');
-      if (maskImg) {
-        maskImg.style.opacity = (val / 100).toString();
-      }
-    }
-
     function showLoader(visible) {
       const el = document.getElementById('loader');
       if (el) {
@@ -366,7 +423,7 @@
 
     // Auto-load first sample on startup
     window.addEventListener('DOMContentLoaded', () => {
-      loadSampleTile('3514', null);
+      loadSampleTile('3515', null);
     });
   </script>
 </body>
