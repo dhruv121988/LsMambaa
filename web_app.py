@@ -28,42 +28,42 @@ from train_supervision import Supervision_Train
 CKPT_PATH = "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch16/last.ckpt"
 CONFIG_PATH = "config/loveda/boundary_vmamba_unet.py"
 
-# Official LoveDA Benchmark Class & Color Indexing:
-# 0: Background / Unlabeled
-# 1: Building
-# 2: Road
-# 3: Water
-# 4: Barren
-# 5: Forest
-# 6: Agricultural
+# Model Training Class & Color Indexing (Exact Trained Checkpoint Alignment):
+# 0: Unlabeled / Border
+# 1: Agricultural / Field (Ground)
+# 2: Building
+# 3: Road
+# 4: Water
+# 5: Barren
+# 6: Forest
 CLASSES = [
-    'Background', 
+    'Unlabeled', 
+    'Agricultural / Field', 
     'Building', 
     'Road', 
     'Water', 
     'Barren', 
-    'Forest', 
-    'Agricultural'
+    'Forest'
 ]
 
 CLASS_HEX = {
-    'Background': '#64748b',    # Slate gray
-    'Building': '#ef4444',      # Vibrant red
-    'Road': '#facc15',          # Road yellow
-    'Water': '#06b6d4',         # River cyan / blue
-    'Barren': '#a855f7',        # Purple
-    'Forest': '#22c55e',        # Emerald green
-    'Agricultural': '#f97316'   # Crop field orange
+    'Unlabeled': '#475569',              # Slate gray
+    'Agricultural / Field': '#eab308',   # Golden wheat / crop field
+    'Building': '#ef4444',               # Vibrant red
+    'Road': '#f8fafc',                   # Asphalt road white
+    'Water': '#06b6d4',                  # River cyan / blue
+    'Barren': '#a855f7',                 # Purple
+    'Forest': '#22c55e'                  # Emerald green
 }
 
 PALETTE = np.array([
-    [100, 116, 139],  # 0: Background (slate gray)
-    [239, 68, 68],    # 1: Building (red)
-    [250, 204, 21],   # 2: Road (yellow)
-    [6, 182, 212],    # 3: Water (cyan / river blue)
-    [168, 85, 247],   # 4: Barren (purple)
-    [34, 197, 94],    # 5: Forest (emerald green)
-    [249, 115, 22],   # 6: Agricultural (orange / field)
+    [71, 85, 105],     # 0: Unlabeled (slate gray)
+    [234, 179, 8],     # 1: Agricultural / Field (golden wheat)
+    [239, 68, 68],     # 2: Building (vibrant red)
+    [248, 250, 252],   # 3: Road (clean white / asphalt)
+    [6, 182, 212],     # 4: Water (cyan / river blue)
+    [168, 85, 247],    # 5: Barren (purple)
+    [34, 197, 94],     # 6: Forest (emerald green)
 ], dtype=np.uint8)
 
 MEAN = np.array([0.485, 0.456, 0.406], dtype=np.float32)
