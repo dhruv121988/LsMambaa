@@ -428,7 +428,10 @@ python tools/eval_boundary_sen2.py \
 ```
 
 ### 6. Live Interactive Web Demo Studio
-Launch the local web inference studio with real-time class overlay, boundary confidence heatmap, and distance slicing:
+Launch the local web inference studio with 3-panel publication comparison: **(a) Aerial Image (RGB)**, **(b) Ground Truth Annotation**, and **(c) BoundaryVMambaUNet (Proposed)**:
+
+![Live Interactive Web Demo Studio](assets/web_app_demo.png)
+
 ```bash
 python web_app.py
 ```

@@ -18,34 +18,42 @@ from tools.cfg import py2cfg
 from train_supervision import Supervision_Train
 
 # =====================================================================
-# Publication Color Palette for LoveDA (Official Benchmark 7-Classes)
+# Publication Color Palette for LoveDA
 # Matching Remote Sensing Publications (e.g., ISPRS / IEEE TGRS format)
 # =====================================================================
+# Label 1: Agricultural / Field -> Olive / Lime Green
+# Label 2: Building -> Vibrant Blue / Red
+# Label 3: Road -> Asphalt White / Yellow
+# Label 4: Water -> Cyan / Blue
+# Label 5: Barren -> Purple / Mauve
+# Label 6: Forest -> Emerald Green
+# Label 0 or 7: Background / Border -> Slate Gray / White
 CLASSES_LEGEND = [
-    ("Background",   [100, 116, 139]),  # #64748b - Slate gray
-    ("Building",     [239, 68, 68]),    # #ef4444 - Vibrant Red
-    ("Road",         [250, 204, 21]),   # #facc15 - Road Yellow
-    ("Water",        [6, 182, 212]),    # #06b6d4 - Cyan / River Blue
-    ("Barren",       [168, 85, 247]),   # #a855f7 - Purple
-    ("Forest",       [34, 197, 94]),    # #22c55e - Emerald Green
-    ("Agricultural", [132, 204, 22]),   # #84cc16 - Vibrant field lime/crop
+    ("Agricultural / Field", [132, 204, 22]),   # #84cc16 - Vibrant field lime/olive
+    ("Building",             [239, 68, 68]),    # #ef4444 - Vibrant Red
+    ("Road",                 [250, 204, 21]),   # #facc15 - Road Yellow
+    ("Water",                [6, 182, 212]),    # #06b6d4 - Cyan / River Blue
+    ("Barren",               [168, 85, 247]),   # #a855f7 - Purple
+    ("Forest",               [21, 128, 61]),    # #15803d - Deep Forest Green
+    ("Background / Border",  [255, 255, 255])   # #ffffff - White
 ]
 
-PALETTE = np.array([
-    [100, 116, 139],
-    [239, 68, 68],
-    [250, 204, 21],
-    [6, 182, 212],
-    [168, 85, 247],
-    [34, 197, 94],
-    [132, 204, 22]
-], dtype=np.uint8)
+PALETTE_MAP = {
+    1: [132, 204, 22],   # Agricultural / Field
+    2: [239, 68, 68],    # Building
+    3: [250, 204, 21],   # Road
+    4: [6, 182, 212],    # Water
+    5: [168, 85, 247],   # Barren
+    6: [21, 128, 61],    # Forest
+    7: [132, 204, 22],   # Agricultural (7 in raw GT maps to Agricultural)
+    0: [255, 255, 255],  # Background / Border
+}
 
 def colorize_mask(mask_2d):
     h, w = mask_2d.shape
-    rgb = np.zeros((h, w, 3), dtype=np.uint8)
-    for c in range(len(PALETTE)):
-        rgb[mask_2d == c] = PALETTE[c]
+    rgb = np.full((h, w, 3), 255, dtype=np.uint8)
+    for k, color in PALETTE_MAP.items():
+        rgb[mask_2d == k] = color
     return rgb
 
 def main():
@@ -101,12 +109,7 @@ def main():
         # Resize prediction back to original size for crisp alignment
         pred_full = np.array(Image.fromarray(pred.astype(np.uint8)).resize((orig_w, orig_h), Image.NEAREST))
 
-        # Convert raw LoveDA gt_mask (1-indexed) to 0-indexed (0: Background ... 6: Agricultural)
-        gt_0idx = np.zeros_like(gt_mask, dtype=np.uint8)
-        for raw_v in range(1, 8):
-            gt_0idx[gt_mask == raw_v] = raw_v - 1
-
-        gt_color = colorize_mask(gt_0idx)
+        gt_color = colorize_mask(gt_mask)
         pred_color = colorize_mask(pred_full)
 
         # Plot 3 columns

@@ -28,42 +28,42 @@ from train_supervision import Supervision_Train
 CKPT_PATH = "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch16/last.ckpt"
 CONFIG_PATH = "config/loveda/boundary_vmamba_unet.py"
 
-# Official LoveDA Benchmark Class & Color Indexing (All 7 Classes):
-# 0: Background
-# 1: Building
-# 2: Road
-# 3: Water
-# 4: Barren
-# 5: Forest
-# 6: Agricultural
+# Model Training Class & Color Indexing (Exact Publication Standard):
+# 0: Background / Border
+# 1: Agricultural / Field
+# 2: Building
+# 3: Road
+# 4: Water
+# 5: Barren
+# 6: Forest
 CLASSES = [
-    'Background', 
+    'Background / Border', 
+    'Agricultural / Field', 
     'Building', 
     'Road', 
     'Water', 
     'Barren', 
-    'Forest', 
-    'Agricultural'
+    'Forest'
 ]
 
 CLASS_HEX = {
-    'Background': '#64748b',    # Slate gray
-    'Building': '#ef4444',      # Vibrant red
-    'Road': '#facc15',          # Road yellow
-    'Water': '#06b6d4',         # River cyan / blue
-    'Barren': '#a855f7',        # Purple
-    'Forest': '#22c55e',        # Emerald green
-    'Agricultural': '#84cc16'   # Lime / crop field green
+    'Background / Border': '#ffffff',    # White border
+    'Agricultural / Field': '#84cc16',   # Vibrant lime/olive green
+    'Building': '#ef4444',               # Vibrant red
+    'Road': '#facc15',                   # Road yellow
+    'Water': '#06b6d4',                  # River cyan / blue
+    'Barren': '#a855f7',                 # Purple
+    'Forest': '#15803d'                  # Deep emerald green
 }
 
 PALETTE = np.array([
-    [100, 116, 139],  # 0: Background (slate gray)
-    [239, 68, 68],    # 1: Building (vibrant red)
-    [250, 204, 21],   # 2: Road (yellow)
-    [6, 182, 212],    # 3: Water (cyan / river blue)
-    [168, 85, 247],   # 4: Barren (purple)
-    [34, 197, 94],    # 5: Forest (emerald green)
-    [132, 204, 22],   # 6: Agricultural (lime / crop field green)
+    [255, 255, 255],   # 0: Background / Border (white)
+    [132, 204, 22],    # 1: Agricultural / Field (lime/olive green)
+    [239, 68, 68],     # 2: Building (vibrant red)
+    [250, 204, 21],    # 3: Road (yellow)
+    [6, 182, 212],     # 4: Water (cyan / river blue)
+    [168, 85, 247],    # 5: Barren (purple)
+    [21, 128, 61],     # 6: Forest (emerald green)
 ], dtype=np.uint8)
 
 MEAN = np.array([0.485, 0.456, 0.406], dtype=np.float32)
@@ -114,9 +114,11 @@ def pil_to_base64(img: Image.Image, format="PNG") -> str:
 
 def colorize_mask(mask: np.ndarray) -> Image.Image:
     h, w = mask.shape
-    colored = np.zeros((h, w, 3), dtype=np.uint8)
+    colored = np.full((h, w, 3), 255, dtype=np.uint8)
+    clean_mask = mask.copy()
+    clean_mask[clean_mask == 7] = 1  # Map 7 (LoveDA agricultural ignore) to Agricultural Field
     for c_idx in range(len(PALETTE)):
-        colored[mask == c_idx] = PALETTE[c_idx]
+        colored[clean_mask == c_idx] = PALETTE[c_idx]
     return Image.fromarray(colored)
 
 def make_plain_black_boundary(prob_map: np.ndarray, seg_pred: np.ndarray, thresh: float = 0.20, style: str = "white") -> Image.Image:
@@ -179,12 +181,7 @@ def run_inference(image: Image.Image, target_size=(512, 512), bnd_thresh: float 
     gt_b64 = None
     if gt_mask_path and os.path.exists(gt_mask_path):
         gt_raw = np.array(Image.open(gt_mask_path).resize(target_size, Image.NEAREST))
-        # Convert raw LoveDA 1-indexed mask (1: Background, 2: Building, 3: Road, 4: Water, 5: Barren, 6: Forest, 7: Agricultural, 0: Ignore)
-        # to 0-indexed format matching model output (0: Background, 1: Building, ..., 6: Agricultural)
-        gt_0idx = np.zeros_like(gt_raw, dtype=np.uint8)
-        for raw_val in range(1, 8):
-            gt_0idx[gt_raw == raw_val] = raw_val - 1
-        gt_color_img = colorize_mask(gt_0idx)
+        gt_color_img = colorize_mask(gt_raw)
         gt_b64 = pil_to_base64(gt_color_img)
 
     # Crisp boundary on pure black background
@@ -202,11 +199,12 @@ def run_inference(image: Image.Image, target_size=(512, 512), bnd_thresh: float 
     for c_idx, c_name in enumerate(CLASSES):
         count = int(np.sum(seg_pred == c_idx))
         pct = round((count / total_px) * 100, 2)
-        class_stats.append({
-            "name": c_name,
-            "pct": pct,
-            "hex": CLASS_HEX[c_name]
-        })
+        if pct > 0 or c_idx in [1, 2, 3, 4, 5, 6]:
+            class_stats.append({
+                "name": c_name,
+                "pct": pct,
+                "hex": CLASS_HEX[c_name]
+            })
 
     return {
         "latency_ms": latency_ms,
