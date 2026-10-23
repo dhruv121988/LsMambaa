@@ -28,42 +28,42 @@ from train_supervision import Supervision_Train
 CKPT_PATH = "model_weights/loveda/boundary_vmamba_unet-multiplicative-aux0.4-bnd0.3-epoch16/last.ckpt"
 CONFIG_PATH = "config/loveda/boundary_vmamba_unet.py"
 
-# In the model training:
-# Label 1: Field / Agriculture (Ground)
-# Label 2: Building
-# Label 3: Road
-# Label 4: Water
-# Label 5: Barren
-# Label 6: Forest
-# Label 0: Background / Unlabeled
+# Official LoveDA Benchmark Class & Color Indexing:
+# 0: Background / Unlabeled
+# 1: Building
+# 2: Road
+# 3: Water
+# 4: Barren
+# 5: Forest
+# 6: Agricultural
 CLASSES = [
-    'Unlabeled', 
-    'Agricultural / Field', 
+    'Background', 
     'Building', 
     'Road', 
     'Water', 
     'Barren', 
-    'Forest'
+    'Forest', 
+    'Agricultural'
 ]
 
 CLASS_HEX = {
-    'Unlabeled': '#475569',
-    'Agricultural / Field': '#eab308',
-    'Building': '#ef4444',
-    'Road': '#f8fafc',
-    'Water': '#06b6d4',
-    'Barren': '#a855f7',
-    'Forest': '#22c55e'
+    'Background': '#64748b',    # Slate gray
+    'Building': '#ef4444',      # Vibrant red
+    'Road': '#facc15',          # Road yellow
+    'Water': '#06b6d4',         # River cyan / blue
+    'Barren': '#a855f7',        # Purple
+    'Forest': '#22c55e',        # Emerald green
+    'Agricultural': '#f97316'   # Crop field orange
 }
 
 PALETTE = np.array([
-    [71, 85, 105],    # 0: Unlabeled (slate gray)
-    [234, 179, 8],    # 1: Agricultural / Field (gold / yellow-tan)
-    [239, 68, 68],    # 2: Building (vibrant red)
-    [248, 250, 252],  # 3: Road (clean white / asphalt line)
-    [6, 182, 212],    # 4: Water (cyan / river blue)
-    [168, 85, 247],   # 5: Barren (purple)
-    [34, 197, 94],    # 6: Forest (emerald green)
+    [100, 116, 139],  # 0: Background (slate gray)
+    [239, 68, 68],    # 1: Building (red)
+    [250, 204, 21],   # 2: Road (yellow)
+    [6, 182, 212],    # 3: Water (cyan / river blue)
+    [168, 85, 247],   # 4: Barren (purple)
+    [34, 197, 94],    # 5: Forest (emerald green)
+    [249, 115, 22],   # 6: Agricultural (orange / field)
 ], dtype=np.uint8)
 
 MEAN = np.array([0.485, 0.456, 0.406], dtype=np.float32)
@@ -190,7 +190,7 @@ def run_inference(image: Image.Image, target_size=(512, 512), bnd_thresh: float 
     for c_idx, c_name in enumerate(CLASSES):
         count = int(np.sum(seg_pred == c_idx))
         pct = round((count / total_px) * 100, 2)
-        if pct > 0 or c_idx in [1, 2, 3, 4, 6]:
+        if pct > 0 or c_idx in [1, 2, 3, 4, 5, 6]:
             class_stats.append({
                 "name": c_name,
                 "pct": pct,
