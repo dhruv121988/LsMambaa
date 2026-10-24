@@ -53,9 +53,21 @@
         <span class="px-2 py-0.5 rounded bg-surface-container-highest text-primary font-mono text-xs border border-primary/20">BoundaryVMambaUNet</span>
       </div>
       <div class="h-4 w-px bg-outline/40"></div>
+      
+      <!-- DATASET SWITCHER DROPDOWN -->
+      <div class="flex items-center gap-2 bg-surface-container px-3 py-1 rounded-lg border border-surface-container-highest">
+        <span class="material-symbols-outlined text-primary text-[16px]">dataset</span>
+        <span class="text-xs font-mono text-outline">Dataset:</span>
+        <select id="dataset-select" onchange="onDatasetChange(this.value)" class="bg-surface-container-lowest text-white font-mono text-xs rounded border border-surface-container-high px-2 py-0.5 focus:outline-none focus:border-primary">
+          <option value="sen2_lulc" selected>🛰️ Sentinel-2 LULC (7 Classes)</option>
+          <option value="loveda">🏙️ LoveDA Aerial (7 Classes)</option>
+        </select>
+      </div>
+
+      <div class="h-4 w-px bg-outline/40"></div>
       <div class="flex items-center gap-2 text-xs font-mono text-on-surface-variant">
         <span>Checkpoint:</span>
-        <span class="text-tertiary font-semibold">Epoch 15/16 (Val mIoU 62.19%)</span>
+        <span id="header-ckpt-label" class="text-tertiary font-semibold">SEN-2 Epoch 16</span>
       </div>
     </div>
 
@@ -79,29 +91,29 @@
       <div class="p-3.5 rounded-xl bg-surface-container-low border border-surface-container-high flex flex-col gap-1">
         <span class="text-[11px] font-mono uppercase text-outline">Mean Mask IoU (mIoU)</span>
         <div class="flex items-baseline gap-2">
-          <span class="text-2xl font-bold font-headline text-primary">62.19%</span>
-          <span class="text-xs font-mono text-tertiary">+2.48% vs Plain</span>
+          <span id="metric-miou" class="text-2xl font-bold font-headline text-primary">29.16%</span>
+          <span id="metric-miou-diff" class="text-xs font-mono text-tertiary">+1.09% vs Plain</span>
         </div>
       </div>
       <div class="p-3.5 rounded-xl bg-surface-container-low border border-surface-container-high flex flex-col gap-1">
         <span class="text-[11px] font-mono uppercase text-outline">Boundary IoU (mBIoU d=2)</span>
         <div class="flex items-baseline gap-2">
-          <span class="text-2xl font-bold font-headline text-secondary">10.25%</span>
+          <span id="metric-biou" class="text-2xl font-bold font-headline text-secondary">12.80%</span>
           <span class="text-xs font-mono text-tertiary">+0.83% vs Plain</span>
         </div>
       </div>
       <div class="p-3.5 rounded-xl bg-surface-container-low border border-surface-container-high flex flex-col gap-1">
         <span class="text-[11px] font-mono uppercase text-outline">Mean F1-Score</span>
         <div class="flex items-baseline gap-2">
-          <span class="text-2xl font-bold font-headline text-white">75.20%</span>
-          <span class="text-xs font-mono text-tertiary">+2.08% vs Plain</span>
+          <span id="metric-f1" class="text-2xl font-bold font-headline text-white">41.05%</span>
+          <span class="text-xs font-mono text-tertiary">+1.59% vs Plain</span>
         </div>
       </div>
       <div class="p-3.5 rounded-xl bg-surface-container-low border border-surface-container-high flex flex-col gap-1">
         <span class="text-[11px] font-mono uppercase text-outline">Overall Accuracy (OA)</span>
         <div class="flex items-baseline gap-2">
-          <span class="text-2xl font-bold font-headline text-white">76.93%</span>
-          <span class="text-xs font-mono text-outline">LoveDA Val</span>
+          <span id="metric-oa" class="text-2xl font-bold font-headline text-white">66.31%</span>
+          <span id="metric-benchmark" class="text-xs font-mono text-outline">SEN-2 LULC Val</span>
         </div>
       </div>
     </div>
@@ -111,27 +123,10 @@
       <div class="flex flex-col gap-2 w-full md:w-auto">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-primary text-[18px]">photo_library</span>
-          <span class="text-xs font-mono uppercase font-semibold text-white tracking-wider">Select Benchmark Sample Tile:</span>
+          <span id="sample-bar-title" class="text-xs font-mono uppercase font-semibold text-white tracking-wider">Select Sentinel-2 Sample Tile:</span>
         </div>
         <div class="flex flex-wrap items-center gap-2" id="sample-buttons">
-          <button onclick="loadSampleTile('3515', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-primary/20 text-primary border border-primary/40 font-mono text-xs hover:bg-primary/30 transition-all font-semibold">
-            Urban #3515 (City Block)
-          </button>
-          <button onclick="loadSampleTile('2522', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all">
-            Rural #2522 (Village & Canal)
-          </button>
-          <button onclick="loadSampleTile('3514', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all">
-            Urban #3514 (Fields & Highway)
-          </button>
-          <button onclick="loadSampleTile('3516', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all">
-            Urban #3516
-          </button>
-          <button onclick="loadSampleTile('2523', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all">
-            Rural #2523
-          </button>
-          <button onclick="loadSampleTile('2524', this)" class="sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all">
-            Rural #2524
-          </button>
+          <!-- Dynamically populated -->
         </div>
       </div>
 
@@ -144,18 +139,18 @@
       </div>
     </div>
 
-    <!-- 3-PANEL PAPER-STYLE QUALITATIVE COMPARISON VIEWER -->
-    <!-- (a) Aerial Image (RGB) | (b) Ground Truth | (c) BoundaryVMambaUNet (Proposed) -->
+    <!-- 3-PANEL QUALITATIVE COMPARISON VIEWER -->
+    <!-- (a) Remote Sensing Image (RGB) | (b) Ground Truth | (c) BoundaryVMambaUNet (Proposed) -->
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
 
-      <!-- COLUMN 1: AERIAL IMAGE (RGB) -->
+      <!-- COLUMN 1: SATELLITE/AERIAL IMAGE (RGB) -->
       <div class="flex flex-col rounded-xl bg-surface-container-low border border-surface-container-high overflow-hidden shadow-lg">
         <div class="px-4 py-3 bg-surface-container flex items-center justify-between border-b border-surface-container-high">
           <div class="flex items-center gap-2 font-mono text-xs font-semibold text-white">
             <span class="material-symbols-outlined text-primary text-[16px]">satellite_alt</span>
-            <span>(a) Aerial Image (RGB)</span>
+            <span id="col-a-title">(a) Sentinel-2 Tile (RGB)</span>
           </div>
-          <span id="tile-badge" class="px-2 py-0.5 rounded bg-surface-container-highest text-outline font-mono text-[10px]">Tile #3515</span>
+          <span id="tile-badge" class="px-2 py-0.5 rounded bg-surface-container-highest text-outline font-mono text-[10px]">Tile #100043</span>
         </div>
         <div class="relative aspect-square bg-surface-container-lowest flex items-center justify-center overflow-hidden">
           <img id="img-orig" class="w-full h-full object-cover transition-all" src="" alt="Original Satellite Tile"/>
@@ -165,7 +160,7 @@
           </div>
         </div>
         <div class="p-3 bg-surface-container text-xs font-mono text-on-surface-variant flex items-center justify-between">
-          <span>Resolution: 1024×1024 px</span>
+          <span id="col-a-res">Resolution: 128×128 px</span>
           <span>Input Image</span>
         </div>
       </div>
@@ -187,7 +182,7 @@
           </div>
         </div>
         <div class="p-3 bg-surface-container text-xs font-mono text-on-surface-variant flex items-center justify-between">
-          <span>Benchmark: LoveDA Ground Truth</span>
+          <span id="col-b-benchmark">Benchmark: SEN-2 LULC Ground Truth</span>
           <span class="text-secondary font-semibold">Pixel-True GT</span>
         </div>
       </div>
@@ -215,8 +210,8 @@
         <div class="p-3 bg-surface-container text-xs font-mono text-on-surface-variant flex items-center justify-between">
           <div class="flex items-center gap-2">
             <span class="text-[10px] text-outline">Sensitivity:</span>
-            <input id="bnd-thresh-slider" type="range" min="5" max="50" value="20" class="w-16 accent-secondary h-1 bg-surface-container-highest rounded" onchange="reloadBoundaryOnly()"/>
-            <span id="thresh-val" class="text-[10px] text-secondary">0.20</span>
+            <input id="bnd-thresh-slider" type="range" min="10" max="80" value="40" class="w-16 accent-secondary h-1 bg-surface-container-highest rounded" onchange="reloadBoundaryOnly()"/>
+            <span id="thresh-val" class="text-[10px] text-secondary">0.40</span>
           </div>
           <span class="text-tertiary font-semibold">Active Prediction</span>
         </div>
@@ -224,50 +219,23 @@
 
     </div>
 
-    <!-- PUBLICATION-STYLE HORIZONTAL COLOR LEGEND STRIP (MATCHING SCREENSHOT) -->
+    <!-- PUBLICATION-STYLE COLOR LEGEND STRIP -->
     <div class="p-5 rounded-xl bg-surface-container-low border border-surface-container-high flex flex-col gap-4">
       <div class="flex items-center justify-between border-b border-surface-container-high pb-3">
         <span class="font-mono text-xs uppercase font-semibold text-white tracking-wider flex items-center gap-2">
           <span class="material-symbols-outlined text-primary text-[18px]">palette</span>
-          <span>Publication Color Palette (Official LoveDA Standard)</span>
+          <span id="palette-title">Publication Color Palette (Sentinel-2 LULC Standard)</span>
         </span>
-        <span class="text-xs font-mono text-outline">IEEE / CVPR Multi-Class Standard</span>
+        <span class="text-xs font-mono text-outline" id="palette-subtitle">IEEE / Remote Sensing Multi-Class Standard</span>
       </div>
 
-      <!-- HORIZONTAL LEGEND BOXES -->
-      <div class="flex flex-wrap items-center justify-center gap-6 py-2">
-        <div class="flex items-center gap-2.5">
-          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #84cc16;"></span>
-          <span class="font-serif text-sm text-white">Agricultural / Field</span>
-        </div>
-        <div class="flex items-center gap-2.5">
-          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #ef4444;"></span>
-          <span class="font-serif text-sm text-white">Building</span>
-        </div>
-        <div class="flex items-center gap-2.5">
-          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #facc15;"></span>
-          <span class="font-serif text-sm text-white">Road</span>
-        </div>
-        <div class="flex items-center gap-2.5">
-          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #06b6d4;"></span>
-          <span class="font-serif text-sm text-white">Water</span>
-        </div>
-        <div class="flex items-center gap-2.5">
-          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #a855f7;"></span>
-          <span class="font-serif text-sm text-white">Barren</span>
-        </div>
-        <div class="flex items-center gap-2.5">
-          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #15803d;"></span>
-          <span class="font-serif text-sm text-white">Forest</span>
-        </div>
-        <div class="flex items-center gap-2.5">
-          <span class="w-7 h-5 rounded border border-black shadow-sm" style="background-color: #ffffff;"></span>
-          <span class="font-serif text-sm text-white">Background / Border</span>
-        </div>
+      <!-- HORIZONTAL LEGEND BOXES (Dynamically Rendered) -->
+      <div class="flex flex-wrap items-center justify-center gap-6 py-2" id="legend-boxes">
+        <!-- Rendered by JS -->
       </div>
 
       <!-- ACTIVE TILE DISTRIBUTION PERCENTAGE CARDS -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 pt-3 border-t border-surface-container-high" id="class-stats-grid">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-3 pt-3 border-t border-surface-container-high" id="class-stats-grid">
         <!-- Filled dynamically by JavaScript -->
       </div>
     </div>
@@ -281,7 +249,8 @@
 
   <!-- CLIENT-SIDE LOGIC -->
   <script>
-    let currentTileId = '3515';
+    let activeDataset = 'sen2_lulc';
+    let currentTileId = '100043';
     let currentUploadedFile = null;
     let currentData = null;
     let currentViewMode = 'mask'; // 'mask', 'overlay', 'boundary'
@@ -308,6 +277,104 @@
       }
     }
 
+    async function onDatasetChange(datasetKey) {
+      activeDataset = datasetKey;
+      showLoader(true);
+      try {
+        await fetch(`/api/select_dataset?dataset=${datasetKey}`, { method: 'POST' });
+        await updateMetricsAndLegend(datasetKey);
+        await populateSamples(datasetKey);
+      } catch (err) {
+        console.error("Error switching dataset:", err);
+      } finally {
+        showLoader(false);
+      }
+    }
+
+    async function updateMetricsAndLegend(datasetKey) {
+      try {
+        const res = await fetch(`/api/metrics?dataset=${datasetKey}`);
+        const data = await res.json();
+        const m = data.metrics;
+
+        // Update header & metrics
+        document.getElementById('header-ckpt-label').innerText = (datasetKey === 'sen2_lulc') ? 'SEN-2 Epoch 16' : 'LoveDA Epoch 15';
+        document.getElementById('metric-miou').innerText = m.val_mIoU;
+        document.getElementById('metric-miou-diff').innerText = m.improvement + " vs Plain";
+        document.getElementById('metric-biou').innerText = m.boundary_mIoU;
+        document.getElementById('metric-f1').innerText = m.val_F1;
+        document.getElementById('metric-oa').innerText = m.val_OA;
+        document.getElementById('metric-benchmark').innerText = (datasetKey === 'sen2_lulc') ? 'SEN-2 LULC Val' : 'LoveDA Val';
+
+        document.getElementById('col-a-title').innerText = (datasetKey === 'sen2_lulc') ? '(a) Sentinel-2 Tile (RGB)' : '(a) Aerial Image (RGB)';
+        document.getElementById('col-a-res').innerText = 'Resolution: ' + m.resolution;
+        document.getElementById('col-b-benchmark').innerText = 'Benchmark: ' + data.benchmark_label;
+        document.getElementById('palette-title').innerText = `Publication Color Palette (${datasetKey === 'sen2_lulc' ? 'Sentinel-2 LULC' : 'Official LoveDA'} Standard)`;
+
+        // Adapt Sensitivity Slider Range & Default per Dataset
+        const slider = document.getElementById('bnd-thresh-slider');
+        const threshVal = document.getElementById('thresh-val');
+        if (datasetKey === 'loveda') {
+          slider.min = '2';
+          slider.max = '25';
+          slider.value = '8';
+          threshVal.innerText = '0.08';
+        } else {
+          slider.min = '10';
+          slider.max = '70';
+          slider.value = '35';
+          threshVal.innerText = '0.35';
+        }
+
+        // Render Legend Boxes
+        const legendContainer = document.getElementById('legend-boxes');
+        legendContainer.innerHTML = '';
+        data.classes.forEach(cName => {
+          const hex = data.class_hex[cName] || '#ffffff';
+          const box = document.createElement('div');
+          box.className = 'flex items-center gap-2.5';
+          box.innerHTML = `
+            <span class="w-6 h-4 rounded border border-black shadow-sm" style="background-color: ${hex};"></span>
+            <span class="font-serif text-xs md:text-sm text-white">${cName}</span>
+          `;
+          legendContainer.appendChild(box);
+        });
+
+      } catch (err) {
+        console.error("Error fetching metrics/legend:", err);
+      }
+    }
+
+    async function populateSamples(datasetKey) {
+      try {
+        const res = await fetch(`/api/samples?dataset=${datasetKey}`);
+        const samples = await res.json();
+        const container = document.getElementById('sample-buttons');
+        container.innerHTML = '';
+
+        document.getElementById('sample-bar-title').innerText = (datasetKey === 'sen2_lulc') 
+          ? 'Select Sentinel-2 Sample Tile:' 
+          : 'Select LoveDA Sample Tile:';
+
+        samples.forEach((s, idx) => {
+          const btn = document.createElement('button');
+          btn.innerText = s.label;
+          const isFirst = (idx === 0);
+          btn.className = isFirst
+            ? 'sample-btn px-3 py-1.5 rounded-lg bg-primary/20 text-primary border border-primary/40 font-mono text-xs hover:bg-primary/30 transition-all font-semibold'
+            : 'sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all';
+          btn.onclick = () => loadSampleTile(s.id, btn);
+          container.appendChild(btn);
+        });
+
+        if (samples.length > 0) {
+          loadSampleTile(samples[0].id, container.children[0]);
+        }
+      } catch (err) {
+        console.error("Error populating samples:", err);
+      }
+    }
+
     async function loadSampleTile(tileId, btnElement) {
       currentTileId = tileId;
       currentUploadedFile = null;
@@ -324,7 +391,7 @@
 
       showLoader(true);
       try {
-        const res = await fetch(`/api/predict_sample?tile_id=${tileId}&bnd_thresh=${thresh}&bnd_style=white`);
+        const res = await fetch(`/api/predict_sample?tile_id=${tileId}&dataset=${activeDataset}&bnd_thresh=${thresh}&bnd_style=white`);
         const data = await res.json();
         currentData = data;
         updateUI(data);
@@ -340,6 +407,11 @@
       if (!file) return;
       currentUploadedFile = file;
 
+      // Deselect sample buttons
+      document.querySelectorAll('.sample-btn').forEach(b => {
+        b.className = 'sample-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant border border-surface-container-high font-mono text-xs hover:bg-surface-container-high transition-all';
+      });
+
       const thresh = (parseInt(document.getElementById('bnd-thresh-slider').value) / 100).toFixed(2);
 
       showLoader(true);
@@ -347,7 +419,7 @@
       formData.append("file", file);
 
       try {
-        const res = await fetch(`/api/predict_upload?bnd_thresh=${thresh}&bnd_style=white`, {
+        const res = await fetch(`/api/predict_upload?dataset=${activeDataset}&bnd_thresh=${thresh}&bnd_style=white`, {
           method: "POST",
           body: formData
         });
@@ -391,6 +463,9 @@
       if (data.tile_id) {
         document.getElementById('tile-badge').innerText = (data.area || "") + " #" + data.tile_id;
       }
+      if (data.resolution) {
+        document.getElementById('col-a-res').innerText = 'Resolution: ' + data.resolution;
+      }
 
       // Render class distribution cards
       const statsGrid = document.getElementById('class-stats-grid');
@@ -421,9 +496,10 @@
       }
     }
 
-    // Auto-load first sample on startup
-    window.addEventListener('DOMContentLoaded', () => {
-      loadSampleTile('3515', null);
+    // Startup initialization
+    window.addEventListener('DOMContentLoaded', async () => {
+      await updateMetricsAndLegend('sen2_lulc');
+      await populateSamples('sen2_lulc');
     });
   </script>
 </body>
