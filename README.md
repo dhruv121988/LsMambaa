@@ -441,14 +441,20 @@ python tools/eval_boundary_sen2.py \
 ```
 
 ### 6. Live Interactive Web Demo Studio
-Launch the local web inference studio with 3-panel publication comparison: **(a) Aerial Image (RGB)**, **(b) Ground Truth Annotation**, and **(c) BoundaryVMambaUNet (Proposed)**:
+Launch the local web inference studio with 3-panel publication comparison: **(a) Remote Sensing Image (RGB)**, **(b) Ground Truth Annotation**, and **(c) BoundaryVMambaUNet (Proposed)**. The studio supports on-the-fly dynamic switching between **LoveDA Aerial** and **Sentinel-2 LULC Satellite** datasets.
 
-![Live Interactive Web Demo Studio](assets/web_app_demo.png)
+#### 🏙️ LoveDA Aerial Benchmark (0.3m High-Resolution)
+![LoveDA Live Interactive Web Demo Studio](assets/web_app_demo_loveda.png)
+
+#### 🛰️ Sentinel-2 LULC Benchmark (10m Satellite Imagery)
+![Sentinel-2 LULC Live Interactive Web Demo Studio](assets/web_app_demo_sen2.png)
 
 ```bash
+# Activate environment and run web studio
+source /home/admin/venvs/geospatial/bin/activate
 python web_app.py
 ```
-Open **`http://localhost:8000`** in any web browser.
+Open **`http://localhost:8000`** in any web browser to test sample tiles or upload custom satellite/aerial imagery.
 
 ---
 
